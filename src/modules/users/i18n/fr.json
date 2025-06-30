@@ -1,0 +1,28 @@
+{
+  "account": {
+    "title": "Mettez à jours votre profil",
+    "firstName": "Prénom",
+    "firstNamePlaceholder": "Prénom",
+    "lastName": "Nom",
+    "lastNamePlaceholder": "Nom",
+    "password": "Mot de passe",
+    "passwordPlaceholder": "mot de passe",
+    "passwordConfirmation": "Confirmation du mot de passe",
+    "passwordConfirmationPlaceholder": "Confirmation du mot de passe",
+    "successMessage": "Compte mis à jour avec succès !",
+    "passwordCriteria": {
+      "minLength": "Le mot de passe doit contenir au moins {{count}} caractères",
+      "uppercase": "Doit contenir au moins une lettre majuscule",
+      "lowercase": "Doit contenir au moins une lettre minuscule",
+      "number": "Doit contenir au moins un chiffre",
+      "specialChar": "Doit contenir au moins un caractère spécial",
+      "passwordMismatch": "Les mots de passe ne correspondent pas",
+      "matchValid": "Les mots de passe correspondent !",
+      "matchInvalid": "Les mots de passe ne correspondent pas"
+    },
+    "backToProfileUpdate": "Mise à jour du profil",
+    "profileUpdatedTitle": "Profil mis à jour avec succès !",
+    "profileUpdatedDescription": "Vos informations ont été enregistrées avec succès.",
+    "backToDashboard": "Retourner au dashboard"
+  }
+}

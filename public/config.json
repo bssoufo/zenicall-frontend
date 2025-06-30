@@ -1,0 +1,6 @@
+{
+  "API_BASE_URL": "https://izendoc-dev-u19609.vm.elestio.appx",
+  "RECEPTION_EMAIL_DOMAIN": "",
+  "MAX_UPLOAD_FILES": 10,
+  "ALLOWED_FILE_TYPES": ""
+}

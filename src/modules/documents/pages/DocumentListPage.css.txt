@@ -1,0 +1,6 @@
+/* src/pages/Documents/DocumentListPage.css */
+
+/* .document-list-page {
+    padding: 20px;
+  }
+   */

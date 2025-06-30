@@ -1,0 +1,12 @@
+const SettingsPage = () => {
+  return (
+    <div className="iz_content-block iz_content-dasboard iz_position-relative">
+      <div className="iz_content-block-container">
+        <h1>SettingsPage</h1>
+        <p>My Account</p>
+      </div>
+    </div>
+  );
+};
+
+export default SettingsPage;

@@ -1,0 +1,93 @@
+{
+  "loading": "Chargement...",
+  "backToLogin": "Retourner sur Connexion",
+
+  "login": {
+    "title": "Connexion",
+    "email": "Email",
+    "emailPlaceholder": "Entrez votre email",
+    "password": "Mot de passe",
+    "passwordPlaceholder": "Entrez votre mot de passe",
+    "submit": "Se connecter",
+    "loading": "Connexion en cours...",
+    "forgotPassword": "Mot de passe oublié ?",
+    "noAccount": "Vous n'avez pas de compte ?",
+    "register": "S'inscrire"
+  },
+  "register": {
+    "accountCreated": "Votre compte a bien été crée. Vérifiez vos mail pour le valider",
+    "accountValidated": "Votre compte a bien été validé",
+    "alreadyHaveAccount": "Vous avez déjà un compte?",
+    "agree": "Accepter",
+    "termsAndPolicies": "les conditions d'utilisation",
+    "title": "Inscription",
+    "firstName": "Prénom",
+    "firstNamePlaceholder": "Entrez votre prénom",
+    "lastName": "Nom",
+    "lastNamePlaceholder": "Entrez votre nom de famille",
+    "email": "Email",
+    "emailPlaceholder": "Entrez votre email",
+    "password": "Mot de passe",
+    "passwordPlaceholder": "Entrez votre mot de passe",
+    "confirmPassword": "Confirmer le mot de passe",
+    "confirmPasswordPlaceholder": "Confirmer votre mot de passe",
+    "submit": "S'inscrire",
+    "registering": "Inscription en cours...",
+    "backToLogin": "Retour à la connexion",
+    "criteria": {
+      "minLength": "Doit contenir au moins {{count}} caractères",
+      "uppercase": "Doit contenir au moins une lettre majuscule",
+      "lowercase": "Doit contenir au moins une lettre minuscule",
+      "number": "Doit contenir au moins un chiffre",
+      "specialChar": "Doit contenir au moins un caractère spécial",
+      "passwordMismatch": "Les mots de passe ne correspondent pas"
+    }
+  },
+  "forgotPassword": {
+    "title": "Mot de passe oublié",
+    "email": "Email",
+    "emailPlaceholder": "Entrez votre email",
+    "submit": "Envoyer",
+    "sending": "Envoi en cours...",
+    "backToLogin": "Retour à la connexion"
+  },
+  "verifyCode": {
+    "title": "Vérification du code",
+    "instructions": "Veuillez saisir le code de vérification envoyé à votre adresse e-mail.",
+    "code": "Code de vérification",
+    "codePlaceholder": "Entrez votre code",
+    "submit": "Vérifier",
+    "verifying": "Vérification en cours...",
+    "backToLogin": "Retour à la connexion"
+  },
+  "resetPassword": {
+    "title": "Réinitialisation du mot de passe",
+    "instructions": "Veuillez entrer votre nouveau mot de passe.",
+    "newPassword": "Nouveau mot de passe",
+    "newPasswordPlaceholder": "Entrez votre nouveau mot de passe",
+    "confirmPassword": "Confirmer le nouveau mot de passe",
+    "confirmPasswordPlaceholder": "Confirmer votre nouveau mot de passe",
+    "submit": "Réinitialiser le mot de passe",
+    "resetting": "Réinitialisation en cours...",
+    "backToLogin": "Retour à la connexion",
+    "passwordCriteriaTitle": "Le mot de passe doit respecter les critères suivants :",
+    "criteria": {
+      "minLength": "Doit contenir au moins {{count}} caractères",
+      "uppercase": "Doit contenir au moins une lettre majuscule",
+      "lowercase": "Doit contenir au moins une lettre minuscule",
+      "number": "Doit contenir au moins un chiffre",
+      "specialChar": "Doit contenir au moins un caractère spécial",
+      "passwordMismatch": "Les mots de passe ne correspondent pas"
+    },
+    "dontHaveAccount": "Vous n'avez pas de compte ?"
+  },
+  "validateRegistration": {
+    "title": "Validation de l'inscription",
+    "instructions": "Veuillez saisir le code de validation envoyé à votre adresse e-mail.",
+    "code": "Code de validation",
+    "codePlaceholder": "Entrez votre code",
+    "submit": "Valider",
+    "validating": "Validation en cours...",
+    "backToLogin": "Retour à la connexion"
+  }
+}

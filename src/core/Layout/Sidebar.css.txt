@@ -1,0 +1,124 @@
+/* src/components/Layout/Sidebar.css */
+
+.sidebar {
+  width: 250px;
+  background-color: #2c3e50;
+  color: white;
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  justify-content: space-between;
+}
+
+.sidebar-title-link {
+  text-decoration: none; /* Supprimer la décoration du texte */
+  color: white; /* Assurer que le texte reste blanc */
+  display: block; /* Permettre que le lien prenne toute la largeur disponible */
+  margin-bottom: 20px; /* Réduit l'espacement sous le titre */
+}
+
+.sidebar-title-link:hover {
+  color: #ecf0f1; /* Changer la couleur au survol pour indiquer qu'il est cliquable */
+}
+
+.sidebar-title {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 20px;
+  text-align: center;
+  cursor: pointer; /* Changer le curseur pour indiquer que c'est cliquable */
+}
+
+.sidebar-section {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.sidebar-section li {
+  margin: 10px 0; /* Réduit la marge verticale de 15px à 10px */
+}
+
+.sidebar-section li a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  transition: color 0.3s ease;
+}
+
+.sidebar-icon {
+  margin-right: 10px;
+  font-size: 1.2em;
+}
+
+.sidebar-section li a:hover {
+  color: #ecf0f1;
+  text-decoration: underline;
+}
+
+.separator {
+  border-top: 1px solid #34495e;
+  margin: 15px 0; /* Réduit la marge verticale de 20px à 15px */
+}
+
+.user-info {
+  border-top: 1px solid #34495e;
+  padding-top: 15px; /* Réduit le padding-top de 20px à 15px */
+  text-align: center;
+}
+
+.user-info p {
+  margin: 5px 0;
+}
+
+.logout-button {
+  background-color: #e74c3c;
+  border: none;
+  padding: 10px 15px;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.logout-button:disabled {
+  background-color: #c0392b;
+  cursor: not-allowed;
+}
+
+.logout-button:hover:not(:disabled) {
+  background-color: #c0392b;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 200px;
+    padding: 15px;
+  }
+
+  .sidebar-title-link {
+    margin-bottom: 15px; /* Réduit l'espacement sous le titre */
+  }
+
+  .sidebar-title {
+    font-size: 20px;
+  }
+
+  .sidebar-section li a {
+    font-size: 16px;
+  }
+
+  .sidebar-icon {
+    margin-right: 8px;
+    font-size: 1em;
+  }
+
+  .logout-button {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+}

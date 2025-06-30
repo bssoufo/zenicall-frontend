@@ -1,0 +1,352 @@
+/*
+ document 
+
+*/
+
+.iz_bar-under-menu{
+    padding: 1rem 0;
+    position: absolute;
+    width: 100%;
+    top: 66px;
+    border-bottom: 1px solid var(--light-grey);
+}
+.iz_bar-under-menu .iz_bar-under-menu-content{
+    justify-content: space-between;
+    gap: 20px;
+    align-items: center;
+    padding-left: 270px;
+    padding-right: 30px;
+    
+}
+.iz_bar-under-menu .iz_bar-under-menu-content ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: "Inter", serif;
+}
+.iz_bar-under-menu .iz_bar-under-menu-content ul li a{
+    display: inline-block;
+    padding-left: 20px;
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: contain;
+    font-size: var(--text-14);
+    line-height: 20px;
+    text-decoration: none;
+    color: var(--dark-blue);
+}
+.iz_bar-under-menu .iz_bar-under-menu-content .iz_back-link{
+    margin: 0;
+}
+.iz_bar-under-menu .iz_bar-under-menu-content ul li a.iz_link-tutorial{
+    background-image: url('../img/icon-tutorial.svg');
+}
+.iz_bar-under-menu .iz_bar-under-menu-content ul li a.iz_link-report{
+    background-image: url('../img/icon-report.svg');
+    padding-left: 30px;
+}
+.iz_bar-under-menu .iz_bar-under-menu-content ul li a:hover{
+    opacity: 0.9;
+}
+.iz_bar-under-menu{
+    position: absolute;
+    width: 100%;
+    z-index: 2;
+}
+.iz_dashboard-with-under-bar-menu .iz_content-block{
+    padding-top: 117px;
+    position: relative;
+}
+.iz_dashboard-with-under-bar-menu .iz_content-block::after,
+.iz_dashboard:has(.iz_dashboard-with-under-bar-menu) .iz_content-block::after{
+    content: '';
+    position: absolute;
+    height: 100%;
+    right: 0;
+    width: 46%;
+    background-color: var(--color-white);
+    top: 0;
+}
+.iz_doc-processing .iz_doc-processing-content {
+    z-index: 1;
+    justify-content: space-between;
+}
+.iz_doc-processing .iz_doc-processing-left {
+    flex: 0 0 45%;
+    padding-right: 30px;
+    
+}
+.iz_doc-processing .iz_doc-processing-left,
+.iz_doc-processing .iz_doc-processing-right{
+    padding-top: 1.5rem;
+}
+.iz_doc-processing .iz_doc-processing-right {
+    flex: 0 0 55%;
+    padding-left: 30px;
+    margin-bottom: 4rem;
+}
+.iz_doc-processing .iz_doc-processing-right .document-form-area{
+    max-height: 700px;
+    overflow-y: auto;
+    padding-right: 10px;
+    padding-bottom: 30px;
+}
+.iz_doc-processing .iz_doc-processing-right .document-form-area::-webkit-scrollbar{
+    width: 5px;
+    height: 8px;
+    background: var(--xxl-grey);
+}
+.iz_doc-processing .iz_doc-processing-right .document-form-area::-webkit-scrollbar-thumb {
+    border-radius: var(--border-radius-8);
+    background: var(--dark-blue);
+  }
+form .iz_field-select select{
+    width: 100%;
+}
+.iz_doc-processing form .iz_field label{
+    margin-bottom: 10px;
+}
+.iz_doc-processing .iz_gallery-docs .iz_gallery-img:has(.image-viewer){
+    margin: 1.5rem 0;
+    max-height: 600px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+.iz_doc-processing .iz_gallery-docs .iz_gallery-img::-webkit-scrollbar,
+.iz_doc-processing .iz_gallery-docs .iz_gallery-img .canvas-container::-webkit-scrollbar{
+    width: 5px;
+    height: 8px;
+    background: var(--color-white);
+}
+.iz_doc-processing .iz_gallery-docs .iz_gallery-img::-webkit-scrollbar-thumb,
+.iz_doc-processing .iz_gallery-docs .iz_gallery-img .canvas-container::-webkit-scrollbar-thumb{
+    border-radius: var(--border-radius-8);
+    background: var(--dark-blue);
+}
+.iz_doc-processing .iz_gallery-docs .iz_gallery-img .canvas-container{
+    height: auto !important;
+    max-height: 600px;
+}
+.iz_doc-processing .iz_gallery-docs .pdf-controls{
+    position: fixed;
+    flex-wrap: wrap;
+}
+.iz_doc-processing .iz_gallery-docs .iz_gallery-img .image-viewer{
+    height: auto !important;
+    overflow: inherit !important;
+}
+.iz_doc-processing .iz_gallery-docs .iz_other-thumbs span{
+    color: var(--medium-text);
+    font-size: var(--text-14);
+    line-height: 20px;
+}
+.iz_doc-processing .iz_gallery-docs .iz_other-thumbs{
+    position: relative;
+}
+.iz_doc-processing .iz_small-thumbs{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin: 1rem 0;
+    position: relative;
+}
+.iz_doc-processing .iz_small-thumbs .iz-thumb{
+    flex: 0 0 57px;
+    
+}
+.iz_doc-processing .iz_small-thumbs .iz-thumb img{
+    width: 100%;
+    object-fit: cover;
+    height: 80px;
+    display: block;
+    border: 2px solid #D9D9D9;
+    border-radius: var(--border-radius-4);
+}
+.iz_doc-processing .iz_other-thumbs .iz_btns-nav button{
+    background: rgba(0, 0, 0, 0.8);
+    color: var(--color-white);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    border: none;
+}
+.iz_doc-processing .iz_other-thumbs .iz_btns-nav button:hover{
+    background-color: var(--primary-color);
+}
+.iz_doc-processing .iz_other-thumbs .iz_btns-nav .iz_btn_next{
+    right: 0;
+    left: auto;
+}
+.iz_doc-processing .iz_other-thumbs .iz-thumb-active img{
+    border-color: var(--primary-color);
+}
+.iz_doc-processing  .iz_fields .iz_field{
+    margin-bottom: 1rem;
+}
+.iz_doc-processing .iz_show-more-fields{
+    padding-top: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.iz_content-block .iz_doc-processing-right .iz_table-line .iz_is-open + .iz_content-fields, 
+.iz_content-block .iz_doc-processing-right .iz_payment-delivery .iz_is-open + .iz_content-fields, 
+.iz_content-block .iz_doc-processing-right .iz_financial-summary .iz_is-open + .iz_content-fields, 
+.iz_content-block .iz_doc-processing-right .iz_taxes-discounts .iz_is-open + .iz_content-fields {
+    padding-bottom: 1rem;
+}
+.iz_doc-processing .iz_show-more-fields a,
+.iz_doc-processing .iz_table-line .iz_more-line,
+.iz_doc-processing .iz_table-line  .iz_more-line button,
+.iz_doc-processing .iz_content-fields .iz_more-line button{
+    text-decoration: none;
+    color: var(--dark-blue);
+    display: inline-block;
+    font-size: var(--text-13);
+    background: none transparent;
+    border: none;
+    padding: 0;
+}
+.iz_doc-processing .iz_table-line  .iz_more-line button,
+.iz_doc-processing .iz_table-line .iz_more-line a,
+.iz_doc-processing .iz_content-fields .iz_more-line button{
+    text-decoration: underline;
+}
+.iz_doc-processing .iz_content-fields .iz_group-fields:not(:last-child){
+    padding-bottom: 1rem;
+}
+.iz_doc-processing .iz_show-more-fields span{
+    display: inline-block;
+    color: var(--grey-color);
+    font-size: var(--text-12);
+    font-weight: var(--fw-400);
+}
+.iz_doc-processing .iz_table-line h3{
+    font-weight: var(--fw-500);
+    color: var(--text-16);
+}
+.iz_doc-processing .iz_table-line table{
+    border-top-left-radius: var(--border-radius-8);
+    border-top-right-radius: var(--border-radius-8);
+}
+.iz_doc-processing .iz_table-line table th{
+    font-size: var(--text-13);
+    color: var(--alert-text-color);
+}
+.iz_doc-processing input[type="tel"], 
+.iz_doc-processing input[type="email"], 
+.iz_doc-processing input[type="text"], 
+.iz_doc-processing input[type="number"], 
+.iz_doc-processing input[type="password"], 
+.iz_doc-processing input[type="search"]{
+    min-height: 32px;
+}
+.iz_doc-processing .iz_more-line{
+    margin-top: 1.5rem;
+}
+.iz_doc-processing .iz_table-line{
+    padding-bottom: 1.5rem;
+}
+.iz_doc-processing form .iz_btns-actions{
+    padding-top: 1.5rem;
+}
+.iz_doc-processing form .iz_btns-actions::before {
+    width: 100%;
+    left: 0;
+    top: -1rem;
+}
+.iz_content-block form input[type="number"]{
+    min-width: 47px;
+    appearance: textfield;
+}
+.iz_doc-processing .iz_content-title .iz_btn-icon{
+    border: none;
+    background: none;
+    color: var(--primary-color);
+}
+
+.iz_doc-processing .iz_taxes-discounts .iz_content-fields table td{
+    text-align: center;
+}
+@media (min-width: 1600px) {
+    .iz_dashboard-with-under-bar-menu .iz_content-block::after,
+    .iz_dashboard:has(.iz_dashboard-with-under-bar-menu) .iz_content-block::after{
+        width: 46%;
+    }
+    
+}
+@media (min-width: 1700px) {
+    .iz_dashboard-with-under-bar-menu .iz_content-block::after,
+    .iz_dashboard:has(.iz_dashboard-with-under-bar-menu) .iz_content-block::after{
+        width: 48%;
+    }
+    .iz_doc-processing .iz_doc-processing-left {
+        /*max-width: 431px;*/
+    }
+}
+@media (min-width: 2000px) {
+    .iz_dashboard-with-under-bar-menu .iz_content-block::after,
+    .iz_dashboard:has(.iz_dashboard-with-under-bar-menu) .iz_content-block::after{
+        width: 50%;
+    }
+}
+@media (min-width: 4000px) {
+    .iz_dashboard-with-under-bar-menu .iz_content-block::after,
+    .iz_dashboard:has(.iz_dashboard-with-under-bar-menu) .iz_content-block::after{
+        width: 55%;
+    }
+    
+}
+
+@media (max-width: 1199px) {
+    .iz_dashboard-with-under-bar-menu .iz_content-block::after,
+    .iz_dashboard:has(.iz_dashboard-with-under-bar-menu) .iz_content-block::after{
+        width: 43%;
+    }
+}
+
+@media (max-width: 991px) {
+    .iz_doc-processing .iz_doc-processing-left, 
+    .iz_doc-processing .iz_doc-processing-right{
+        padding-left: 0;
+        padding-right: 0;
+        flex: 0 0 100%;
+    }
+    .iz_dashboard-with-under-bar-menu .iz_content-block::after,
+    .iz_dashboard:has(.iz_dashboard-with-under-bar-menu) .iz_content-block::after{
+        display: none;
+    }
+    .iz_gallery-img .image-controls{
+        position: relative;
+    }
+    .iz_doc-processing .iz_doc-processing-right .document-form-area{
+        max-height: 100%;
+        overflow-y: visible;
+        padding-bottom: 80px;
+    }
+    .iz_doc-processing .iz_gallery-docs .pdf-controls{
+        position: sticky;
+    }
+}
+@media (max-width: 767px) {
+    .iz_bar-under-menu .iz_bar-under-menu-content{
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .iz_dashboard-with-under-bar-menu .iz_content-block {
+        padding-top: 140px;
+    }
+    .iz_doc-processing .iz_doc-processing-left{
+        padding-top: 0;
+    }
+    form .iz_btns-actions .iz_btn {
+        min-width: 113px;
+        padding: 11px 30px;
+    }
+}

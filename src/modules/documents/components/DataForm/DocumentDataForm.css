@@ -1,0 +1,263 @@
+/*
+  Document Data Form CSS
+*/
+
+/* Mise en forme générale pour les entêtes et titres */
+.iz_doc-processing-right .iz_form-merchant-customer {
+    justify-content: space-between;
+}
+.iz_doc-processing-right h3 {
+    text-transform: uppercase;
+    font-weight: var(--fw-500);
+    color: var(--text-16);
+    margin-top: 0;
+}
+.iz_doc-processing-right h4 {
+    color: var(--medium-color);
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+}
+
+/* Styles des tableaux */
+.iz_content-block .iz_doc-processing-right table,
+.iz_content-block .iz_doc-processing-right table tr {
+    border: none;
+    border-radius: 0;
+}
+.iz_content-block .iz_doc-processing-right table tbody tr:hover {
+    background: none;
+}
+.iz_content-block .iz_doc-processing-right table tr th,
+.iz_content-block .iz_doc-processing-right table tr td {
+    text-align: left;
+}
+.iz_content-block .iz_doc-processing-right .iz_table-line table {
+    border-top-left-radius: var(--border-radius-8);
+    border-top-right-radius: var(--border-radius-8);
+    border: 1px solid #E5E5E6;
+}
+
+/* Colonnes et champs */
+.iz_field-third {
+    flex: 0 0 calc(33% - 10px);
+}
+.iz_doc-processing input[type="tel"],
+.iz_doc-processing input[type="url"],
+.iz_doc-processing input[type="email"], 
+.iz_doc-processing input[type="text"], 
+.iz_doc-processing input[type="number"], 
+.iz_doc-processing input[type="password"], 
+.iz_doc-processing input[type="search"] {
+    font-size: 12px;
+}
+.iz_content-block .iz_doc-processing-right table th label {
+    flex: 0 0 50px;
+    margin: 0;
+    padding-right: 15px;
+}
+.iz_content-block .iz_doc-processing-right table th input {
+    max-width: 100px;
+}
+.iz_content-block .iz_doc-processing-right table th .iz_field {
+    align-items: center;
+}
+.iz_doc-processing .iz_doc-processing-right .iz_fields .iz_field {
+    margin-bottom: 0;
+}
+.iz_doc-processing .iz_doc-processing-right .iz_fields {
+    margin-bottom: 0.75rem;
+}
+.iz_content-block .iz_doc-processing-right table th {
+    width: 160px;
+}
+
+/* Toggle Title et icônes */
+.iz_content-block .iz_doc-processing-right .iz_toggle-title {
+    position: relative;
+    padding-right: 0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    border-bottom: 1px solid var(--xl-grey);
+    justify-content: space-between;
+    padding-bottom: 5px;
+}
+.iz_content-block .iz_doc-processing-right .iz_toggle-title.iz_is-open {
+    padding-bottom: 0;
+    border: none;
+}
+.iz_content-block .iz_doc-processing-right .iz_toggle-title::after {
+    font-family: "Font Awesome 6 Free";
+    content: "\2b"; /* Plus icon */
+    font-size: 14px;
+    transition: transform 0.3s ease; /* Optional for animation */
+}
+
+.iz_content-block .iz_doc-processing-right .iz_toggle-title.iz_is-open::after {
+    content: "\f068"; /* Minus icon */
+    /* Optional: Add rotation if using chevron icons instead */
+    /* transform: rotate(180deg); */
+}
+
+/* Ligne de tableau et actions */
+.iz_content-block .iz_doc-processing-right .iz_table-line {
+    padding-bottom: 0;
+}
+.iz_content-block .iz_doc-processing-right .iz_btns-actions {
+    position: fixed;
+    margin: 0;
+    bottom: 0;
+    padding-bottom: 20px;
+    background-color: var(--color-white);
+    justify-content: center;
+    right: 0;
+    width: 46%;
+}
+.iz_content-block .iz_doc-processing-right .iz_payment-delivery table tr td,
+.iz_content-block .iz_doc-processing-right .iz_financial-summary table tr td {
+    padding-right: 0;
+}
+
+/* Positionnement de thumbnails sticky */
+#iz_doc-thumbnails.sticky {
+    position: fixed;
+    top: 0;
+    padding-top: 80px;
+}
+
+/* Réglages en fonction de la résolution */
+@media (min-width: 1600px) {
+    .iz_content-block .iz_doc-processing-right .iz_btns-actions {
+        width: 46%;
+        padding-right: 30px;
+        justify-content: end;
+    }
+}
+@media (min-width: 1700px) {
+    .iz_content-block .iz_doc-processing-right .iz_btns-actions {
+        width: 48%;
+        padding-right: 30px;
+    }
+}
+@media (min-width: 2000px) {
+    .iz_content-block .iz_doc-processing-right .iz_btns-actions {
+        width: 50%;
+        padding-right: 30px;
+    }
+}
+@media (min-width: 2200px) {
+    .iz_content-block .iz_doc-processing-right .iz_btns-actions {
+        width: 50%;
+        padding-right: 30px;
+    }
+}
+@media (min-width: 2400px) {
+    .iz_content-block .iz_doc-processing-right .iz_btns-actions {
+        width: 50%;
+        padding-right: 30px;
+    }
+}
+@media (min-width: 2600px) {
+    .iz_content-block .iz_doc-processing-right .iz_btns-actions {
+        width: 50%;
+        padding-right: 30px;
+    }
+}
+.iz_content-block .iz_doc-processing-right .iz_btns-actions::before {
+    top: 0;
+}
+@media (max-width: 991px) {
+    .iz_content-block .iz_doc-processing-right .iz_btns-actions {
+        width: 100%;
+        left: 0;
+        right: auto;
+        padding-left: 200px;
+    }
+    #iz_doc-thumbnails.sticky {
+        position: relative;
+        top: 0;
+        padding-top: 0;
+    }
+}
+@media (max-width: 767px) {
+    .iz_content-block .iz_doc-processing-right .iz_btns-actions {
+        padding: 1.5rem 15px 0;
+        position: relative;
+        background: none transparent;
+    }
+    .iz_content-block .iz_doc-processing-right {
+        padding-bottom: 0;
+        margin-bottom: 1rem;
+    }
+}
+
+/* Règles pour l'animation expand/collapse */
+.iz_content-block .iz_doc-processing-right .iz_content-fields {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-in-out;
+}
+
+/* Quand la section est ouverte, on définit une hauteur maximale suffisante */
+.iz_content-block .iz_doc-processing-right .iz_content-fields.iz_is-open {
+    max-height: inherit;
+}
+.iz_btn-danger {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .iz_btn-danger:hover {
+    background-color: #c82333;
+  }
+  /* Add to your ConfirmationDialog.css */
+.dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .dialog-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    max-width: 400px;
+    width: 90%;
+  }
+  
+  .dialog-actions {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+  }
+  
+  .dialog-button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .confirm-button {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .cancel-button {
+    background-color: #6c757d;
+    color: white;
+  }
+  

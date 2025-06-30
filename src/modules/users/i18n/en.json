@@ -1,0 +1,28 @@
+{
+  "account": {
+    "title": "Update your account",
+    "firstName": "First Name",
+    "firstNamePlaceholder": "First Name",
+    "lastName": "Last Name",
+    "lastNamePlaceholder": "Last Name",
+    "password": "Password",
+    "passwordPlaceholder": "password",
+    "passwordConfirmation": "Password Confirmation",
+    "passwordConfirmationPlaceholder": "Password confirmation",
+    "successMessage": "Account updated successfully!",
+    "passwordCriteria": {
+      "minLength": "Password must be at least {{count}} characters long",
+      "uppercase": "Must contain at least one uppercase letter",
+      "lowercase": "Must contain at least one lowercase letter",
+      "number": "Must contain at least one number",
+      "specialChar": "Must contain at least one special character",
+      "passwordMismatch": "Passwords do not match",
+      "matchValid": "Passwords match!",
+      "matchInvalid": "Passwords do not match"
+    },
+    "backToProfileUpdate": "Profile update",
+    "profileUpdatedTitle": "Profile Updated Successfully!",
+    "profileUpdatedDescription": "Your information has been saved successfully.",
+    "backToDashboard": "Return to Dashboard"
+  }
+}

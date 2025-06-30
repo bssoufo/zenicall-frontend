@@ -1,0 +1,39 @@
+/* src/components/Layout/Header.css */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #34495e;
+    color: white;
+    padding: 10px 25px;
+  }
+  
+  .header-user-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .header-user-info span {
+    margin-right: 15px;
+  }
+  
+  .logout-button {
+    background-color: #e74c3c;
+    border: none;
+    padding: 8px 12px;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 0.7rem;
+  }
+  
+  .logout-button:disabled {
+    background-color: #c0392b;
+    cursor: not-allowed;
+  }
+  
+  .logout-button:hover:not(:disabled) {
+    background-color: #c0392b;
+  }
+  

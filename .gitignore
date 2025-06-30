@@ -1,0 +1,79 @@
+# Dépendances
+/node_modules/
+.pnp/
+.pnp.js
+
+# Build de production
+/build/
+
+# Tests
+/coverage/
+
+# Fichiers de configuration locaux
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Fichiers système macOS
+.DS_Store
+
+# Fichiers système Windows
+Thumbs.db
+ehthumbs.db
+
+# Fichiers de cache
+.cache/
+.parcel-cache/
+.next/
+.nextjs/
+.out/
+public/service-worker.js
+
+# Fichiers temporaires
+tmp/
+temp/
+
+# Fichiers spécifiques aux éditeurs
+
+## VS Code
+.vscode/
+.history/
+
+## IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+
+## Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+## Atom
+*.atom
+
+## Vim
+*.swp
+
+# Autres fichiers
+*.pem
+*.key
+
+# Ignorer les fichiers de l'utilisateur
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+.env
+
+/dist

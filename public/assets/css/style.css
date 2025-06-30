@@ -1,0 +1,557 @@
+/*
+ Login
+
+*/
+.iz_box-form-login{
+  height: 100vh;
+}
+.iz_box-form-pass > div{
+  flex: 0 0 50%;
+  height: 100%;
+  
+}
+.iz_box-form-content{
+  background-color: var(--color-white);
+  padding: 5rem 5rem 0;
+}
+.iz-box-form-thumb{
+  display: flex;
+  background-color: var(--bg-page-grey);
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 5rem 5rem 15px;
+  min-height: 100vh;
+}
+.iz_form-box h1{
+  font-weight: 600;
+  font-size: var(--text-40);
+  line-height: 48px;
+  color: var(--medium-text);
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+.iz_form-desc{
+  font-size: var(--text-16);
+  color: var(--medium-text);
+  line-height: 19px;
+}
+.iz_box-form-content{
+  display: flex;
+  gap: 30px;
+  flex-direction: column;
+}
+.iz_box-form-login .iz_form-box form,
+.iz_box-form-login .iz_social-pass,
+.iz_box-form-forgot-password .iz_form-box form,
+.iz_box-form-forgot-password .iz_social-pass{
+  max-width: 518px;
+}
+.iz_box-form-pass .iz_form-box form label,
+.iz_container-form form label{
+  font-weight: var(--fw-600);
+  margin-bottom: 0.75rem;
+}
+form .iz_field,
+.iz_box-form-signup form .iz_fields .iz_field {
+  margin-bottom: 1rem;
+  position: relative;
+}
+.iz_content-title form .iz_field{
+  margin: 0;
+}
+.iz_content-title  .iz_btn{
+  padding: 10px 24px;
+  text-align: center;
+}
+form .iz_field:last-child{
+  margin-bottom: 0;
+}
+.iz_box-form-signup form .iz_field.iz_field-checkbox{
+  margin-bottom: 0;
+}
+.iz_box-form-signup form .iz_fields:has(.iz_field-checkbox){
+  margin-bottom: 1rem;
+}
+form .iz_field input{
+  width: 100%;
+}
+form .iz_field input[type="checkbox"]{
+  width: auto;
+}
+.iz_bg-white{
+  background-color: var(--color-white) !important;
+}
+form .iz_field .m_field-icon{
+  position: absolute;
+  top: 40px;
+  right: 10px;
+  z-index: 2;
+}
+form .iz_field-checkbox{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.iz_box-form-pass .iz_form-box .iz_fields {
+    justify-content: space-between;
+    gap: 15px;
+}
+form .iz_field-checkbox input{
+  margin: 0;
+  width: auto;
+  border: 2px solid #61686C;
+}
+.iz_box-form-pass .iz_form-box form .iz_field-checkbox label{
+  margin: 0;
+  font-weight: var(--fw-500);
+  cursor: pointer;
+}
+.iz_box-form-pass .iz_form-box form .iz_field-checkbox label a{
+  text-decoration: none;
+  color: var(--primary-color);
+}
+form .iz_link-forget-pass{
+  font-weight: var(--fw-500);
+  color: #BD2E2E;
+  text-decoration: none;
+}
+form .iz_link-forget-pass:hover{
+  text-decoration: underline;
+}
+.iz_box-form-pass .iz_form-box form button{
+  width: 100%;
+  cursor: pointer;
+}
+
+.iz_box-form-pass .iz_text-signup{
+  font-size: var(--text-18);
+  line-height: 21px;
+  color: var(--medium-text);
+  font-weight: var(--fw-500);
+}
+.iz_box-form-pass .iz_text-signup a{
+  text-decoration: none;
+  color: var(--primary-color);
+}
+.iz_box-form-login .iz_social-pass-title::before,
+.iz_box-form-pass .iz_social-pass-title::before{
+  position: absolute;
+  left: 0;
+  width: 100%;
+  top: 50%;
+  height: 1px;
+  background-color: rgba(97, 104, 108, 0.25);
+  content: '';
+}
+.iz_social-pass-title span{
+  color: #61686C;
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: var(--color-white);
+  position: relative;
+}
+.iz_btn-connect{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-between;
+  padding-top: 1.5rem;
+  padding-bottom: 4rem;
+}
+.iz_btn-connect button{
+  flex: 0 0 calc(33.33% - 7px);
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 56px;
+}
+.iz_btn-connect .iz_btn-facebook{
+  background-image: url('../img/icon-facebook.svg');
+}
+.iz_btn-connect .iz_btn-google{
+  background-image: url('../img/icon-google.svg');
+}
+.iz_btn-connect .iz_btn-apple{
+  background-image: url('../img/icon-apple.svg');
+}
+.iz_form-box .iz_back-link a,
+.iz_back-link a{
+  display: inline-block;
+  text-decoration: none;
+  font-weight: var(--fw-500);
+  color: var(--dark-text);
+  background: url('../img/chevron-back.svg') no-repeat -7px center transparent;
+  padding-left: 25px;
+}
+.iz_form-box .iz_back-link a:hover,
+.iz_back-link a:hover{
+  color: var(--primary-color);
+}
+.iz_form-box .iz_back-link,
+.iz_back-link{
+  margin-bottom: 15px;
+}
+.iz_modal-container{
+  background-color: var(--color-white);
+  border-radius: var(--border-radius-8);
+  box-shadow: 0px 1px 0px 0px #E4E6EB inset;
+  max-width: 560px;
+  border: 1px solid #E4E6EB;
+}
+.iz_modal-container .iz_modal-content,
+.iz_modal-container .iz_modal-footer,
+.iz_modal-container .iz_modal-header{
+  padding: 15px;
+}
+.iz_modal-container .iz_modal-footer{
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  
+}
+.iz_modal-container .iz_modal-content{
+  border-top: 1px solid #E4E6EB;
+  border-bottom: 1px solid #E4E6EB;
+  color: var(--medium-text);
+}
+.iz_modal-container .iz_modal-footer button{
+  padding: 10px 16px;
+  border-radius: var(--border-radius-8);
+  font-size: var(--text-16);
+  color: var(--medium-text);
+  outline: none;
+}
+
+.iz_modal-container .iz_modal-header > div{
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+.iz_modal-container .iz_modal-footer .iz_btn-cancel,
+.iz_btn-cancel{
+  border: 1px solid var(--medium-grey);
+  background: var(--color-white);
+}
+.iz_modal-container .iz_modal-footer .iz_btn-primary,
+.iz_btn-primary{
+  background: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  color: var(--color-white);
+}
+.iz_modal-container .iz_modal-footer .iz_btn-primary:hover{
+  background: var(--primary-dark);
+}
+.iz_modal-container .iz_modal-footer .iz_btn-delete{
+  background: var(--error-color);
+  border: 1px solid var(--error-color);
+  color: var(--color-white);
+}
+.iz_modal-container .iz_modal-footer .iz_btn-delete:hover{
+  background: var(--text-error-color);
+}
+.iz_modal-container .iz_modal-content h3{
+  margin: 0;
+  font-weight: 400;
+}
+.iz_modal-container .iz_close-modal{
+  cursor: pointer;
+}
+.iz_modal-container .iz_modal-header h2{
+  margin: 0;
+  font-weight: var(--fw-700);
+  color: var(--dark-text);
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--text-16);
+  line-height: 24px;
+}
+.iz_modal-error .iz_modal-header h2::before,
+.iz_modal-success .iz_modal-header h2::before{
+  content: '';
+  display: block;
+  width: 20px;
+  height: 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.iz_modal-error .iz_modal-header h2::before{
+  background-image: url('../img/icon-modal-error.svg');
+}
+.iz_modal-success .iz_modal-header h2::before{
+  background-image: url('../img/icon-modal-success.svg');
+}
+.iz_title-h2{
+  font-size: var(--text-20);
+  font-weight: 600;
+  line-height: 24px;
+  color: var(--x-dark-text);
+  margin: 0;
+}
+.iz_content-title{
+  justify-content: space-between;
+  gap: 15px;
+  padding-bottom: 20px;
+  align-items: center;
+}
+.iz_link-blue{
+  font-size: var(--text-15);
+  color: var(--medium-color);
+  text-decoration: none;
+}
+a.iz_btn-primary,
+.iz_link-blue{
+  display: inline-block;
+  text-decoration: none;
+}
+.iz_hidden-tablet-desktop{
+  display: none;
+}
+table{
+  width: 100%;
+}
+.iz_text-success{
+  color: var(--success-color);
+}
+form .iz_container-form .iz_field,
+.iz_container-form form .iz_field:last-child {
+  margin-bottom: 1rem;
+  font-size: var(--text-14);
+}
+.iz_container-form form .iz_field.iz_field-half:last-child{
+  margin-bottom: 0;
+}
+form .iz_field-has-limit-text input{
+  padding-right: 40px;
+}
+form .iz_field-has-limit-text .iz_field-limit{
+  display: inline-block;
+  color: var(--grey-color);
+  position: absolute;
+  right: 25px;
+  top: 40px;
+}
+.iz_container-form form .iz_field select{
+  width: 100%;
+}
+.iz_field .iz_field-radio input{
+  display: none;
+}
+.iz_field .iz_field-radio label{
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.iz_field .iz_field-radio label::before{
+  content: '';
+  display: block;
+  width: 18px;
+  height: 18px;
+  border: 1px solid #CCD1E0;
+  border-radius: var(--border-radius-10);
+}
+.iz_field .iz_field-radio input:checked +  label::before{
+  border: 4px solid #096DD9;
+  width: 12px;
+  height: 12px;
+}
+.iz_field .iz_group-radio{
+  gap: 15px;
+}
+.iz_field label sup{
+  color: var(--error-color);
+}
+.iz_box{
+  padding: 20px;
+  border: 1px solid var(--xl-grey);
+  border-radius: var(--border-radius-8);
+}
+form textarea{
+  width: 100%;
+}
+.iz_pagination{
+  padding: 1.5rem 0;
+  justify-content: flex-end;
+  
+}
+.iz_pagination ul{
+  padding: 0;
+  list-style: none;
+  margin: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+.iz_pagination ul .iz_btn-page{
+  display: inline-flex;
+  width: 30px;
+  height: 30px;
+  background-color: var(--color-white);
+  color: #4C4C4D;
+  font-size: var(--text-14);
+  font-weight: var(--fw-400);
+  border: 1px solid var(--border-color);
+  text-decoration: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius-4);
+  cursor: pointer;
+}
+.iz_pagination ul .iz_btn-page:hover,
+.iz_pagination ul .iz_btn-active{
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--color-white);
+}
+.iz_pagination ul .iz_disabled-btn,
+.iz_pagination ul .iz_disabled-btn:hover{
+  border-color: #E4E6EB;
+  background-color: #E4E6EB;
+  color: #4C4C4D;
+}
+.iz_folder-btn-update{
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: url('../img/icon-update.svg') no-repeat center center transparent;
+  background-size: contain;
+}
+.iz_btn-disabled{
+  border-color: var(--xl-grey);
+  background-color: var(--xl-grey);
+  color: var(--medium-grey);
+}
+.iz_content-block-container{
+  position: relative;
+}
+.iz_btn-delete,
+.iz_file-delete-upload,
+.iz_content-block .iz_doc-processing-right .iz_content-fields .iz_btn-danger{
+  width: 20px;
+  height: 20px;
+  background: url('../img/icon-delete.svg') no-repeat center center;
+  background-size: contain;
+  display: inline-block;
+}
+.iz_content-block .iz_doc-processing-right .iz_content-fields .iz_btn-danger{
+  background-color: transparent;
+  font-size: 0;
+  border-radius: 0;
+  padding: 0;
+}
+.iz_btn-delete:hover,
+.iz_file-delete-upload:hover,
+.iz_content-block .iz_doc-processing-right .iz_content-fields .iz_btn-danger:hover{
+  opacity: 0.9;
+}
+.iz_btn-download-document{
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  background: url('../img/icon-download-blue.svg') no-repeat center center;
+  background-size: contain;
+}
+.iz_btn-view-item,
+.iz_btn-view-document{
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  background: url('../img/icon-view-blue.svg') no-repeat center center;
+  background-size: contain;
+}
+.iz_btn-add-document{
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  background: url('../img/icon-plus.svg') no-repeat center center;
+  background-size: contain;
+}
+.iz_site:not(.iz_dashboard ) div:has(.iz_lang-select){
+  position: absolute;
+  z-index: 1;
+  padding-right: 5rem;
+  right: 0;
+  top: 15px;
+}
+.iz_box-form-forgot-password{
+  align-items: center;
+}
+@media (max-width: 1299px) {
+  .iz_box-form-login .iz_box-form-content {
+    padding: 3rem 3rem 0;
+  }
+  .iz_box-form-login {
+    height: auto;
+    min-height: 100vh;
+  }
+
+}
+@media (max-width: 991px) {
+  .iz_box-form-content {
+    padding: 2rem;
+  }
+  .iz_box-form-login,
+  .iz_box-form-login{
+    height: auto;
+    min-height: 100vh;
+  }
+  .iz-box-form-thumb{
+    justify-content: center;
+  }
+}
+@media (max-width: 767px) {
+  .iz-box-form-thumb{
+    display: none;
+  }
+  .iz_hidden-tablet-desktop{
+    display: block;
+  }
+  .iz_box-form-pass > div{
+    flex: 0 0 100%;
+    padding: 15px;
+    height: auto;
+  }
+  .iz_box-form-pass {
+    height: auto;
+  }
+  .iz_box-form-content{
+    gap: 20px;
+  }
+  .iz_box-form-login .iz_text-signup p{
+    margin-bottom: 0;
+  }
+  .iz_btn-connect{
+    padding-bottom: 2rem;
+  }
+  form .iz_field-checkbox{
+    margin-bottom: 0;
+  }
+  form .iz_link-forget-pass {
+    display: inline-block;
+    margin-bottom: 15px;
+  }
+  .iz_box-form-pass .iz_text-signup{
+    margin-bottom: 0;
+  }
+  .iz_hidden-mobile{
+    display: none !important;
+  }
+  .iz_pagination{
+    justify-content: center;
+  }
+  .iz_doc-settings h2{
+    margin-top: 0;
+  }
+  .iz_site:not(.iz_dashboard) div:has(.iz_lang-select) {
+    padding-right: 15px;
+  }
+}
+@media (max-width: 560px) {
+  .iz_field-half{
+    flex: 0 0 100%;
+  }
+  
+}

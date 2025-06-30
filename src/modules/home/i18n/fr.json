@@ -1,0 +1,47 @@
+{
+  "dashboard": {
+    "title": "Tableau de bord",
+    "welcomeMessage": "Bienvenue sur votre tableau de bord !",
+    "documentsProcessed": "Document traités",
+    "today": "Aujourd'hui",
+    "week": "Semaine",
+    "month": "Mois",
+    "year": "Année",
+    "mostUsedFolders": "Dossiers les plus utilisés",
+    "totalFolders": "Total dossiers",
+    "lastProcessedDocuments": "Derniers document traités",
+    "viewAll": "Voir tout",
+    "addFolder": "Ajouter un dossier",
+    "documents": "Documents"
+  },
+
+  "contact": {
+    "title": "Contactez-nous",
+    "name": "Nom",
+    "namePlaceholder": "Nom",
+    "email": "Email",
+    "emailPlaceholder": "Adresse email",
+    "subject": "Sujet",
+    "subjectPlaceholder": "Sujet",
+    "category": "Catégorie",
+    "categoryOptionTechnical": "Technique",
+    "categoryOptionBilling": "Facturation",
+    "categoryOptionDataQuality": "Qualité des données",
+    "categoryOptionFeatureRequest": "Demande de fonctionnalité",
+    "categoryOptionOther": "Autre",
+    "urgence": "Urgence",
+    "urgenceOptionLow": "Faible",
+    "urgenceOptionNormal": "Normale",
+    "urgenceOptionHigh": "Élevée",
+    "message": "Message",
+    "messagePlaceholder": "Tapez votre message ici",
+    "send": "Envoyer",
+    "successMessage": "Votre message a été envoyé avec succès !",
+    "categoryPlaceholder": "Sélectionnez une catégorie",
+    "urgencePlaceholder": "Sélectionnez le niveau d'urgence",
+    "backToContactForm": "Retourner au formulaire",
+    "messageSendTitle": "Message envoyé avec succès !",
+    "messageSendDescription": "Merci de nous avoir contactés. Nous reviendrons vers vous dès que possible.",
+    "backToDashboard": "Retour au dashboard"
+  }
+}

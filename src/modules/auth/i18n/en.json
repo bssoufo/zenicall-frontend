@@ -1,0 +1,93 @@
+{
+  "loading": "Loading...",
+  "backToLogin": "Back to login",
+
+  "login": {
+    "title": "Login",
+    "email": "Email",
+    "emailPlaceholder": "Enter your email",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "submit": "Login",
+    "loading": "Logging in...",
+    "forgotPassword": "Forgot your password?",
+    "noAccount": "Don't have an account?",
+    "register": "Register"
+  },
+  "register": {
+    "accountCreated": "Your account is created. Check your mail to validate it",
+    "accountValidated": "Your account is validated",
+    "alreadyHaveAccount": "Already have an account?",
+    "agree": "I agree to all the",
+    "termsAndPolicies": " Terms and Privacy Policies",
+    "title": "Register",
+    "firstName": "First Name",
+    "firstNamePlaceholder": "Enter your first name",
+    "lastName": "Last Name",
+    "lastNamePlaceholder": "Enter your last name",
+    "email": "Email",
+    "emailPlaceholder": "Enter your email",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "confirmPassword": "Confirm Password",
+    "confirmPasswordPlaceholder": "Confirm your password",
+    "submit": "Register",
+    "registering": "Registering...",
+    "backToLogin": "Back to login",
+    "criteria": {
+      "minLength": "Must be at least {{count}} characters long",
+      "uppercase": "Must contain at least one uppercase letter",
+      "lowercase": "Must contain at least one lowercase letter",
+      "number": "Must contain at least one number",
+      "specialChar": "Must contain at least one special character",
+      "passwordMismatch": "Passwords do not match"
+    }
+  },
+  "forgotPassword": {
+    "title": "Forgot Password",
+    "email": "Email",
+    "emailPlaceholder": "Enter your email",
+    "submit": "Submit",
+    "sending": "Sending...",
+    "backToLogin": "Back to login"
+  },
+  "verifyCode": {
+    "title": "Verify Code",
+    "instructions": "Please enter the verification code sent to your email.",
+    "code": "Verification Code",
+    "codePlaceholder": "Enter your code",
+    "submit": "Verify",
+    "verifying": "Verifying...",
+    "backToLogin": "Back to login"
+  },
+  "resetPassword": {
+    "title": "Reset Password",
+    "instructions": "Please enter your new password.",
+    "newPassword": "New Password",
+    "newPasswordPlaceholder": "Enter your new password",
+    "confirmPassword": "Confirm New Password",
+    "confirmPasswordPlaceholder": "Confirm your new password",
+    "submit": "Reset Password",
+    "resetting": "Resetting...",
+    "backToLogin": "Back to login",
+    "passwordCriteriaTitle": "Password must meet the following criteria:",
+    "criteria": {
+      "minLength": "Must be at least {{count}} characters long",
+      "uppercase": "Must contain at least one uppercase letter",
+      "lowercase": "Must contain at least one lowercase letter",
+      "number": "Must contain at least one number",
+      "specialChar": "Must contain at least one special character",
+      "passwordMismatch": "Passwords do not match"
+    },
+    "dontHaveAccount": "Don’t have an account?"
+  },
+  "validateRegistration": {
+    "title": "Validate Registration",
+    "instructions": "Please enter the validation code sent to your email.",
+    "code": "Validation Code",
+    "codePlaceholder": "Enter your code",
+    "submit": "Validate",
+    "validating": "Validating...",
+    "backToLogin": "Back to login"
+  }
+}

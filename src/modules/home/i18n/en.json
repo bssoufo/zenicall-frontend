@@ -1,0 +1,48 @@
+{
+  "dashboard": {
+    "title": "Dashboard",
+    "welcomeMessage": "Welcome to your dashboard!",
+    "totalFolder": "Total Folders",
+    "documentsProcessed": "Documents Processed",
+    "today": "Today",
+    "week": "Week",
+    "month": "Month",
+    "year": "Year",
+    "mostUsedFolders": "Most used Folders",
+    "totalFolders": "Total Folders",
+    "lastProcessedDocuments": "Last processed documents",
+    "viewAll": "View All",
+    "addFolder": "Add Folder",
+    "documents": "Documents"
+  },
+
+  "contact": {
+    "title": "Contact us",
+    "name": "Name",
+    "namePlaceholder": "Name",
+    "email": "Email",
+    "emailPlaceholder": "Email Address",
+    "subject": "Subject",
+    "subjectPlaceholder": "Subject",
+    "category": "Category",
+    "categoryOptionTechnical": "Technical",
+    "categoryOptionBilling": "Billing",
+    "categoryOptionDataQuality": "Data Quality",
+    "categoryOptionFeatureRequest": "Feature Request",
+    "categoryOptionOther": "Other",
+    "urgence": "Urgence",
+    "urgenceOptionLow": "Low",
+    "urgenceOptionNormal": "Normal",
+    "urgenceOptionHigh": "High",
+    "message": "Message",
+    "messagePlaceholder": "Type your message here",
+    "send": "Send",
+    "successMessage": "Your message has been successfully submitted!",
+    "categoryPlaceholder": "Select a category",
+    "urgencePlaceholder": "Select urgency level",
+    "backToContactForm": "Back to contact form",
+    "messageSendTitle": "Message sent successfully!",
+    "messageSendDescription": "Thank you for contacting us. We will get back to you as soon as possible.",
+    "backToDashboard": "Return to dashboard"
+  }
+}

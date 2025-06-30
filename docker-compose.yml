@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  zenicall-frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: bssoufo/zenidata:izendoc-frontend-7
+    ports:
+      - "8085:80"
+    volumes:
+      - ./config.json:/usr/share/nginx/html/config.json

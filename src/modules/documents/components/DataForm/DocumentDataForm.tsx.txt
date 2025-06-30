@@ -1,0 +1,381 @@
+import React, { useState, useEffect } from 'react';
+import {
+  BackendDocumentData,
+  Merchant,
+  Address,
+  Customer,
+  BackendTransactionItem,
+  BankDetails,
+  BackendTax,
+  BackendDiscount,
+  TransactionItem,
+  Tax,
+  Discount,
+  ReceiptData
+} from '../../models/DocumentModel';
+
+import './DocumentDataForm.css';
+
+// Import sub-components
+import DocumentFormHeader from './DocumentFormHeader';
+import MerchantSection from './MerchantSection';
+import CustomerSection from './CustomerSection';
+import TransactionItemsSection from './TransactionItemsSection';
+import FinancialSummarySection from './FinancialSummarySection';
+import TaxesAndDiscountsSection from './TaxesAndDiscountsSection';
+import PaymentAndDeliverySection from './PaymentAndDeliverySection';
+import { ToggleSection } from './ToggleSection';
+import DocumentService from '../../services/DocumentService';
+import { DocumentDataFormProps } from '../../models/DocumentModel';
+
+
+const DocumentDataForm: React.FC<DocumentDataFormProps> = ({ documentData,  documentId,onDataChange }) => {
+
+        // Early return if no data
+    if (!documentData) {
+        return null; // Or a loading indicator, etc.
+    }
+
+  const [formData, setFormData] = useState<BackendDocumentData>(documentData || {} as BackendDocumentData);
+
+  // Toggles for open/close sections
+  const [merchantOpen, setMerchantOpen] = useState(false);
+  const [customerOpen, setCustomerOpen] = useState(false);
+  const [transactionItemsOpen, setTransactionItemsOpen] = useState(false);
+  const [financialSummaryOpen, setFinancialSummaryOpen] = useState(false);
+  const [taxesAndDiscountsOpen, setTaxesAndDiscountsOpen] = useState(false);
+  const [paymentAndDeliveryOpen, setPaymentAndDeliveryOpen] = useState(false);
+
+  useEffect(() => {
+    setFormData(documentData || {} as BackendDocumentData);
+  }, [documentData]);
+
+  // --- Generic handleChange function ---
+  const handleChange = <T, K extends keyof T>(obj: T, key: K, value: T[K]) => {
+    return { ...obj, [key]: value };
+  };
+
+  // --- Higher-level update function that triggers parent's onDataChange ---
+  const updateFormData = (newData: BackendDocumentData) => {
+    setFormData(newData);
+    onDataChange(newData);
+  };
+
+  // --- Merchant ---
+  const handleMerchantChange = <K extends keyof Merchant>(key: K, value: Merchant[K]) => {
+    updateFormData({
+      ...formData,
+      merchant: handleChange((formData as ReceiptData) .merchant || {}, key, value),
+    });
+  };
+
+  const handleAddressChange = <K extends keyof Address>(
+    parentKey: 'merchant' | 'customer',
+    key: K,
+    value: Address[K]
+  ) => {
+    updateFormData({
+      ...formData,
+      [parentKey]: {
+        ...formData[parentKey],
+        address: handleChange(formData[parentKey]?.address || {}, key, value),
+      },
+    });
+  };
+
+  // --- Customer ---
+  const handleCustomerChange = <K extends keyof Customer>(key: K, value: Customer[K]) => {
+    updateFormData({
+      ...formData,
+      customer: handleChange(formData.customer || {}, key, value),
+    });
+  };
+
+  // --- Transaction Items ---
+  const handleTransactionItemChange = (
+    index: number,
+    field: keyof BackendTransactionItem,
+    value: any
+  ) => {
+    const newItems = [...(formData.lines || [])];
+    newItems[index] = handleChange(newItems[index] || {}, field, value);
+    updateFormData({ ...formData, lines: newItems });
+  };
+
+  const handleAddItem = () => {
+    const newItems = [...(formData.lines || [])];
+    newItems.push({});
+    updateFormData({ ...formData, lines: newItems });
+  };
+
+  const handleRemoveItem = (index: number) => {
+    const newItems = [...(formData.lines || [])];
+    newItems.splice(index, 1);
+    updateFormData({ ...formData, lines: newItems });
+  };
+
+  // --- Financial Summary ---
+  const handleFinancialSummaryChange = <K extends keyof BackendDocumentData>(
+    key: K,
+    value: BackendDocumentData[K]
+  ) => {
+    updateFormData({
+      ...formData,
+      [key]: value,
+    });
+  };
+
+  // --- Taxes & Discounts ---
+  type HandleTaxDiscountChange = {
+    (section: 'tax_lines', index: number, field: keyof BackendTax, value: any): void;
+    (section: 'discount_lines', index: number, field: keyof BackendDiscount, value: any): void;
+  };
+
+  const handleTaxDiscountChange: HandleTaxDiscountChange = (
+    section,
+    index,
+    field,
+    value
+  ) => {
+    if (section === 'tax_lines') {
+      const newItems: BackendTax[] = [...(formData.tax_lines || [])];
+      newItems[index] = handleChange(
+        newItems[index] || ({} as BackendTax),
+        field as keyof BackendTax,
+        value
+      );
+      updateFormData({ ...formData, tax_lines: newItems });
+    } else {
+      const newItems: BackendDiscount[] = [...(formData.discount_lines || [])];
+      newItems[index] = handleChange(
+        newItems[index] || ({} as BackendDiscount),
+        field as keyof BackendDiscount,
+        value
+      );
+      updateFormData({ ...formData, discount_lines: newItems });
+    }
+  };
+
+  const handleAddTax = () => {
+    const newItems = [...(formData.tax_lines || [])];
+    newItems.push({});
+    updateFormData({ ...formData, tax_lines: newItems });
+  };
+
+  const handleAddDiscount = () => {
+    const newItems = [...(formData.discount_lines || [])];
+    newItems.push({});
+    updateFormData({ ...formData, discount_lines: newItems });
+  };
+
+  const handleRemoveTax = (index: number) => {
+    const newItems = [...(formData.tax_lines || [])];
+    newItems.splice(index, 1);
+    updateFormData({ ...formData, tax_lines: newItems });
+  };
+
+  const handleRemoveDiscount = (index: number) => {
+    const newItems = [...(formData.discount_lines || [])];
+    newItems.splice(index, 1);
+    updateFormData({ ...formData, discount_lines: newItems });
+  };
+
+  // --- Payment & Delivery ---
+  const handlePaymentAndDeliveryChange = <K extends keyof BackendDocumentData>(
+    key: K,
+    value: BackendDocumentData[K]
+  ) => {
+    updateFormData({
+      ...formData,
+      [key]: value,
+    });
+  };
+
+  const handleBankDetailsChange = <K extends keyof BankDetails>(
+    key: K,
+    value: BankDetails[K]
+  ) => {
+    updateFormData({
+      ...formData,
+      bankDetails: handleChange((formData as ReceiptData) .bankDetails || {}, key, value),
+    });
+  };
+
+  // --- Submitting / Actions ---
+  const handleSubmit = async (action: string) => {
+    console.log(`Submitting with action: ${action}`, formData);
+
+    if (action === 'save') {
+      try {
+        // 1) Call the service to update correctedData
+        const updatedDocument = await DocumentService.updateDocumentCorrectedData(
+          documentId,
+          formData
+        );
+        console.log('Document updated successfully:', updatedDocument);
+        
+        // 2) Optionally, if needed, re-sync local state or inform parent
+        // onDataChange(updatedDocument.correctedData ?? {});
+      } catch (error) {
+        console.error('Error updating document:', error);
+      }
+    }
+
+    // Other actions
+    if (action === 'approve') {
+      // ...
+    }
+    if (action === 'flag') {
+      // ...
+    }
+    if (action === 'export') {
+      // ...
+    }
+  };
+
+  // --- Mapping data for child components ---
+  const mapTransactionItems = (backendItems?: BackendTransactionItem[]): TransactionItem[] => {
+    if (!backendItems) return [];
+    return backendItems.map((item) => ({
+      description: item.description || '',
+      qty: item.quantity || 0,
+      unitPrice: item.unit_price?.toString() || '',
+      price: item.amount?.toString() || '',
+    }));
+  };
+
+  const mapTaxes = (backendItems?: BackendTax[]): Tax[] => {
+    if (!backendItems) return [];
+    return backendItems.map((item) => ({
+      name: item.tax_name || '',
+      rate: item.tax_rate?.toString() || '',
+      amount: item.tax_amount?.toString() || '',
+    }));
+  };
+
+  const mapDiscounts = (backendItems?: BackendDiscount[]): Discount[] => {
+    if (!backendItems) return [];
+    return backendItems.map((item) => ({
+      name: item.name || '',
+      amount: item.amount?.toString() || '',
+    }));
+  };
+
+  // Pass to sub-components
+  const mappedTransactionItems = mapTransactionItems(formData.lines);
+  const mappedTaxes = mapTaxes(formData.tax_lines);
+  const mappedDiscounts = mapDiscounts(formData.discount_lines);
+
+  return (
+    <div className="iz_doc-processing-right iz_position-relative">
+      {/* 1) Header Section */}
+      <DocumentFormHeader
+        formData={formData}
+        updateFormData={updateFormData}
+      />
+
+      {/* 2) Merchant Section */}
+
+
+<ToggleSection
+        title="Merchant"
+        isOpen={merchantOpen}
+        onToggle={() => setMerchantOpen((prev) => !prev)}
+    >
+        <MerchantSection
+        formData={formData}
+        merchantOpen={merchantOpen}
+        setMerchantOpen={setMerchantOpen}
+        handleMerchantChange={handleMerchantChange}
+        handleAddressChange={handleAddressChange}
+      />
+    </ToggleSection>
+
+
+      {/* 3) Customer Section */}
+      <CustomerSection
+        formData={formData}
+        customerOpen={customerOpen}
+        setCustomerOpen={setCustomerOpen}
+        handleCustomerChange={handleCustomerChange}
+        handleAddressChange={handleAddressChange}
+      />
+
+      {/* 4) Transaction Items Section */}
+      <TransactionItemsSection
+        formData={formData}
+        transactionItemsOpen={transactionItemsOpen}
+        setTransactionItemsOpen={setTransactionItemsOpen}
+        mappedTransactionItems={mappedTransactionItems}
+        handleTransactionItemChange={handleTransactionItemChange}
+        handleAddItem={handleAddItem}
+        handleRemoveItem={handleRemoveItem}
+      />
+
+      {/* 5) Financial Summary Section */}
+      <FinancialSummarySection
+        formData={formData}
+        financialSummaryOpen={financialSummaryOpen}
+        setFinancialSummaryOpen={setFinancialSummaryOpen}
+        handleFinancialSummaryChange={handleFinancialSummaryChange}
+      />
+
+      {/* 6) Taxes & Discounts Section */}
+      <TaxesAndDiscountsSection
+        formData={formData}
+        taxesAndDiscountsOpen={taxesAndDiscountsOpen}
+        setTaxesAndDiscountsOpen={setTaxesAndDiscountsOpen}
+        mappedTaxes={mappedTaxes}
+        mappedDiscounts={mappedDiscounts}
+        handleTaxDiscountChange={handleTaxDiscountChange}
+        handleAddTax={handleAddTax}
+        handleRemoveTax={handleRemoveTax}
+        handleAddDiscount={handleAddDiscount}
+        handleRemoveDiscount={handleRemoveDiscount}
+      />
+
+      {/* 7) Payment & Delivery Section */}
+      <PaymentAndDeliverySection
+        formData={formData}
+        paymentAndDeliveryOpen={paymentAndDeliveryOpen}
+        setPaymentAndDeliveryOpen={setPaymentAndDeliveryOpen}
+        handlePaymentAndDeliveryChange={handlePaymentAndDeliveryChange}
+        handleBankDetailsChange={handleBankDetailsChange}
+      />
+
+      {/* 8) Action Buttons */}
+      <div className="iz_btns-actions iz_flex">
+        <button
+          className="iz_btn iz_btn-submit iz_btn-white"
+          type="button"
+          onClick={() => handleSubmit('approve')}
+        >
+          Approve all
+        </button>
+        <button
+          className="iz_btn iz_btn-submit iz_btn-white"
+          type="button"
+          onClick={() => handleSubmit('flag')}
+        >
+          Flag issues
+        </button>
+        <button
+          className="iz_btn iz_btn-submit iz_btn-white"
+          type="button"
+          onClick={() => handleSubmit('save')}
+        >
+          Save progress
+        </button>
+        <button
+          className="iz_btn iz_btn-submit iz_btn-primary"
+          type="button"
+          onClick={() => handleSubmit('export')}
+        >
+          Export
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default DocumentDataForm;

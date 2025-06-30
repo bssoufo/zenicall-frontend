@@ -1,0 +1,114 @@
+/* src/components/Documents/DocumentForm.css */
+
+/* Conteneur global */
+.document-form {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  /* Messages d'erreur */
+  .document-form .error {
+    color: red;
+    font-size: 0.9em;
+    margin: 5px 0;
+  }
+  
+  /* Message au-dessus de la drop-zone */
+  .upload-message {
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* La drop-zone : encadrée en pointillé + fond gris clair */
+  .drop-zone {
+    border: 2px dashed #bbb;
+    border-radius: 6px;
+    padding: 20px;
+    background-color: #f8f8f8;
+    text-align: center;
+    transition: background-color 0.3s, border-color 0.3s;
+    cursor: pointer; /* On peut cliquer dessus */
+    margin-bottom: 15px;
+  }
+  
+  .drop-zone p {
+    color: #555;
+    margin: 0;
+  }
+  
+  .drop-zone.drag-over {
+    background-color: #ddeeff!important;
+    border-color: #666; /* Couleur plus sombre pendant le survol */
+  }
+  
+  /* L'input file "fantôme" (invisible) */
+  .file-input-ghost {
+    display: none; /* Caché, on déclenche le clic par JavaScript */
+  }
+  
+  /* Liste des fichiers */
+  .selected-files {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  /* Bloc pour chaque fichier */
+  .selected-file-item {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  /* Bouton X pour supprimer un fichier */
+  .remove-file-button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 2px 6px;
+  }
+  .remove-file-button:hover {
+    background-color: #c0392b;
+  }
+  
+  /* Bouton de soumission */
+  .submit-button {
+    padding: 10px 15px;
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .submit-button:disabled {
+    background-color: #95a5a6;
+    cursor: not-allowed;
+  }
+  .submit-button:hover:not(:disabled) {
+    background-color: #27ae60;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .drop-zone {
+      padding: 15px;
+    }
+    .selected-file-item {
+      font-size: 12px;
+    }
+    .remove-file-button {
+      font-size: 10px;
+      padding: 2px 4px;
+    }
+  }
+  
