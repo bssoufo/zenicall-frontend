@@ -1,0 +1,39 @@
+{
+  "Clinics": "Cliniques",
+  "AddClinic": "Ajouter une clinique",
+  "ClinicDetails": "Détails de la clinique",
+  "Name": "Nom",
+  "CreatedAt": "Créé le",
+  "UpdatedAt": "Mis à jour le",
+  "datatable": {
+    "id": "ID",
+    "name": "Nom",
+    "createdAt": "Créé le",
+    "updatedAt": "Mis à jour le",
+    "action": "Action",
+    "viewClinic": "Voir"
+  },
+  "clinicsList": {
+    "addClinic": "Ajouter une clinique",
+    "clinics": "Cliniques"
+  },
+  "addClinic": {
+    "backToClinics": "Retour aux cliniques",
+    "addNewClinic": "Ajouter une nouvelle clinique",
+    "nameLabel": "Nom de la clinique",
+    "namePlaceholder": "Saisissez le nom de la clinique"
+  },
+  "clinicDetails": {
+    "backToClinics": "Retour aux cliniques",
+    "clinicDetails": "Détails de la clinique",
+    "id": "ID",
+    "name": "Nom",
+    "createdAt": "Créé le",
+    "updatedAt": "Mis à jour le"
+  },
+  "api_messages": {
+    "CLINIC_NAME_EXISTS": "Le nom de la clinique existe déjà",
+    "CLINIC_NOT_FOUND": "Clinique non trouvée",
+    "generic_error": "Une erreur est survenue. Veuillez réessayer."
+  }
+}

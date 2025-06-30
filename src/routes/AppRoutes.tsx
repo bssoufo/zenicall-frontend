@@ -26,6 +26,9 @@ import SupportPage from "../modules/home/pages/support/SupportPage";
 import MyAccountPage from "../modules/users/pages/MyAccountPage.tsx";
 import TermsAndPrivacy from "../modules/home/pages/support/TermsAndPrivacy.tsx";
 import ErrorPage from "../@zenidata/pages/ErrorPage.tsx";
+import ClinicListPage from "../modules/clinics/pages/ClinicListPage";
+import AddClinicPage from "../modules/clinics/pages/AddClinicPage";
+import ClinicDetailsPage from "../modules/clinics/pages/ClinicDetailsPage";
 
 // const AppLayout: React.FC = () => (
 //   <div>
@@ -186,6 +189,30 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <DocumentViewPage />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/clinics",
+        element: (
+          <PrivateRoute>
+            <ClinicListPage />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/clinics/create",
+        element: (
+          <PrivateRoute>
+            <AddClinicPage />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/clinics/:clinicId",
+        element: (
+          <PrivateRoute>
+            <ClinicDetailsPage />
           </PrivateRoute>
         ),
       },

@@ -23,6 +23,8 @@ import homeFr from "../../modules/home/i18n/fr.json";
 
 import usersEn from "../../modules/users/i18n/en.json";
 import usersFr from "../../modules/users/i18n/fr.json";
+import clinicsEn from "../../modules/clinics/i18n/en.json";
+import clinicsFr from "../../modules/clinics/i18n/fr.json";
 
 // Importez d'autres langues ici si nécessaire
 const savedLanguage = localStorage.getItem("language") || "en";
@@ -35,6 +37,7 @@ const resources = {
     documents: documentsEn,
     home: homeEn,
     users: usersEn,
+    clinics: clinicsEn,
   },
   fr: {
     core: coreFr,
@@ -44,6 +47,7 @@ const resources = {
     documents: documentsFr,
     home: homeFr,
     users: usersFr,
+    clinics: clinicsFr,
   },
 };
 
@@ -59,6 +63,7 @@ i18n
       "folders",
       "documents",
       "home",
+      "clinics",
     ], // Espaces de noms (un par module)
     defaultNS: "core",
     lng: savedLanguage, // Langue par défaut

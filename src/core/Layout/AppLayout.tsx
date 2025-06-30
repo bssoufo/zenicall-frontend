@@ -226,19 +226,17 @@ function AppLayout() {
                       </li>
                     </ul> */}
                   </li>
-                  {/* <li className="iz_has-menu-child">
-                    <a href="#">
-                      <i className="iz_icon-documents"></i> Documents
+
+                  <li
+                    className={`${
+                      isActive("/clinics") ? "iz_menu-active" : ""
+                    }`}
+                  >
+                    <a onClick={() => sidebarNavigateTo("/clinics")}>
+                      <i className="iz_icon-documents"></i>{" "}
+                      {t("sidebar.clinics")}
                     </a>
-                    <ul className="iz_submenu-vertical">
-                      <li>
-                        <a href="#">All documents</a>
-                      </li>
-                      <li>
-                        <a href="#">Upload documents</a>
-                      </li>
-                    </ul>
-                  </li> */}
+                  </li>
 
                   {/* iz_has-menu-child */}
                   <li

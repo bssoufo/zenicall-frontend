@@ -52,7 +52,8 @@
     "documents": "Documents",
     "folders": "Dossiers",
     "account": "Mon compte",
-    "support": "Support"
+    "support": "Support",
+    "clinics": "Cliniques"
   },
   "dashboard": {
     "title": "Tableau de bord",

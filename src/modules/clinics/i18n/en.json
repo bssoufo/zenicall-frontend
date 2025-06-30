@@ -1,0 +1,39 @@
+{
+  "Clinics": "Clinics",
+  "AddClinic": "Add Clinic",
+  "ClinicDetails": "Clinic Details",
+  "Name": "Name",
+  "CreatedAt": "Created At",
+  "UpdatedAt": "Updated At",
+  "datatable": {
+    "id": "ID",
+    "name": "Name",
+    "createdAt": "Created At",
+    "updatedAt": "Updated At",
+    "action": "Action",
+    "viewClinic": "View"
+  },
+  "clinicsList": {
+    "addClinic": "Add Clinic",
+    "clinics": "Clinics"
+  },
+  "addClinic": {
+    "backToClinics": "Back to clinics",
+    "addNewClinic": "Add New Clinic",
+    "nameLabel": "Clinic Name",
+    "namePlaceholder": "Enter clinic name here"
+  },
+  "clinicDetails": {
+    "backToClinics": "Back to clinics",
+    "clinicDetails": "Clinic Details",
+    "id": "ID",
+    "name": "Name",
+    "createdAt": "Created At",
+    "updatedAt": "Updated At"
+  },
+  "api_messages": {
+    "CLINIC_NAME_EXISTS": "Clinic name already exists",
+    "CLINIC_NOT_FOUND": "Clinic not found",
+    "generic_error": "An error occurred. Please try again."
+  }
+}
