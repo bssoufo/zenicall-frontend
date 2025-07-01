@@ -29,7 +29,8 @@
     "id": "ID",
     "name": "Name",
     "createdAt": "Created At",
-    "updatedAt": "Updated At"
+    "updatedAt": "Updated At",
+    "viewCallLogs": "View Call Logs"
   },
   "api_messages": {
     "CLINIC_NAME_EXISTS": "Clinic name already exists",

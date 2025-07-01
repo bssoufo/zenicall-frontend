@@ -37,3 +37,19 @@
     background-color: #c0392b;
   }
   
+  .header-clinic-switcher {
+    margin: 0 15px;
+    min-width: 200px;
+  }
+  
+  .clinic-switcher .single-clinic .clinic-name {
+    color: white;
+    font-weight: 500;
+  }
+  
+  .clinic-switcher-loading {
+    color: white;
+    font-size: 14px;
+    margin: 0 15px;
+  }
+  

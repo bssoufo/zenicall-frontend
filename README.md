@@ -5,16 +5,16 @@ docker-compose build
 docker-compose push
 Deployer le bonne version dans elestio
 
-# Projet Frontend Izendoc
+# Projet Frontend Zenicall
 
 Ce projet a été généré automatiquement et contient une structure de base pour une application React.
 
 ## Instructions d'installation
 
 1. **Naviguer dans le dossier du projet :**
-   Ouvrez votre terminal et naviguez jusqu'au dossier `izendoc-frontend` :
+   Ouvrez votre terminal et naviguez jusqu'au dossier `zenicall-frontend` :
    ```bash
-   cd izendoc-frontend
+   cd zenicall-frontend
    ```
 
 2. **Installer les dépendances :**

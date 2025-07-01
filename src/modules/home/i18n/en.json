@@ -2,18 +2,17 @@
   "dashboard": {
     "title": "Dashboard",
     "welcomeMessage": "Welcome to your dashboard!",
-    "totalFolder": "Total Folders",
-    "documentsProcessed": "Documents Processed",
+    "totalClinics": "Total Clinics",
+    "callLogsProcessed": "Call Logs Processed",
     "today": "Today",
     "week": "Week",
     "month": "Month",
     "year": "Year",
-    "mostUsedFolders": "Most used Folders",
-    "totalFolders": "Total Folders",
-    "lastProcessedDocuments": "Last processed documents",
+    "clinicsOverview": "Clinics Overview",
+    "recentCallLogs": "Recent Call Logs",
     "viewAll": "View All",
-    "addFolder": "Add Folder",
-    "documents": "Documents"
+    "addClinic": "Add Clinic",
+    "callLogs": "Call Logs"
   },
 
   "contact": {

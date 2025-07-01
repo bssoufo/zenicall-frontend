@@ -1,0 +1,49 @@
+{
+  "callLogs": "Journaux d'appels",
+  "callLogList": {
+    "listTitle": "Journaux d'appels",
+    "searchPlaceholder": "Rechercher par nom, téléphone ou résumé",
+    "statusFilter": {
+      "all": "Tous statuts",
+      "NEW": "Nouveau",
+      "IN_PROGRESS": "En cours",
+      "DONE": "Terminé",
+      "ARCHIVED": "Archivé"
+    }
+  },
+  "datatable": {
+    "id": "ID",
+    "externalCallId": "ID externe",
+    "callerFirstName": "Prénom",
+    "callerLastName": "Nom",
+    "callerPhoneNumber": "Téléphone",
+    "callStartedAt": "Début",
+    "reasonForCall": "Motif",
+    "status": "Statut",
+    "action": "Action",
+    "view": "Voir"
+  },
+  "callLogDetail": {
+    "title": "Détails du journal d'appel",
+    "backToList": "Retour aux journaux d'appels",
+    "callerInfo": "Informations appelant",
+    "callInfo": "Informations appel",
+    "summary": "Résumé",
+    "detailedReason": "Raison détaillée",
+    "preferredDentist": "Dentiste préféré",
+    "audioRecording": "Enregistrement audio",
+    "cost": "Coût",
+    "endedReason": "Raison de fin",
+    "transcript": "Transcription",
+    "fullConversation": "Conversation complète (JSON)",
+    "rawData": "Données brutes",
+    "callbackPreference": "Préférence de rappel",
+    "saveSuccess": "Journal d'appel mis à jour avec succès",
+    "saveError": "Échec de la mise à jour du journal d'appel"
+  },
+  "api_messages": {
+    "CALL_LOG_NOT_FOUND": "Journal d'appel introuvable",
+    "CLINIC_NOT_FOUND": "Clinique introuvable",
+    "generic_error": "Une erreur est survenue. Veuillez réessayer."
+  }
+}

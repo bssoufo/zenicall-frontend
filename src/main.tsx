@@ -41,16 +41,19 @@ async function  startApp() {
   import("./fontawesome.ts");
   
   const { AuthProvider } = await import("./modules/auth/contexts/AuthProvider.tsx");
+  const { ClinicProvider } = await import("./modules/clinics/contexts/ClinicProvider.tsx");
   const { GlobalModalProvider } = await import("./@zenidata/components/GlobalModal/GlobalModal.tsx");
   const AppRoutes = await import("./routes/AppRoutes.tsx").then((module) => module.default);
 
   createRoot(document.getElementById("root")!).render(
     <StrictMode>
       <AuthProvider>
-        <GlobalModalProvider>
-          <AppRoutes />
-          <Toaster />
-        </GlobalModalProvider>
+        <ClinicProvider>
+          <GlobalModalProvider>
+            <AppRoutes />
+            <Toaster />
+          </GlobalModalProvider>
+        </ClinicProvider>
       </AuthProvider>
     </StrictMode>
   );

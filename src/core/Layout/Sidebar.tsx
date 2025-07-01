@@ -40,7 +40,7 @@
 //     <div className="sidebar">
 //       {/* Transformation du h3 en un lien cliquable vers le Dashboard */}
 //       <Link to="/" className="sidebar-title-link">
-//         <h3 className="sidebar-title">IzenDoc</h3>
+//         <h3 className="sidebar-title">ZeniCall</h3>
 //       </Link>
 //       <div className="separator"></div>
 //       {/* Section 1 */}

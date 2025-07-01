@@ -29,7 +29,8 @@
     "id": "ID",
     "name": "Nom",
     "createdAt": "Créé le",
-    "updatedAt": "Mis à jour le"
+    "updatedAt": "Mis à jour le",
+    "viewCallLogs": "Voir les journaux d'appels"
   },
   "api_messages": {
     "CLINIC_NAME_EXISTS": "Le nom de la clinique existe déjà",

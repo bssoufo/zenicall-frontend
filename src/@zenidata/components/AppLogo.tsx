@@ -1,5 +1,5 @@
 const AppLogo = () => {
-  return <div>IzenDoc</div>;
+  return <div>ZeniCall</div>;
 };
 
 export default AppLogo;

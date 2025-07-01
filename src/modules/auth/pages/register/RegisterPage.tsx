@@ -173,7 +173,7 @@ function RegisterPage() {
         <div className="iz_site-main iz_position-relative">
           <div className="iz_box-form-pass iz_box-form-signup iz_flex">
             <div className="iz-box-form-thumb same-height">
-              <img alt="Sign up Izendoc" src="assets/img/signup.png" />
+              <img alt="Sign up Zenicall" src="assets/img/signup.png" />
             </div>
             <div className="iz_box-form-content same-height">
               <Link

@@ -12,11 +12,6 @@ import authFr from "../../modules/auth/i18n/fr.json";
 // import usersEn from "../../modules/users/i18n/en.json";
 // import usersFr from "../../modules/users/i18n/fr.json";
 
-import foldersEn from "../../modules/folders/i18n/en.json";
-import foldersFr from "../../modules/folders/i18n/fr.json";
-
-import documentsEn from "../../modules/documents/i18n/en.json";
-import documentsFr from "../../modules/documents/i18n/fr.json";
 
 import homeEn from "../../modules/home/i18n/en.json";
 import homeFr from "../../modules/home/i18n/fr.json";
@@ -25,6 +20,8 @@ import usersEn from "../../modules/users/i18n/en.json";
 import usersFr from "../../modules/users/i18n/fr.json";
 import clinicsEn from "../../modules/clinics/i18n/en.json";
 import clinicsFr from "../../modules/clinics/i18n/fr.json";
+import callLogsEn from "../../modules/call-logs/i18n/en.json";
+import callLogsFr from "../../modules/call-logs/i18n/fr.json";
 
 // Importez d'autres langues ici si nécessaire
 const savedLanguage = localStorage.getItem("language") || "en";
@@ -32,22 +29,18 @@ const resources = {
   en: {
     core: coreEn,
     auth: authEn,
-    // users: usersEn,
-    folders: foldersEn,
-    documents: documentsEn,
     home: homeEn,
     users: usersEn,
     clinics: clinicsEn,
+    'call-logs': callLogsEn,
   },
   fr: {
     core: coreFr,
     auth: authFr,
-    // users: usersFr,
-    folders: foldersFr,
-    documents: documentsFr,
     home: homeFr,
     users: usersFr,
     clinics: clinicsFr,
+    'call-logs': callLogsFr,
   },
 };
 
@@ -59,11 +52,10 @@ i18n
     ns: [
       "core",
       "auth",
-      // "users",
-      "folders",
-      "documents",
       "home",
+      "users",
       "clinics",
+      "call-logs",
     ], // Espaces de noms (un par module)
     defaultNS: "core",
     lng: savedLanguage, // Langue par défaut

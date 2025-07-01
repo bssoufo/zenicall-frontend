@@ -5,11 +5,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import ContactPage from "../modules/users/pages/MyAccountPage.tsx";
-import FolderListPage from "../modules/folders/pages/FolderListPage";
 import NotFoundPage from "../@zenidata/pages/NotFoundPage";
-import FolderDetailsPage from "../modules/folders/pages/FolderDetailsPage";
-import DocumentViewPage from "../modules/documents/pages/DocumentViewPage.tsx";
-import AddFolderPage from "../modules/folders/pages/AddFolderPage";
 import ForgotPasswordPage from "../modules/auth/pages/forgot-password/ForgotPasswordPage";
 import LoginPage from "../modules/auth/pages/login/LoginPage";
 import RegisterPage from "../modules/auth/pages/register/RegisterPage";
@@ -18,7 +14,6 @@ import ValidateRegistrationPage from "../modules/auth/pages/validate-registratio
 import VerifyCodePage from "../modules/auth/pages/verify-code/VerifyCodePage";
 import { AuthContext } from "../modules/auth/contexts/AuthContext";
 import DashboardPage from "../modules/home/pages/DashboardPage";
-import UploadImportPage from "../modules/documents/pages/UploadImportPage";
 import AppLayout from "../core/Layout/AppLayout";
 import AuthLayout from "../core/Layout/AuthLayout";
 import Lab from "../modules/debug/pages/Lab";
@@ -29,6 +24,8 @@ import ErrorPage from "../@zenidata/pages/ErrorPage.tsx";
 import ClinicListPage from "../modules/clinics/pages/ClinicListPage";
 import AddClinicPage from "../modules/clinics/pages/AddClinicPage";
 import ClinicDetailsPage from "../modules/clinics/pages/ClinicDetailsPage";
+import CallLogListPage from "../modules/call-logs/pages/CallLogListPage";
+import CallLogDetailPage from "../modules/call-logs/pages/CallLogDetailPage";
 
 // const AppLayout: React.FC = () => (
 //   <div>
@@ -123,76 +120,6 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/upload",
-        element: (
-          <PrivateRoute requiredPermissions={["write", "delete"]}>
-            <UploadImportPage />
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: "/folders",
-        element: (
-          <PrivateRoute>
-            <FolderListPage />
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: "/folders/create",
-        element: (
-          <PrivateRoute>
-            <AddFolderPage />
-          </PrivateRoute>
-        ),
-      },
-      // {
-      //   path: "/folders/:folderId",
-      //   element: (
-      //     <PrivateRoute>
-      //       <FolderDetailsPage /> {/* Comment this route */}
-      //     </PrivateRoute>
-      //   ),
-      // },
-      // {
-      //   path: "/folders/:folderId/documents",
-      //   element: (
-      //     <PrivateRoute>
-      //       <FolderDetailsPage />
-      //     </PrivateRoute>
-      //   ),
-      // },
-      {
-        path: "folders/:folderId",
-        // element: <FolderDetailsLayout />,
-        children: [
-          {
-            index: true,
-            element: (
-              <PrivateRoute>
-                <FolderDetailsPage /> {/* Comment this route */}
-              </PrivateRoute>
-            ),
-          },
-          {
-            path: "documents/create",
-            element: (
-              <PrivateRoute>
-                <UploadImportPage />
-              </PrivateRoute>
-            ),
-          },
-        ],
-      },
-      {
-        path: "/folders/:folderId/documents/:docId",
-        element: (
-          <PrivateRoute>
-            <DocumentViewPage />
-          </PrivateRoute>
-        ),
-      },
-      {
         path: "/clinics",
         element: (
           <PrivateRoute>
@@ -216,14 +143,22 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      // {
-      //   path: "/documents/:id/edit",
-      //   element: (
-      //     <PrivateRoute>
-      //       <DocumentEditPage />
-      //     </PrivateRoute>
-      //   ),
-      // },
+      {
+        path: "/clinics/:clinicId/call-logs",
+        element: (
+          <PrivateRoute>
+            <CallLogListPage />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/clinics/:clinicId/call-logs/:callLogId",
+        element: (
+          <PrivateRoute>
+            <CallLogDetailPage />
+          </PrivateRoute>
+        ),
+      },
       {
         path: "/contact",
         element: (

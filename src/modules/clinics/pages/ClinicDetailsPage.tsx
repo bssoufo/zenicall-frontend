@@ -46,24 +46,31 @@ const ClinicDetailsPage: React.FC = () => {
           {loading ? (
             <LoadingScreen />
           ) : clinic ? (
-            <div className="iz_fields iz_flex">
-              <div className="iz_field iz_field-half">
-                <label>{t("clinicDetails.id")}</label>
-                <span>{clinic.id}</span>
+            <>
+              <div className="iz_fields iz_flex">
+                <div className="iz_field iz_field-half">
+                  <label>{t("clinicDetails.id")}</label>
+                  <span>{clinic.id}</span>
+                </div>
+                <div className="iz_field iz_field-half">
+                  <label>{t("clinicDetails.name")}</label>
+                  <span>{clinic.name}</span>
+                </div>
+                <div className="iz_field iz_field-half">
+                  <label>{t("clinicDetails.createdAt")}</label>
+                  <span>{formatDate(clinic.created_at)}</span>
+                </div>
+                <div className="iz_field iz_field-half">
+                  <label>{t("clinicDetails.updatedAt")}</label>
+                  <span>{formatDate(clinic.updated_at)}</span>
+                </div>
               </div>
-              <div className="iz_field iz_field-half">
-                <label>{t("clinicDetails.name")}</label>
-                <span>{clinic.name}</span>
+              <div className="iz_field iz_field-full">
+                <Link to={`/clinics/${clinic.id}/call-logs`} className="iz_btn iz_btn-primary">
+                  {t("clinicDetails.viewCallLogs")}
+                </Link>
               </div>
-              <div className="iz_field iz_field-half">
-                <label>{t("clinicDetails.createdAt")}</label>
-                <span>{formatDate(clinic.created_at)}</span>
-              </div>
-              <div className="iz_field iz_field-half">
-                <label>{t("clinicDetails.updatedAt")}</label>
-                <span>{formatDate(clinic.updated_at)}</span>
-              </div>
-            </div>
+            </>
           ) : (
             <p>{t("api_messages.CLINIC_NOT_FOUND")}</p>
           )}

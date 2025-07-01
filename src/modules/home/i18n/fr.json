@@ -2,17 +2,17 @@
   "dashboard": {
     "title": "Tableau de bord",
     "welcomeMessage": "Bienvenue sur votre tableau de bord !",
-    "documentsProcessed": "Document traités",
+    "totalClinics": "Total Cliniques",
+    "callLogsProcessed": "Journaux d'appels traités",
     "today": "Aujourd'hui",
     "week": "Semaine",
     "month": "Mois",
     "year": "Année",
-    "mostUsedFolders": "Dossiers les plus utilisés",
-    "totalFolders": "Total dossiers",
-    "lastProcessedDocuments": "Derniers document traités",
+    "clinicsOverview": "Aperçu des cliniques",
+    "recentCallLogs": "Journaux d'appels récents",
     "viewAll": "Voir tout",
-    "addFolder": "Ajouter un dossier",
-    "documents": "Documents"
+    "addClinic": "Ajouter une clinique",
+    "callLogs": "Journaux d'appels"
   },
 
   "contact": {

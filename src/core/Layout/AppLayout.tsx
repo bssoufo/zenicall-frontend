@@ -6,6 +6,8 @@ import useScreenSize from "../../@zenidata/hooks/useScreenSize";
 import LanguageSwitcher from "../../@zenidata/components/UI/Language/LanguageSwitcher";
 import { useTranslation } from "react-i18next";
 import { useAxiosErrorHandingInterceptor } from "../../@zenidata/api/ApiClient";
+import { ClinicSwitcher } from "../../modules/clinics/components/ClinicSwitcher";
+import "./AppLayout.css";
 
 function AppLayout() {
   const { t } = useTranslation();
@@ -108,7 +110,7 @@ function AppLayout() {
                   style={{ cursor: "pointer" }}
                   onClick={() => sidebarNavigateTo("/")}
                   className="iz_logo-mobile">
-                  IzenDoc
+                  ZeniCall
                 </div>
                 <ul className="iz_admin-bar">
                   {/* <li className="iz_admin-bar-document">
@@ -128,6 +130,9 @@ function AppLayout() {
                       </ul>
                     </div> */}
                     <LanguageSwitcher />
+                  </li>
+                  <li className="iz_admin-bar-clinic">
+                    <ClinicSwitcher className="app-layout-clinic-switcher" />
                   </li>
                   {/* <li className="iz_admin-bar-settings">
                     <a href="#" title="Settings"></a>
@@ -188,7 +193,7 @@ function AppLayout() {
                   <div
                     style={{ cursor: "pointer" }}
                     onClick={() => sidebarNavigateTo("/")}>
-                    <span>IzenDoc</span>
+                    <span>ZeniCall</span>
                   </div>
                   <div
                     style={{ cursor: "pointer" }}
@@ -207,24 +212,6 @@ function AppLayout() {
                       <i className="iz_icon-dashboard"></i>
                       {t("sidebar.dashboard")}
                     </a>
-                  </li>
-                  {/* iz_has-menu-child */}
-                  <li
-                    className={`${
-                      isActive("/folders") ? "iz_menu-active" : ""
-                    }`}>
-                    <a onClick={() => sidebarNavigateTo("/folders")}>
-                      <i className="iz_icon-documents"></i>{" "}
-                      {t("sidebar.folders")}
-                    </a>
-                    {/* <ul className="iz_submenu-vertical">
-                      <li>
-                        <a href="#">All folders</a>
-                      </li>
-                      <li>
-                        <a href="#">Upload documents</a>
-                      </li>
-                    </ul> */}
                   </li>
 
                   <li

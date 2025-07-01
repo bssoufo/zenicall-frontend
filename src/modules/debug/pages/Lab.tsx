@@ -12,7 +12,7 @@ const Lab = () => {
         "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0IiwidXNlcm5hbWUiOiJ3aWxsLW9yYWNpb25zIiwiZmlyc3RfbmFtZSI6IkxvdWlzIiwibGFzdF9uYW1lIjoiTWFyeSIsImVtYWlsIjoib3JhY2lvbnMuZGV2QGdtYWlsLmNvbSIsInBlcm1pc3Npb25zIjpbIkNSRUFURV9ET0NVTUVOVCIsIlJFQURfRE9DVU1FTlQiLCJVUERBVEVfRE9DVU1FTlQiLCJERUxFVEVfRE9DVU1FTlQiLCJDUkVBVEVfRk9MREVSIiwiUkVBRF9GT0xERVIiLCJVUERBVEVfRk9MREVSIiwiREVMRVRFX0ZPTERFUiIsIlJFQURfU1VCU0NSSVBUSU9OIiwiVVBEQVRFX1NVQlNDUklQVElPTiIsIlJFQURfT1dOX1VTRVIiLCJVUERBVEVfT1dOX1VTRVIiXSwiZXhwIjoxNzM4MzY3ODk2fQ.AWUy0zghvmjJ4qgOIkePPUKqVDF0Ku1breZi7AVSNvk";
 
       fetch(
-        "https://izendoc-dev-u19609.vm.elestio.app/folders/?search=&status=active&page=1&limit=5",
+        "https://zenicall-dev-u19609.vm.elestio.app/api/v1/clinics/",
         {
           method: "GET",
           headers: {
