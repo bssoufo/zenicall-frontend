@@ -103,18 +103,237 @@
 }
 
 
-/* Call Logs Section - Direct on page background */
-.dashboard-call-logs-section {
+/* Two-Column Main Grid Layout - 70/30 Split with Perfect Alignment */
+.dashboard-main-grid {
+  display: grid;
+  grid-template-columns: 1fr 380px; /* Approximately 70/30 split */
+  gap: 2rem;
+  align-items: start;
   margin-bottom: 2rem;
+  /* Create visual force line alignment */
+  position: relative;
+}
+
+/* Visual force line - invisible guide for perfect alignment */
+.dashboard-main-grid::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  /* Uncomment below line to see the alignment guide during development */
+  /* background: red; */
+  z-index: 1000;
+  pointer-events: none;
+}
+
+/* Left Column - Call Logs Section (70%) */
+.dashboard-call-logs-section {
+  min-width: 0; /* Allows content to shrink */
 }
 
 .call-logs-section-title {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 1.375rem 0; /* Reduced slightly to create perfect alignment with control panel */
+  padding: 0;
+  background: none;
+  letter-spacing: -0.025em;
+  /* Ensure visual alignment with control panel */
+  line-height: 1.2;
+}
+
+/* Right Column - Control Panel (30%) */
+.dashboard-control-panel {
+  background: none;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+  border: none;
+  position: sticky;
+  top: 1rem;
+  height: fit-content;
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
+  /* Perfect alignment with left column content */
+  margin-top: 0; /* Ensure no offset */
+}
+
+.control-panel-section-title {
+  font-size: 1.125rem;
   font-weight: 600;
   color: #1e293b;
   margin: 0 0 1rem 0;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+/* Control Panel KPIs - Dense List Style */
+.control-panel-kpis {
+  margin-bottom: 2rem;
+}
+
+/* Alignment synchronization - ensure control panel sections align with left column content */
+.control-panel-section-title:first-child {
+  margin-top: 0; /* Remove any top margin from first section title to align with filter bar */
+}
+
+/* Professional finish - consistent spacing and alignment */
+.dashboard-call-logs-section,
+.dashboard-control-panel {
+  /* Ensure both columns start at exactly the same vertical position */
+  vertical-align: top;
+}
+
+/* Fine-tune the visual baseline alignment */
+.control-panel-section-title {
+  /* Align baseline with filter bar top edge */
+  padding-top: 0.125rem; /* Compensate for filter bar margin adjustment */
+}
+
+.stats-list {
+  list-style: none;
+  margin: 0;
   padding: 0;
-  background: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.stats-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.stats-item:last-child {
+  border-bottom: none;
+}
+
+.stats-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: #374151;
+}
+
+.stats-value {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+/* Colored dots (8x8px) */
+.stats-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.stats-dot-total {
+  background-color: #374151;
+}
+
+.stats-dot-new {
+  background-color: #3b82f6;
+}
+
+.stats-dot-inprogress {
+  background-color: #f59e0b;
+}
+
+.stats-dot-done {
+  background-color: #10b981;
+}
+
+/* Control Panel Actions */
+.control-panel-action-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.control-panel-action-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.control-panel-action-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: #3b82f6;
+  text-decoration: none;
+  color: inherit;
+}
+
+.control-panel-action-card:hover .control-panel-action-icon {
+  transform: scale(1.05);
+}
+
+.control-panel-action-card:hover .control-panel-action-arrow {
+  transform: translateX(2px);
+}
+
+.control-panel-action-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.control-panel-action-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.control-panel-action-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0 0 0.25rem 0;
+  line-height: 1.2;
+}
+
+.control-panel-action-description {
+  font-size: 0.7rem;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.control-panel-action-arrow {
+  color: #64748b;
+  font-size: 0.7rem;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
 }
 
 /* Quick Actions Section */
@@ -304,18 +523,33 @@
 
 /* Integration with existing responsive system */
 @media (max-width: 991px) {
-  .dashboard-calls,
-  .dashboard-actions {
-    padding: 1.5rem;
-  }
-  
-  .kpi-cards-container {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.75rem;
-  }
-  
-  .actions-grid {
+  .dashboard-main-grid {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .dashboard-control-panel {
+    position: static;
+    order: 2;
+    max-height: none;
+  }
+  
+  .dashboard-call-logs-section {
+    order: 1;
+  }
+  
+  .stats-list {
+    gap: 0.375rem;
+  }
+  
+  .stats-item {
+    padding: 0.375rem 0;
+  }
+  
+  .control-panel-action-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
   }
 }
 
@@ -325,35 +559,46 @@
     gap: 0.75rem;
   }
   
-  .dashboard-calls,
-  .dashboard-actions {
-    padding: 0.75rem;
+  .dashboard-main-grid {
+    gap: 1rem;
   }
   
-  .kpi-cards-container {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.5rem;
-  }
-  
-  .kpi-card {
-    padding: 0.75rem;
-  }
-  
-  .kpi-value {
-    font-size: 2rem;
-  }
-  
-  .kpi-label {
-    font-size: 0.7rem;
-  }
-  
-  .kpi-section-title {
-    font-size: 1.25rem;
-    margin-bottom: 0.75rem;
-  }
-  
-  .action-card {
+  .dashboard-control-panel {
     padding: 1rem;
+  }
+  
+  .call-logs-section-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .control-panel-section-title {
+    font-size: 1rem;
+  }
+  
+  .stats-list {
+    gap: 0.375rem;
+  }
+  
+  .stats-item {
+    padding: 0.375rem 0;
+  }
+  
+  .stats-label {
+    font-size: 0.8rem;
+  }
+  
+  .stats-value {
+    font-size: 0.8rem;
+  }
+  
+  .control-panel-action-list {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  
+  .control-panel-action-card {
+    padding: 0.75rem;
   }
 }
 
@@ -382,16 +627,18 @@
 
 /* Accessibility Improvements */
 @media (prefers-reduced-motion: reduce) {
-  .kpi-card,
   .action-card,
+  .control-panel-action-card,
   .btn,
   .action-icon,
-  .action-arrow {
+  .control-panel-action-icon,
+  .action-arrow,
+  .control-panel-action-arrow {
     transition: none;
   }
   
-  .kpi-card:hover,
   .action-card:hover,
+  .control-panel-action-card:hover,
   .btn-primary:hover {
     transform: none;
   }
@@ -399,6 +646,7 @@
 
 /* Focus States for Accessibility */
 .action-card:focus,
+.control-panel-action-card:focus,
 .btn:focus {
   outline: 2px solid #3b82f6;
   outline-offset: 2px;
@@ -410,9 +658,13 @@
     background: white;
   }
   
-  .kpi-card,
-  .action-card {
+  .action-card,
+  .control-panel-action-card {
     border-width: 2px;
+  }
+  
+  .stats-item {
+    border-bottom-width: 2px;
   }
   
   .btn-primary {

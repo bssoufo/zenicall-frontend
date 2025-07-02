@@ -16,8 +16,9 @@ interface NewCallLogsDashboardProps {
 }
 
 interface Filters {
-  firstName: string;
   lastName: string;
+  firstName: string;
+  phoneNumber: string;
   startDate: string;
   endDate: string;
 }
@@ -62,8 +63,9 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
   
   // Filter state
   const [filters, setFilters] = useState<Filters>({
-    firstName: '',
     lastName: '',
+    firstName: '',
+    phoneNumber: '',
     startDate: '',
     endDate: ''
   });
@@ -77,13 +79,14 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
   });
 
   // Debounced filter values to avoid excessive API calls
-  const debouncedFirstName = useDebounce(filters.firstName, 500);
   const debouncedLastName = useDebounce(filters.lastName, 500);
+  const debouncedFirstName = useDebounce(filters.firstName, 500);
+  const debouncedPhoneNumber = useDebounce(filters.phoneNumber, 500);
 
   // Check if we need to use advanced search (when filters are applied)
   const hasActiveFilters = useMemo(() => {
-    return debouncedFirstName || debouncedLastName || filters.startDate || filters.endDate;
-  }, [debouncedFirstName, debouncedLastName, filters.startDate, filters.endDate]);
+    return debouncedLastName || debouncedFirstName || debouncedPhoneNumber || filters.startDate || filters.endDate;
+  }, [debouncedLastName, debouncedFirstName, debouncedPhoneNumber, filters.startDate, filters.endDate]);
 
   // Fetch function for new calls (optimized endpoint)
   const fetchNewCalls = useCallback(async (page: number, limit: number) => {
@@ -123,8 +126,9 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
       setError(null);
       
       const searchOptions = {
-        caller_first_name: debouncedFirstName || undefined,
         caller_last_name: debouncedLastName || undefined,
+        caller_first_name: debouncedFirstName || undefined,
+        caller_phone_number: debouncedPhoneNumber || undefined,
         start_date: filters.startDate || undefined,
         end_date: filters.endDate || undefined,
         page: pagination.currentPage,
@@ -149,8 +153,9 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
     }
   }, [
     selectedClinic?.id,
-    debouncedFirstName,
     debouncedLastName,
+    debouncedFirstName,
+    debouncedPhoneNumber,
     filters.startDate,
     filters.endDate,
     pagination.currentPage,
@@ -233,8 +238,9 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
   // Clear filters
   const clearFilters = useCallback(() => {
     setFilters({
-      firstName: '',
       lastName: '',
+      firstName: '',
+      phoneNumber: '',
       startDate: '',
       endDate: ''
     });
@@ -267,115 +273,99 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
     <div className="new-calls-dashboard">
 
 
-      {/* Compact Filters Section */}
+      {/* Two-Line Filter System */}
       {showFilters && (
-        <div className="filters-section">
-          <div className="filters-grid">
-            <div className="filter-group">
-              <label htmlFor="firstName">{t('call-logs:filters.firstName')}</label>
-              <input
-                id="firstName"
-                type="text"
-                value={filters.firstName}
-                onChange={(e) => handleFilterChange('firstName', e.target.value)}
-                placeholder={t('call-logs:filters.firstNamePlaceholder')}
-                className="filter-input"
-              />
-            </div>
-            
-            <div className="filter-group">
-              <label htmlFor="lastName">{t('call-logs:filters.lastName')}</label>
+        <div className="two-line-filter-system">
+          {/* Line 1: Specific Search Fields */}
+          <div className="filter-line-1">
+            <div className="search-fields-row">
               <input
                 id="lastName"
                 type="text"
                 value={filters.lastName}
                 onChange={(e) => handleFilterChange('lastName', e.target.value)}
-                placeholder={t('call-logs:filters.lastNamePlaceholder')}
-                className="filter-input"
+                placeholder="Rechercher par nom..."
+                className="search-field"
               />
-            </div>
-            
-            <div className="filter-group">
-              <label htmlFor="startDate">{t('call-logs:filters.startDate')}</label>
               <input
-                id="startDate"
-                type="date"
-                value={filters.startDate}
-                onChange={(e) => handleFilterChange('startDate', e.target.value)}
-                className="filter-input"
+                id="firstName"
+                type="text"
+                value={filters.firstName}
+                onChange={(e) => handleFilterChange('firstName', e.target.value)}
+                placeholder="Rechercher par prénom..."
+                className="search-field"
               />
-            </div>
-            
-            <div className="filter-group">
-              <label htmlFor="endDate">{t('call-logs:filters.endDate')}</label>
               <input
-                id="endDate"
-                type="date"
-                value={filters.endDate}
-                onChange={(e) => handleFilterChange('endDate', e.target.value)}
-                className="filter-input"
+                id="phoneNumber"
+                type="text"
+                value={filters.phoneNumber}
+                onChange={(e) => handleFilterChange('phoneNumber', e.target.value)}
+                placeholder="Rechercher par téléphone..."
+                className="search-field"
               />
             </div>
-            
-            <div className="filter-actions">
-              <button onClick={handleRefresh} className="refresh-btn" disabled={loading}>
-                {loading ? (
-                  <>
-                    <i className="fas fa-sync-alt fa-spin"></i>
-                    {t('core:common.refreshing')}
-                  </>
-                ) : (
-                  <>
-                    <i className="fas fa-sync-alt"></i>
-                    {t('core:common.refresh')}
-                  </>
-                )}
-              </button>
-              {hasActiveFilters && (
-                <button onClick={clearFilters} className="clear-filters-btn">
-                  <i className="fas fa-times"></i>
-                  {t('call-logs:filters.clearAll')}
-                </button>
+          </div>
+
+          {/* Line 2: Pagination Info, Dates and Actions */}
+          <div className="filter-line-2">
+            <div className="left-group">
+              <div className="items-per-page">
+                <label htmlFor="itemsPerPage">Éléments par page:</label>
+                <select
+                  id="itemsPerPage"
+                  value={pagination.itemsPerPage}
+                  onChange={(e) => handleItemsPerPageChange(Number(e.target.value))}
+                  className="items-per-page-select"
+                >
+                  <option value={10}>10</option>
+                  <option value={20}>20</option>
+                  <option value={50}>50</option>
+                </select>
+              </div>
+              
+              {pagination.totalItems > 0 && (
+                <div className="pagination-info">
+                  Affichage de {Math.min((pagination.currentPage - 1) * pagination.itemsPerPage + 1, pagination.totalItems)} à {Math.min(pagination.currentPage * pagination.itemsPerPage, pagination.totalItems)} sur {pagination.totalItems} entrées
+                </div>
               )}
+            </div>
+
+            <div className="right-group">
+              <div className="date-filters-group">
+                <input
+                  id="startDate"
+                  type="date"
+                  value={filters.startDate}
+                  onChange={(e) => handleFilterChange('startDate', e.target.value)}
+                  className="date-filter-input"
+                  title="Date de début"
+                />
+                <span className="date-separator">—</span>
+                <input
+                  id="endDate"
+                  type="date"
+                  value={filters.endDate}
+                  onChange={(e) => handleFilterChange('endDate', e.target.value)}
+                  className="date-filter-input"
+                  title="Date de fin"
+                />
+              </div>
+              
+              <div className="action-buttons">
+                {hasActiveFilters && (
+                  <button onClick={clearFilters} className="secondary-btn">
+                    Effacer
+                  </button>
+                )}
+                <button onClick={handleRefresh} className="primary-btn" disabled={loading}>
+                  {loading ? 'Actualisation...' : 'Appliquer'}
+                </button>
+              </div>
             </div>
           </div>
         </div>
       )}
 
-      {/* Pagination Controls */}
-      <div className="pagination-controls">
-        <div className="items-per-page">
-          <label htmlFor="itemsPerPage">{t('call-logs:pagination.itemsPerPage')}</label>
-          <select
-            id="itemsPerPage"
-            value={pagination.itemsPerPage}
-            onChange={(e) => handleItemsPerPageChange(Number(e.target.value))}
-            className="items-per-page-select"
-          >
-            <option value={10}>{t('call-logs:pagination.items_10')}</option>
-            <option value={20}>{t('call-logs:pagination.items_20')}</option>
-            <option value={50}>{t('call-logs:pagination.items_50')}</option>
-          </select>
-        </div>
-        
-        {pagination.totalItems > 0 && (
-          <div className="pagination-info">
-            {t('call-logs:pagination.showing', {
-              start: Math.min((pagination.currentPage - 1) * pagination.itemsPerPage + 1, pagination.totalItems),
-              end: Math.min(pagination.currentPage * pagination.itemsPerPage, pagination.totalItems),
-              total: pagination.totalItems
-            })}
-          </div>
-        )}
-
-        <div className="header-meta" style={{marginLeft: "auto"}}>
-          {lastFetchTime && (
-            <span className="last-updated">
-              {t('call-logs:dashboard.lastUpdated')}: {lastFetchTime.toLocaleTimeString()}
-            </span>
-          )}
-        </div>
-      </div>
 
       {/* Call Logs Table */}
       <div className="call-logs-container">
@@ -465,23 +455,24 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
                       )}
                     </td>
                     <td className="actions">
-                      {callLog.audio_recording_url && (
-                        <button
-                          onClick={() => togglePlayPause(callLog.id, callLog.audio_recording_url!)}
-                          className="audio-play-btn"
-                          title={playingAudioId === callLog.id ? t('call-logs:actions.pauseAudio') : t('call-logs:actions.playAudio')}
+                      <div className="actions-container">
+                        {callLog.audio_recording_url && (
+                          <button
+                            onClick={() => togglePlayPause(callLog.id, callLog.audio_recording_url!)}
+                            className="action-icon-btn audio-btn"
+                            title={playingAudioId === callLog.id ? t('call-logs:actions.pauseAudio') : t('call-logs:actions.playAudio')}
+                          >
+                            <i className={`fas ${playingAudioId === callLog.id ? 'fa-pause' : 'fa-play'}`}></i>
+                          </button>
+                        )}
+                        <Link 
+                          to={`/clinics/${selectedClinic.id}/call-logs/${callLog.id}`}
+                          className="action-icon-btn view-btn"
+                          title={t('call-logs:actions.viewDetails')}
                         >
-                          <i className={`fas ${playingAudioId === callLog.id ? 'fa-pause' : 'fa-play'}`}></i>
-                        </button>
-                      )}
-                      <Link 
-                        to={`/clinics/${selectedClinic.id}/call-logs/${callLog.id}`}
-                        className="view-btn"
-                        title={t('call-logs:actions.viewDetails')}
-                      >
-                        <i className="fas fa-eye"></i>
-                        {t('call-logs:actions.view')}
-                      </Link>
+                          <i className="fas fa-eye"></i>
+                        </Link>
+                      </div>
                     </td>
                   </tr>
                   );

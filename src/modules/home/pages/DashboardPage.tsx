@@ -65,62 +65,68 @@ function DashboardPage() {
   return (
     <div className="iz_content-block iz_content-dasboard iz_position-relative">
       <div className="iz_content-block-container">
-        {/* KPI Overview Banner */}
-        <section className="dashboard-kpi-section" aria-labelledby="kpi-title">
-          <h2 id="kpi-title" className="kpi-section-title">Aperçu de l'Activité</h2>
-          <DashboardCallLogStats />
-        </section>
+        {/* New Two-Column Layout - No KPI Banner */}
+        <div className="dashboard-main-grid">
+          {/* Left Column - Call Logs Section (70%) */}
+          <section className="dashboard-call-logs-section" aria-labelledby="call-logs-title">
+            <h2 id="call-logs-title" className="call-logs-section-title">Journaux d'Appels</h2>
+            <DashboardNewCallsWidget />
+          </section>
 
-        {/* Call Logs Section */}
-        <section className="dashboard-call-logs-section" aria-labelledby="call-logs-title">
-          <h2 id="call-logs-title" className="call-logs-section-title">Journaux d'Appels</h2>
-          <DashboardNewCallsWidget />
-        </section>
+          {/* Right Column - Control Panel (30%) */}
+          <aside className="dashboard-control-panel" aria-labelledby="control-panel-title">
+            {/* KPI Stats in Control Panel */}
+            <section className="control-panel-kpis" aria-labelledby="kpi-title">
+              <h3 id="kpi-title" className="control-panel-section-title">Statistiques</h3>
+              <DashboardCallLogStats />
+            </section>
 
-        {/* Quick Actions Section */}
-        <section className="dashboard-actions" aria-labelledby="actions-title">
-          <h2 id="actions-title" className="section-title">{t("dashboard.quickActions")}</h2>
-          <div className="actions-grid">
-            <Link to={`/clinics/${selectedClinic.id}/call-logs`} className="action-card">
-              <div className="action-icon">
-                <i className="fas fa-list" aria-hidden="true"></i>
+            {/* Quick Actions in Control Panel */}
+            <section className="control-panel-actions" aria-labelledby="actions-title">
+              <h3 id="actions-title" className="control-panel-section-title">{t("dashboard.quickActions")}</h3>
+              <div className="control-panel-action-list">
+                <Link to={`/clinics/${selectedClinic.id}/call-logs`} className="control-panel-action-card">
+                  <div className="control-panel-action-icon">
+                    <i className="fas fa-list" aria-hidden="true"></i>
+                  </div>
+                  <div className="control-panel-action-content">
+                    <h4 className="control-panel-action-title">{t("dashboard.allCallLogs")}</h4>
+                    <p className="control-panel-action-description">{t("dashboard.allCallLogsDesc")}</p>
+                  </div>
+                  <div className="control-panel-action-arrow">
+                    <i className="fas fa-chevron-right" aria-hidden="true"></i>
+                  </div>
+                </Link>
+                
+                <Link to="/clinics" className="control-panel-action-card">
+                  <div className="control-panel-action-icon">
+                    <i className="fas fa-clinic-medical" aria-hidden="true"></i>
+                  </div>
+                  <div className="control-panel-action-content">
+                    <h4 className="control-panel-action-title">{t("dashboard.manageClinics")}</h4>
+                    <p className="control-panel-action-description">{t("dashboard.manageClinicsDesc")}</p>
+                  </div>
+                  <div className="control-panel-action-arrow">
+                    <i className="fas fa-chevron-right" aria-hidden="true"></i>
+                  </div>
+                </Link>
+                
+                <Link to="/analytics" className="control-panel-action-card">
+                  <div className="control-panel-action-icon">
+                    <i className="fas fa-chart-bar" aria-hidden="true"></i>
+                  </div>
+                  <div className="control-panel-action-content">
+                    <h4 className="control-panel-action-title">{t("dashboard.analytics")}</h4>
+                    <p className="control-panel-action-description">{t("dashboard.analyticsDesc")}</p>
+                  </div>
+                  <div className="control-panel-action-arrow">
+                    <i className="fas fa-chevron-right" aria-hidden="true"></i>
+                  </div>
+                </Link>
               </div>
-              <div className="action-content">
-                <h3 className="action-title">{t("dashboard.allCallLogs")}</h3>
-                <p className="action-description">{t("dashboard.allCallLogsDesc")}</p>
-              </div>
-              <div className="action-arrow">
-                <i className="fas fa-chevron-right" aria-hidden="true"></i>
-              </div>
-            </Link>
-            
-            <Link to="/clinics" className="action-card">
-              <div className="action-icon">
-                <i className="fas fa-clinic-medical" aria-hidden="true"></i>
-              </div>
-              <div className="action-content">
-                <h3 className="action-title">{t("dashboard.manageClinics")}</h3>
-                <p className="action-description">{t("dashboard.manageClinicsDesc")}</p>
-              </div>
-              <div className="action-arrow">
-                <i className="fas fa-chevron-right" aria-hidden="true"></i>
-              </div>
-            </Link>
-            
-            <Link to="/analytics" className="action-card">
-              <div className="action-icon">
-                <i className="fas fa-chart-bar" aria-hidden="true"></i>
-              </div>
-              <div className="action-content">
-                <h3 className="action-title">{t("dashboard.analytics")}</h3>
-                <p className="action-description">{t("dashboard.analyticsDesc")}</p>
-              </div>
-              <div className="action-arrow">
-                <i className="fas fa-chevron-right" aria-hidden="true"></i>
-              </div>
-            </Link>
-          </div>
-        </section>
+            </section>
+          </aside>
+        </div>
       </div>
     </div>
   );

@@ -29,24 +29,36 @@ const StatsDisplay: React.FC<StatsDisplayProps> = ({
   const { t } = useTranslation(['call-logs']);
 
   return (
-    <div className="kpi-cards-container">
-      <div className="kpi-card kpi-total">
-        <div className="kpi-value">{totalCalls.toLocaleString()}</div>
-        <div className="kpi-label">{t('call-logs:summary.totalCalls')}</div>
-      </div>
-      <div className="kpi-card kpi-new">
-        <div className="kpi-value">{newCalls.toLocaleString()}</div>
-        <div className="kpi-label">{t('call-logs:summary.new')}</div>
-      </div>
-      <div className="kpi-card kpi-inprogress">
-        <div className="kpi-value">{inProgressCalls.toLocaleString()}</div>
-        <div className="kpi-label">{t('call-logs:summary.inProgress')}</div>
-      </div>
-      <div className="kpi-card kpi-done">
-        <div className="kpi-value">{doneCalls.toLocaleString()}</div>
-        <div className="kpi-label">{t('call-logs:summary.done')}</div>
-      </div>
-    </div>
+    <ul className="stats-list">
+      <li className="stats-item">
+        <span className="stats-label">
+          <span className="stats-dot stats-dot-total"></span>
+          {t('call-logs:summary.totalCalls')}
+        </span>
+        <span className="stats-value">{totalCalls.toLocaleString()}</span>
+      </li>
+      <li className="stats-item">
+        <span className="stats-label">
+          <span className="stats-dot stats-dot-new"></span>
+          {t('call-logs:summary.new')}
+        </span>
+        <span className="stats-value">{newCalls.toLocaleString()}</span>
+      </li>
+      <li className="stats-item">
+        <span className="stats-label">
+          <span className="stats-dot stats-dot-inprogress"></span>
+          {t('call-logs:summary.inProgress')}
+        </span>
+        <span className="stats-value">{inProgressCalls.toLocaleString()}</span>
+      </li>
+      <li className="stats-item">
+        <span className="stats-label">
+          <span className="stats-dot stats-dot-done"></span>
+          {t('call-logs:summary.done')}
+        </span>
+        <span className="stats-value">{doneCalls.toLocaleString()}</span>
+      </li>
+    </ul>
   );
 };
 
