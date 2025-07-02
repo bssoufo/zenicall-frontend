@@ -5,7 +5,6 @@ import { handleAxiosError } from "../../../@zenidata/api/ApiClient";
 import Loader, { LoadingScreen } from "../../../@zenidata/components/UI/Loader";
 import UserHello from "../../auth/components/UserHello";
 import { formatDate } from "../../../@zenidata/utils";
-import { AnalyticsDashboard } from "../../analytics/components/AnalyticsDashboard";
 import { useClinic } from "../../clinics/hooks/useClinic";
 import { DashboardNewCallsWidget } from "../../call-logs/components/DashboardNewCallsWidget";
 
@@ -138,28 +137,6 @@ function DashboardPage() {
           <div className="iz_new-call-logs-section" style={{ margin: "2rem 0" }}>
             <DashboardNewCallsWidget />
           </div>
-
-          {/* Analytics Dashboard Section */}
-          {selectedClinic ? (
-            <div className="iz_analytics-dashboard-section" style={{ margin: "2rem 0" }}>
-              <AnalyticsDashboard clinicId={selectedClinic.id} />
-            </div>
-          ) : clinics.length > 0 ? (
-            <div className="iz_no-clinic-selected" style={{ 
-              margin: "2rem 0", 
-              padding: "2rem", 
-              textAlign: "center", 
-              background: "#f8fafc", 
-              borderRadius: "8px",
-              border: "1px solid #e2e8f0"
-            }}>
-              <div style={{ color: "#6b7280", fontSize: "16px" }}>
-                <i className="fas fa-chart-bar" style={{ fontSize: "48px", marginBottom: "16px", color: "#3b82f6" }}></i>
-                <h3 style={{ margin: "0 0 8px 0", color: "#374151" }}>Analytics Dashboard</h3>
-                <p style={{ margin: "0" }}>Select a clinic from the header to view detailed analytics and insights.</p>
-              </div>
-            </div>
-          ) : null}
 
           <div className="iz_used-folders-block">
             <div className="iz_content-title iz_flex">

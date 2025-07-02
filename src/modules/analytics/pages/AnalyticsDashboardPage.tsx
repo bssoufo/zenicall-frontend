@@ -3,8 +3,10 @@ import { AnalyticsDashboard } from "../components/AnalyticsDashboard";
 
 const AnalyticsDashboardPage: React.FC = () => {
   return (
-    <div className="analytics-dashboard-page">
-      <AnalyticsDashboard />
+    <div className="iz_content-block iz_content-dasboard iz_position-relative">
+      <div className="iz_content-block-container">
+        <AnalyticsDashboard />
+      </div>
     </div>
   );
 };

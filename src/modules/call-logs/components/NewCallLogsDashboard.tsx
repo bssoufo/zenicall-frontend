@@ -388,7 +388,6 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
             <table>
               <thead>
                 <tr>
-                  <th>{t('call-logs:table.externalId')}</th>
                   <th>{t('call-logs:table.callerName')}</th>
                   <th>{t('call-logs:table.phoneNumber')}</th>
                   <th>{t('call-logs:table.callTime')}</th>
@@ -399,14 +398,6 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
               <tbody>
                 {paginatedCallLogs.map((callLog) => (
                   <tr key={callLog.id} className="call-log-row">
-                    <td className="external-id">
-                      <Link 
-                        to={`/clinics/${selectedClinic.id}/call-logs/${callLog.id}`}
-                        className="call-log-link"
-                      >
-                        {callLog.external_call_id}
-                      </Link>
-                    </td>
                     <td className="caller-name">
                       {callLog.caller_first_name || callLog.caller_last_name
                         ? `${callLog.caller_first_name || ''} ${callLog.caller_last_name || ''}`.trim()
