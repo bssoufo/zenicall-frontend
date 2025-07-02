@@ -85,17 +85,23 @@
     "phoneNumber": "Numéro de Téléphone",
     "callTime": "Heure d'Appel",
     "reason": "Motif",
+    "summary": "Résumé",
     "actions": "Actions"
   },
   "actions": {
     "view": "Voir",
-    "viewDetails": "Voir les détails de l'appel"
+    "viewDetails": "Voir les détails de l'appel",
+    "playAudio": "Écouter l'audio",
+    "pauseAudio": "Mettre en pause l'audio"
   },
   "pagination": {
     "itemsPerPage": "Éléments par page",
     "showing": "Affichage de {{start}} à {{end}} sur {{total}} entrées",
     "previous": "Précédent",
-    "next": "Suivant"
+    "next": "Suivant",
+    "items_10": "10",
+    "items_20": "20",
+    "items_50": "50"
   },
   "errors": {
     "fetchFailed": "Échec du chargement des journaux d'appels",
@@ -107,5 +113,15 @@
     "CALL_LOG_NOT_FOUND": "Journal d'appel introuvable",
     "CLINIC_NOT_FOUND": "Clinique introuvable",
     "generic_error": "Une erreur est survenue. Veuillez réessayer."
+  },
+  "summary": {
+    "totalCalls": "Total des Appels",
+    "new": "Nouveau",
+    "inProgress": "En Cours",
+    "done": "Terminé",
+    "today": "Aujourd'hui",
+    "thisWeek": "Cette Semaine",
+    "thisMonth": "Ce Mois",
+    "thisYear": "Cette Année"
   }
 }

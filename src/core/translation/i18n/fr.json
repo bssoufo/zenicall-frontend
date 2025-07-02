@@ -12,7 +12,9 @@
   "deleting": "Suppression",
   "deletedSuccessfully": "Suppréssion réussie",
   "common": {
-    "retry": "Réessayer"
+    "retry": "Réessayer",
+    "refresh": "Rafraîchir",
+    "refreshing": "Rafraîchissement..."
   },
 
   "errorMessages": {

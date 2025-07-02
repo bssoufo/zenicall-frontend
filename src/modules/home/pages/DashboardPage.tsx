@@ -7,6 +7,7 @@ import UserHello from "../../auth/components/UserHello";
 import { formatDate } from "../../../@zenidata/utils";
 import { useClinic } from "../../clinics/hooks/useClinic";
 import { DashboardNewCallsWidget } from "../../call-logs/components/DashboardNewCallsWidget";
+import DashboardCallLogStats from "../../call-logs/components/DashboardCallLogStats";
 
 function DashboardPage() {
   const { t: tCore } = useTranslation("core");
@@ -18,13 +19,6 @@ function DashboardPage() {
 
   const [totalClinics, setTotalClinics] = useState<number>(0);
   const [loadingTotalClinics, setLoadingTotalClinics] = useState(true);
-  const [callLogsCounter, setCallLogsCounter] = useState({
-    today: 0,
-    thisWeek: 0,
-    thisMonth: 0,
-    thisYear: 0,
-  });
-  const [loadingCallLogsCounter, setLoadingCallLogsCounter] = useState(true);
 
   // Use actual clinics from context
   const fetchTotalClinics = useCallback(async () => {
@@ -42,31 +36,11 @@ function DashboardPage() {
     }
   }, [clinics.length]);
 
-  const fetchCallLogsCount = useCallback(async () => {
-    setError("");
-    try {
-      setLoadingCallLogsCounter(true);
-      // TODO: Replace with actual CallLogService.getCallLogsCount()
-      setTimeout(() => {
-        setCallLogsCounter({
-          today: 12,
-          thisWeek: 45,
-          thisMonth: 180,
-          thisYear: 2100,
-        });
-        setLoadingCallLogsCounter(false);
-      }, 1000);
-    } catch (err) {
-      handleAxiosError(err);
-      setLoadingCallLogsCounter(false);
-    }
-  }, []);
 
   useEffect(() => {
     fetchTotalClinics();
-    fetchCallLogsCount();
     setLoading(false);
-  }, [fetchTotalClinics, fetchCallLogsCount]);
+  }, [fetchTotalClinics]);
 
   return (
     <>
@@ -92,44 +66,7 @@ function DashboardPage() {
                 <span>{t("dashboard.callLogsProcessed")}</span>
               </div>
 
-              {loadingCallLogsCounter ? (
-                <Loader showText={false} />
-              ) : (
-                <div className="iz_content-values-details iz_flex">
-                  <div className="iz_content-value">
-                    <span className="iz_period-name">
-                      {t("dashboard.today")}
-                    </span>
-                    <span className="iz_period-value">
-                      {callLogsCounter.today}
-                    </span>
-                  </div>
-                  <div className="iz_content-value">
-                    <span className="iz_period-name">
-                      {t("dashboard.week")}
-                    </span>
-                    <span className="iz_period-value">
-                      {callLogsCounter.thisWeek}
-                    </span>
-                  </div>
-                  <div className="iz_content-value">
-                    <span className="iz_period-name">
-                      {t("dashboard.month")}
-                    </span>
-                    <span className="iz_period-value">
-                      {callLogsCounter.thisMonth}
-                    </span>
-                  </div>
-                  <div className="iz_content-value">
-                    <span className="iz_period-name">
-                      {t("dashboard.year")}
-                    </span>
-                    <span className="iz_period-value">
-                      {callLogsCounter.thisYear}
-                    </span>
-                  </div>
-                </div>
-              )}
+              <DashboardCallLogStats />
             </div>
           </div>
 
@@ -138,53 +75,6 @@ function DashboardPage() {
             <DashboardNewCallsWidget />
           </div>
 
-          <div className="iz_used-folders-block">
-            <div className="iz_content-title iz_flex">
-              <h2 className="iz_title-h2">{t("dashboard.clinicsOverview")}</h2>
-              <div className="iz_flex iz_content-links">
-                <Link
-                  to="/clinics/"
-                  title="View All Clinics"
-                  className="iz_link-blue">
-                  {t("dashboard.viewAll")}
-                </Link>
-                <Link
-                  to="/clinics/create"
-                  className="iz_btn iz_btn-primary iz_hidden-mobile">
-                  {t("dashboard.addClinic")}
-                </Link>
-              </div>
-            </div>
-            {loading ? (
-              <LoadingScreen />
-            ) : (
-              <div className="iz_used-folders-boxes iz_flex">
-                <div className="iz_folder-box iz_flex iz_position-relative">
-                  <div className="iz_folder-box-content">
-                    <div className="iz_folder-box-icon">
-                      <i className="iz_icon-folder-box"></i>
-                    </div>
-                    <div className="iz_folder-box-details iz_flex">
-                      <span className="iz_folder-name">Dental Clinic A</span>
-                      <span className="iz_folder-qty">
-                        25 {t("dashboard.callLogs")}
-                      </span>
-                    </div>
-                  </div>
-                  <Link
-                    to={`/clinics/1`}
-                    className="iz_link-overlay"></Link>
-                </div>
-              </div>
-            )}
-            <div className="iz_content-title iz_flex  iz_hidden-tablet-desktop">
-              <div className="iz_flex iz_content-links">
-                <Link to="/clinics/create" className="iz_btn iz_btn-primary iz_btn-add-folder">
-                  {t("dashboard.addClinic")}
-                </Link>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </>

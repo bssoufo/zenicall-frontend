@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { useClinic } from '../../clinics/hooks/useClinic';
@@ -6,6 +6,7 @@ import CallLogService from '../CallLogService';
 import { CallLogListView } from '../CallLogModel';
 import { LoadingScreen } from '../../../@zenidata/components/UI/Loader';
 import { useDebounce } from '../../../@zenidata/hooks/useDebounce';
+import CallLogSummary from './CallLogSummary';
 import './NewCallLogsDashboard.css';
 
 interface NewCallLogsDashboardProps {
@@ -46,7 +47,6 @@ const CallLogSkeleton: React.FC = () => (
 
 export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
   maxItems = 50,
-  refreshInterval = 30000, // 30 seconds
   showFilters = true
 }) => {
   const { t } = useTranslation(['call-logs', 'core']);
@@ -57,6 +57,8 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [lastFetchTime, setLastFetchTime] = useState<Date | null>(null);
+  const [playingAudioId, setPlayingAudioId] = useState<string | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
   
   // Filter state
   const [filters, setFilters] = useState<Filters>({
@@ -163,13 +165,13 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
     }
   }, [hasActiveFilters, fetchNewCalls, fetchFilteredCalls]);
 
-  // Auto-refresh effect for new calls only (not filtered results)
-  useEffect(() => {
-    if (!hasActiveFilters && refreshInterval > 0) {
-      const interval = setInterval(fetchNewCalls, refreshInterval);
-      return () => clearInterval(interval);
+  const handleRefresh = () => {
+    if (hasActiveFilters) {
+      fetchFilteredCalls();
+    } else {
+      fetchNewCalls();
     }
-  }, [hasActiveFilters, refreshInterval, fetchNewCalls]);
+  };
 
   // Filter change handlers
   const handleFilterChange = useCallback((field: keyof Filters, value: string) => {
@@ -192,6 +194,38 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
       itemsPerPage: newItemsPerPage,
       currentPage: 1
     }));
+  }, []);
+
+  const togglePlayPause = useCallback((callLogId: string, audioUrl: string) => {
+    if (audioRef.current) {
+      if (playingAudioId === callLogId) {
+        // If the same audio is playing, pause it
+        audioRef.current.pause();
+        setPlayingAudioId(null);
+      } else {
+        // If a different audio is playing or no audio is playing, stop current and play new
+        audioRef.current.pause();
+        audioRef.current.src = audioUrl;
+        audioRef.current.play();
+        setPlayingAudioId(callLogId);
+      }
+    } else {
+      // If audioRef is null (first time playing)
+      audioRef.current = new Audio(audioUrl);
+      audioRef.current.play();
+      setPlayingAudioId(callLogId);
+    }
+  }, [playingAudioId]);
+
+  // Listen for audio ending to reset state
+  useEffect(() => {
+    if (audioRef.current) {
+      const onEnded = () => setPlayingAudioId(null);
+      audioRef.current.addEventListener('ended', onEnded);
+      return () => {
+        audioRef.current?.removeEventListener('ended', onEnded);
+      };
+    }
   }, []);
 
   // Clear filters
@@ -244,21 +278,9 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
               : t('call-logs:dashboard.newCallsTitle')
             }
           </h2>
-          <div className="header-meta">
-            {lastFetchTime && (
-              <span className="last-updated">
-                {t('call-logs:dashboard.lastUpdated')}: {lastFetchTime.toLocaleTimeString()}
-              </span>
-            )}
-            {!hasActiveFilters && (
-              <div className="auto-refresh-indicator">
-                <i className="fas fa-sync-alt"></i>
-                {t('call-logs:dashboard.autoRefresh')}
-              </div>
-            )}
-          </div>
         </div>
       </div>
+
 
       {/* Filters Section */}
       {showFilters && (
@@ -332,9 +354,9 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
             onChange={(e) => handleItemsPerPageChange(Number(e.target.value))}
             className="items-per-page-select"
           >
-            <option value={10}>10</option>
-            <option value={20}>20</option>
-            <option value={50}>50</option>
+            <option value={10}>{t('call-logs:pagination.items_10')}</option>
+            <option value={20}>{t('call-logs:pagination.items_20')}</option>
+            <option value={50}>{t('call-logs:pagination.items_50')}</option>
           </select>
         </div>
         
@@ -347,6 +369,27 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
             })}
           </div>
         )}
+
+        <div className="header-meta" style={{marginLeft: "auto"}}>
+          {lastFetchTime && (
+            <span className="last-updated">
+              {t('call-logs:dashboard.lastUpdated')}: {lastFetchTime.toLocaleTimeString()}
+            </span>
+          )}
+          <button onClick={handleRefresh} className="refresh-btn" disabled={loading}>
+            {loading ? (
+              <>
+                <i className="fas fa-sync-alt fa-spin"></i>
+                {t('core:common.refreshing')}
+              </>
+            ) : (
+              <>
+                <i className="fas fa-sync-alt"></i>
+                {t('core:common.refresh')}
+              </>
+            )}
+          </button>
+        </div>
       </div>
 
       {/* Call Logs Table */}
@@ -392,6 +435,7 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
                   <th>{t('call-logs:table.phoneNumber')}</th>
                   <th>{t('call-logs:table.callTime')}</th>
                   <th>{t('call-logs:table.reason')}</th>
+                  <th>{t('call-logs:table.summary')}</th>
                   <th>{t('call-logs:table.actions')}</th>
                 </tr>
               </thead>
@@ -415,7 +459,19 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
                     <td className="reason">
                       {callLog.reason_for_call || '-'}
                     </td>
+                    <td className="summary">
+                      {callLog.summary || '-'}
+                    </td>
                     <td className="actions">
+                      {callLog.audio_recording_url && (
+                        <button
+                          onClick={() => togglePlayPause(callLog.id, callLog.audio_recording_url!)}
+                          className="audio-play-btn"
+                          title={playingAudioId === callLog.id ? t('call-logs:actions.pauseAudio') : t('call-logs:actions.playAudio')}
+                        >
+                          <i className={`fas ${playingAudioId === callLog.id ? 'fa-pause' : 'fa-play'}`}></i>
+                        </button>
+                      )}
                       <Link 
                         to={`/clinics/${selectedClinic.id}/call-logs/${callLog.id}`}
                         className="view-btn"

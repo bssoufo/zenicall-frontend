@@ -12,7 +12,9 @@
   "deleting": "Deleting",
   "deletedSuccessfully": "Deleted successfully",
   "common": {
-    "retry": "Retry"
+    "retry": "Retry",
+    "refresh": "Refresh",
+    "refreshing": "Refreshing..."
   },
 
   "errorMessages": {

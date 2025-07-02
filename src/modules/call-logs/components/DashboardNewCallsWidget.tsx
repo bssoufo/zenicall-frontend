@@ -10,7 +10,6 @@ export const DashboardNewCallsWidget: React.FC = () => {
     <div className="dashboard-widget">
       <NewCallLogsDashboard
         maxItems={10}           // Limit to 10 items for dashboard
-        refreshInterval={30000} // Refresh every 30 seconds
         showFilters={true}      // Show filters for dashboard use
       />
     </div>

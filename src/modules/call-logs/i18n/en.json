@@ -85,17 +85,23 @@
     "phoneNumber": "Phone Number",
     "callTime": "Call Time",
     "reason": "Reason",
+    "summary": "Summary",
     "actions": "Actions"
   },
   "actions": {
     "view": "View",
-    "viewDetails": "View call details"
+    "viewDetails": "View call details",
+    "playAudio": "Play Audio",
+    "pauseAudio": "Pause Audio"
   },
   "pagination": {
     "itemsPerPage": "Items per page",
     "showing": "Showing {{start}} to {{end}} of {{total}} entries",
     "previous": "Previous",
-    "next": "Next"
+    "next": "Next",
+    "items_10": "10",
+    "items_20": "20",
+    "items_50": "50"
   },
   "errors": {
     "fetchFailed": "Failed to fetch call logs",
@@ -107,5 +113,15 @@
     "CALL_LOG_NOT_FOUND": "Call log not found",
     "CLINIC_NOT_FOUND": "Clinic not found",
     "generic_error": "An error occurred. Please try again."
+  },
+  "summary": {
+    "totalCalls": "Total Calls",
+    "new": "New",
+    "inProgress": "In Progress", 
+    "done": "Done",
+    "today": "Today",
+    "thisWeek": "This Week",
+    "thisMonth": "This Month",
+    "thisYear": "This Year"
   }
 }

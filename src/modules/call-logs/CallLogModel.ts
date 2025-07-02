@@ -46,6 +46,8 @@ export interface CallLogListView {
   call_started_at: string;
   reason_for_call?: CallLogReasonForCall | null;
   status: CallLogStatus;
+  summary?: string | null; // Added for dashboard summary
+  audio_recording_url?: string | null; // Added for dashboard audio playback
   clinic: ClinicRead;
 }
 

@@ -9,7 +9,10 @@
       "Bash(mv:*)",
       "Bash(grep:*)",
       "Bash(npm install:*)",
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "Bash(npm run lint)",
+      "Bash(timeout 10s npm run dev)",
+      "Bash(npm run:*)"
     ],
     "deny": []
   }
