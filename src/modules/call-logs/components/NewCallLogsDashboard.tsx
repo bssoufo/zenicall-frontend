@@ -265,20 +265,9 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
 
   return (
     <div className="new-calls-dashboard">
-      {/* Dashboard Header */}
-      <div className="dashboard-header">
-        <div className="header-content">
-          <h2 className="dashboard-title">
-            {hasActiveFilters 
-              ? t('call-logs:dashboard.filteredCallsTitle')
-              : t('call-logs:dashboard.newCallsTitle')
-            }
-          </h2>
-        </div>
-      </div>
 
 
-      {/* Filters Section */}
+      {/* Compact Filters Section */}
       {showFilters && (
         <div className="filters-section">
           <div className="filters-grid">
@@ -327,16 +316,29 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
                 className="filter-input"
               />
             </div>
-          </div>
-          
-          {hasActiveFilters && (
+            
             <div className="filter-actions">
-              <button onClick={clearFilters} className="clear-filters-btn">
-                <i className="fas fa-times"></i>
-                {t('call-logs:filters.clearAll')}
+              <button onClick={handleRefresh} className="refresh-btn" disabled={loading}>
+                {loading ? (
+                  <>
+                    <i className="fas fa-sync-alt fa-spin"></i>
+                    {t('core:common.refreshing')}
+                  </>
+                ) : (
+                  <>
+                    <i className="fas fa-sync-alt"></i>
+                    {t('core:common.refresh')}
+                  </>
+                )}
               </button>
+              {hasActiveFilters && (
+                <button onClick={clearFilters} className="clear-filters-btn">
+                  <i className="fas fa-times"></i>
+                  {t('call-logs:filters.clearAll')}
+                </button>
+              )}
             </div>
-          )}
+          </div>
         </div>
       )}
 
@@ -372,19 +374,6 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
               {t('call-logs:dashboard.lastUpdated')}: {lastFetchTime.toLocaleTimeString()}
             </span>
           )}
-          <button onClick={handleRefresh} className="refresh-btn" disabled={loading}>
-            {loading ? (
-              <>
-                <i className="fas fa-sync-alt fa-spin"></i>
-                {t('core:common.refreshing')}
-              </>
-            ) : (
-              <>
-                <i className="fas fa-sync-alt"></i>
-                {t('core:common.refresh')}
-              </>
-            )}
-          </button>
         </div>
       </div>
 
@@ -436,12 +425,16 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
                 </tr>
               </thead>
               <tbody>
-                {paginatedCallLogs.map((callLog) => (
-                  <tr key={callLog.id} className="call-log-row">
+                {paginatedCallLogs.map((callLog) => {
+                  // Check if call is recent (within last hour) to mark as "new"
+                  const isNewCall = new Date(callLog.call_started_at) > new Date(Date.now() - 60 * 60 * 1000);
+                  
+                  return (
+                  <tr key={callLog.id} className={`call-log-row ${isNewCall ? 'new-call' : ''}`}>
                     <td className="caller-name">
                       {callLog.caller_first_name || callLog.caller_last_name
                         ? `${callLog.caller_first_name || ''} ${callLog.caller_last_name || ''}`.trim()
-                        : '-'
+                        : <span className="unknown-caller">Appelant inconnu</span>
                       }
                     </td>
                     <td className="phone-number">
@@ -453,10 +446,23 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
                       {new Date(callLog.call_started_at).toLocaleString()}
                     </td>
                     <td className="reason">
-                      {callLog.reason_for_call || '-'}
+                      {callLog.reason_for_call || <span className="unknown-info">Non spécifié</span>}
                     </td>
                     <td className="summary">
-                      {callLog.summary || '-'}
+                      {callLog.summary ? (
+                        <span 
+                          className="summary-text" 
+                          title={callLog.summary}
+                          data-tooltip={callLog.summary}
+                        >
+                          {callLog.summary.length > 50 
+                            ? `${callLog.summary.substring(0, 50)}...` 
+                            : callLog.summary
+                          }
+                        </span>
+                      ) : (
+                        <span className="unknown-info">Aucun résumé</span>
+                      )}
                     </td>
                     <td className="actions">
                       {callLog.audio_recording_url && (
@@ -478,7 +484,8 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
                       </Link>
                     </td>
                   </tr>
-                ))}
+                  );
+                })}
               </tbody>
             </table>
           </div>

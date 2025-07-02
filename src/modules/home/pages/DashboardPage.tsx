@@ -71,15 +71,10 @@ function DashboardPage() {
           <DashboardCallLogStats />
         </section>
 
-        {/* New Call Logs Section */}
-        <section className="dashboard-calls" aria-labelledby="calls-title">
-          <div className="section-header">
-            <h2 id="calls-title" className="section-title">{t("dashboard.recentCallLogs")}</h2>
-            <p className="section-description">{t("dashboard.callsDescription")}</p>
-          </div>
-          <div className="calls-widget">
-            <DashboardNewCallsWidget />
-          </div>
+        {/* Call Logs Section */}
+        <section className="dashboard-call-logs-section" aria-labelledby="call-logs-title">
+          <h2 id="call-logs-title" className="call-logs-section-title">Journaux d'Appels</h2>
+          <DashboardNewCallsWidget />
         </section>
 
         {/* Quick Actions Section */}

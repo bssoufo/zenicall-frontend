@@ -8,14 +8,10 @@ import './DashboardNewCallsWidget.css';
  */
 export const DashboardNewCallsWidget: React.FC = () => {
   return (
-    <div className="dashboard-widget-container">
-      <div className="dashboard-widget-content">
-        <NewCallLogsDashboard
-          maxItems={10}           // Limit to 10 items for dashboard
-          showFilters={true}      // Show filters for dashboard use
-        />
-      </div>
-    </div>
+    <NewCallLogsDashboard
+      maxItems={10}           // Limit to 10 items for dashboard
+      showFilters={true}      // Show filters for dashboard use
+    />
   );
 };
 

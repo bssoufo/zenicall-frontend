@@ -103,24 +103,18 @@
 }
 
 
-/* Calls Section */
-.dashboard-calls {
-  background: white;
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e2e8f0;
+/* Call Logs Section - Direct on page background */
+.dashboard-call-logs-section {
+  margin-bottom: 2rem;
 }
 
-.section-header {
-  margin-bottom: 1rem;
-}
-
-.calls-widget {
-  background: #f8fafc;
-  border-radius: 8px;
-  padding: 1rem;
-  border: 1px solid #e2e8f0;
+.call-logs-section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0 0 1rem 0;
+  padding: 0;
+  background: none;
 }
 
 /* Quick Actions Section */
