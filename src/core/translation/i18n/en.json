@@ -11,6 +11,9 @@
   "selectAction": "Select Action",
   "deleting": "Deleting",
   "deletedSuccessfully": "Deleted successfully",
+  "common": {
+    "retry": "Retry"
+  },
 
   "errorMessages": {
     "SESSION_EXPIRED": "You session was expired. Please login agin",

@@ -6,7 +6,10 @@
       "Bash(npx tsc:*)",
       "Bash(timeout 10 npm start)",
       "Bash(true)",
-      "Bash(mv:*)"
+      "Bash(mv:*)",
+      "Bash(grep:*)",
+      "Bash(npm install:*)",
+      "Bash(mkdir:*)"
     ],
     "deny": []
   }

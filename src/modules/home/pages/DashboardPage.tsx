@@ -5,10 +5,14 @@ import { handleAxiosError } from "../../../@zenidata/api/ApiClient";
 import Loader, { LoadingScreen } from "../../../@zenidata/components/UI/Loader";
 import UserHello from "../../auth/components/UserHello";
 import { formatDate } from "../../../@zenidata/utils";
+import { AnalyticsDashboard } from "../../analytics/components/AnalyticsDashboard";
+import { useClinic } from "../../clinics/hooks/useClinic";
+import { DashboardNewCallsWidget } from "../../call-logs/components/DashboardNewCallsWidget";
 
 function DashboardPage() {
   const { t: tCore } = useTranslation("core");
   const { t } = useTranslation("home");
+  const { selectedClinic, clinics } = useClinic();
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -23,21 +27,21 @@ function DashboardPage() {
   });
   const [loadingCallLogsCounter, setLoadingCallLogsCounter] = useState(true);
 
-  // Mock fetch functions - replace with actual API calls when ready
+  // Use actual clinics from context
   const fetchTotalClinics = useCallback(async () => {
     setError("");
     try {
       setLoadingTotalClinics(true);
-      // TODO: Replace with actual ClinicService.getTotalClinics()
+      // Use actual clinics count from context
       setTimeout(() => {
-        setTotalClinics(5); // Mock data
+        setTotalClinics(clinics.length);
         setLoadingTotalClinics(false);
-      }, 1000);
+      }, 500);
     } catch (err) {
       handleAxiosError(err);
       setLoadingTotalClinics(false);
     }
-  }, []);
+  }, [clinics.length]);
 
   const fetchCallLogsCount = useCallback(async () => {
     setError("");
@@ -130,6 +134,33 @@ function DashboardPage() {
             </div>
           </div>
 
+          {/* New Call Logs Dashboard Section */}
+          <div className="iz_new-call-logs-section" style={{ margin: "2rem 0" }}>
+            <DashboardNewCallsWidget />
+          </div>
+
+          {/* Analytics Dashboard Section */}
+          {selectedClinic ? (
+            <div className="iz_analytics-dashboard-section" style={{ margin: "2rem 0" }}>
+              <AnalyticsDashboard clinicId={selectedClinic.id} />
+            </div>
+          ) : clinics.length > 0 ? (
+            <div className="iz_no-clinic-selected" style={{ 
+              margin: "2rem 0", 
+              padding: "2rem", 
+              textAlign: "center", 
+              background: "#f8fafc", 
+              borderRadius: "8px",
+              border: "1px solid #e2e8f0"
+            }}>
+              <div style={{ color: "#6b7280", fontSize: "16px" }}>
+                <i className="fas fa-chart-bar" style={{ fontSize: "48px", marginBottom: "16px", color: "#3b82f6" }}></i>
+                <h3 style={{ margin: "0 0 8px 0", color: "#374151" }}>Analytics Dashboard</h3>
+                <p style={{ margin: "0" }}>Select a clinic from the header to view detailed analytics and insights.</p>
+              </div>
+            </div>
+          ) : null}
+
           <div className="iz_used-folders-block">
             <div className="iz_content-title iz_flex">
               <h2 className="iz_title-h2">{t("dashboard.clinicsOverview")}</h2>
@@ -176,49 +207,6 @@ function DashboardPage() {
                 </Link>
               </div>
             </div>
-          </div>
-
-          <div className="iz_documents-block">
-            <div className="iz_content-title iz_flex">
-              <h2 className="iz_title-h2">
-                {t("dashboard.recentCallLogs")}
-              </h2>
-            </div>
-            {loading ? (
-              <LoadingScreen />
-            ) : (
-              <div className="iz-listing-docs iz_listing-table">
-                <div className="iz_hidden-tablet-desktop iz_listing-docs-content iz_listing-table-content">
-                  <div className="iz_item-doc iz_item-table">
-                    <div className="iz_item-doc-content">
-                      <h3 className="iz_name-document iz_item-name">
-                        Call from John Doe
-                      </h3>
-                      <div className="iz_fields-document iz_fields-table">
-                        <div className="iz_field-document iz_field-table iz_flex">
-                          <span>Clinic</span>
-                          <span>Dental Clinic A</span>
-                        </div>
-                        <div className="iz_field-document iz_field-table iz_flex">
-                          <span>Status</span>
-                          <span>New</span>
-                        </div>
-                        <div className="iz_field-document iz_field-table iz_flex">
-                          <span>Date</span>
-                          <span>{formatDate(new Date().toISOString())}</span>
-                        </div>
-                      </div>
-                      <Link
-                        to={`/clinics/1/call-logs/1`}
-                        title="View call log"
-                        className="iz_link-document iz_field-link-table">
-                        View Call Log
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
           </div>
         </div>
       </div>

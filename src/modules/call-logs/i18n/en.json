@@ -26,20 +26,82 @@
   "callLogDetail": {
     "title": "Call Log Details",
     "backToList": "Back to Call Logs",
-    "callerInfo": "Caller Information",
+    "callerInfo": "Caller Information", 
     "callInfo": "Call Information",
+    "managementInfo": "Management Information",
+    "metadata": "Metadata",
     "summary": "Summary",
+    "summaryPlaceholder": "Add notes or summary about this call...",
     "detailedReason": "Detailed Reason",
     "preferredDentist": "Preferred Dentist",
     "audioRecording": "Audio Recording",
     "cost": "Cost",
-    "endedReason": "Ended Reason",
-    "transcript": "Transcript",
-    "fullConversation": "Full Conversation JSON",
-    "rawData": "Raw Data",
+    "endedReason": "Call End Reason",
+    "transcript": "Call Transcript",
+    "fullConversation": "Full Conversation Data",
+    "rawData": "Raw Structured Data",
     "callbackPreference": "Callback Preference",
+    "existingPatient": "Patient Type",
+    "existingPatientYes": "Existing Patient",
+    "existingPatientNo": "New Patient", 
+    "callTime": "Call Time",
+    "duration": "Duration",
+    "durationUnknown": "Duration unknown",
+    "save": "Save Changes",
+    "saving": "Saving...",
     "saveSuccess": "Call log updated successfully",
-    "saveError": "Failed to update call log"
+    "saveError": "Failed to update call log",
+    "lastUpdatedBy": "Last updated by {{user}} on {{date}}",
+    "audioNotSupported": "Your browser does not support audio playback",
+    "downloadAudio": "Download Audio",
+    "createdAt": "Created At",
+    "updatedAt": "Last Updated", 
+    "internalId": "Internal ID"
+  },
+  "dashboard": {
+    "newCallsTitle": "New Call Logs",
+    "filteredCallsTitle": "Filtered Call Logs",
+    "noClinicSelected": "No Clinic Selected",
+    "selectClinicMessage": "Please select a clinic to view call logs.",
+    "lastUpdated": "Last updated",
+    "autoRefresh": "Auto-refresh enabled",
+    "noNewCalls": "No new calls",
+    "noFilteredResults": "No calls found",
+    "checkBackLater": "Check back later for new incoming calls.",
+    "tryDifferentFilters": "Try adjusting your search criteria."
+  },
+  "filters": {
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "firstNamePlaceholder": "Search by first name...",
+    "lastNamePlaceholder": "Search by last name...",
+    "clearAll": "Clear All Filters"
+  },
+  "table": {
+    "externalId": "Call ID",
+    "callerName": "Caller Name",
+    "phoneNumber": "Phone Number",
+    "callTime": "Call Time",
+    "reason": "Reason",
+    "actions": "Actions"
+  },
+  "actions": {
+    "view": "View",
+    "viewDetails": "View call details"
+  },
+  "pagination": {
+    "itemsPerPage": "Items per page",
+    "showing": "Showing {{start}} to {{end}} of {{total}} entries",
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "errors": {
+    "fetchFailed": "Failed to fetch call logs",
+    "searchFailed": "Failed to search call logs", 
+    "loadError": "Unable to load call logs",
+    "invalidId": "Invalid call log ID"
   },
   "api_messages": {
     "CALL_LOG_NOT_FOUND": "Call log not found",

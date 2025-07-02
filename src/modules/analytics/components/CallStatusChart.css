@@ -1,0 +1,247 @@
+/* Call Status Chart */
+.call-status-chart {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid #f3f4f6;
+  display: flex;
+  flex-direction: column;
+}
+
+.status-chart-header {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.status-chart-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 8px 0;
+}
+
+.status-chart-subtitle {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0 0 12px 0;
+}
+
+.status-chart-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+}
+
+.total-calls {
+  font-weight: 600;
+  color: #374151;
+}
+
+.dominant-status {
+  color: #6b7280;
+}
+
+/* Chart Container */
+.status-chart-container {
+  position: relative;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Donut Center Content */
+.donut-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
+}
+
+.center-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1f2937;
+  line-height: 1;
+}
+
+.center-label {
+  font-size: 12px;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 4px;
+}
+
+/* Legend */
+.status-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  background: #f9fafb;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.legend-item:hover {
+  background: #f3f4f6;
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.legend-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+}
+
+.legend-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.legend-value {
+  font-size: 13px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+/* Custom Tooltip */
+.status-chart-tooltip {
+  background: white;
+  padding: 12px 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: 1px solid #e5e7eb;
+  font-size: 13px;
+}
+
+.tooltip-label {
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 4px 0;
+}
+
+.tooltip-value {
+  color: #6b7280;
+  margin: 0;
+}
+
+/* Error and Empty States */
+.status-chart-error,
+.status-chart-empty {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid #f3f4f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.status-chart-error-content,
+.status-chart-empty-content {
+  text-align: center;
+  color: #6b7280;
+}
+
+.status-chart-error-content i,
+.status-chart-empty-content i {
+  font-size: 32px;
+  color: #f59e0b;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.status-chart-empty-content i {
+  color: #9ca3af;
+}
+
+.status-chart-error-content p,
+.status-chart-empty-content p {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0 0 4px 0;
+}
+
+.status-chart-error-content small {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .call-status-chart {
+    padding: 16px;
+  }
+  
+  .status-chart-title {
+    font-size: 16px;
+  }
+  
+  .status-chart-subtitle {
+    font-size: 13px;
+  }
+  
+  .status-chart-summary {
+    font-size: 12px;
+  }
+  
+  .center-value {
+    font-size: 20px;
+  }
+  
+  .center-label {
+    font-size: 11px;
+  }
+  
+  .legend-item {
+    padding: 6px 10px;
+    gap: 10px;
+  }
+  
+  .legend-label {
+    font-size: 13px;
+  }
+  
+  .legend-value {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .call-status-chart {
+    padding: 12px;
+  }
+  
+  .status-chart-header {
+    margin-bottom: 16px;
+  }
+  
+  .legend-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+}

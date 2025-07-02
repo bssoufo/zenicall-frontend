@@ -22,6 +22,8 @@ import clinicsEn from "../../modules/clinics/i18n/en.json";
 import clinicsFr from "../../modules/clinics/i18n/fr.json";
 import callLogsEn from "../../modules/call-logs/i18n/en.json";
 import callLogsFr from "../../modules/call-logs/i18n/fr.json";
+import analyticsEn from "../../modules/analytics/i18n/en.json";
+import analyticsFr from "../../modules/analytics/i18n/fr.json";
 
 // Importez d'autres langues ici si nécessaire
 const savedLanguage = localStorage.getItem("language") || "en";
@@ -33,6 +35,7 @@ const resources = {
     users: usersEn,
     clinics: clinicsEn,
     'call-logs': callLogsEn,
+    analytics: analyticsEn,
   },
   fr: {
     core: coreFr,
@@ -41,6 +44,7 @@ const resources = {
     users: usersFr,
     clinics: clinicsFr,
     'call-logs': callLogsFr,
+    analytics: analyticsFr,
   },
 };
 
@@ -56,6 +60,7 @@ i18n
       "users",
       "clinics",
       "call-logs",
+      "analytics",
     ], // Espaces de noms (un par module)
     defaultNS: "core",
     lng: savedLanguage, // Langue par défaut

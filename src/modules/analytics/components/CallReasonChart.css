@@ -1,0 +1,124 @@
+/* Call Reason Chart */
+.call-reason-chart {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid #f3f4f6;
+}
+
+.reason-chart-header {
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.reason-chart-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 8px 0;
+}
+
+.reason-chart-subtitle {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+}
+
+.reason-chart-error,
+.reason-chart-empty {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid #f3f4f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reason-chart-error-content,
+.reason-chart-empty-content {
+  text-align: center;
+  color: #6b7280;
+}
+
+.reason-chart-error-content i,
+.reason-chart-empty-content i {
+  font-size: 32px;
+  color: #f59e0b;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.reason-chart-empty-content i {
+  color: #9ca3af;
+}
+
+.reason-chart-error-content p,
+.reason-chart-empty-content p {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0 0 4px 0;
+}
+
+.reason-chart-error-content small {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+/* Custom Tooltip */
+.reason-chart-tooltip {
+  background: white;
+  padding: 12px 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: 1px solid #e5e7eb;
+  font-size: 13px;
+}
+
+.tooltip-label {
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 4px 0;
+}
+
+.tooltip-value {
+  color: #6b7280;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .call-reason-chart {
+    padding: 16px;
+  }
+  
+  .reason-chart-header {
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+  }
+  
+  .reason-chart-title {
+    font-size: 16px;
+  }
+  
+  .reason-chart-subtitle {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .call-reason-chart {
+    padding: 12px;
+  }
+  
+  .reason-chart-title {
+    font-size: 14px;
+  }
+  
+  .reason-chart-subtitle {
+    font-size: 12px;
+  }
+}

@@ -225,6 +225,28 @@ function AppLayout() {
                     </a>
                   </li>
 
+                  <li
+                    className={`${
+                      isActive("/call-logs") ? "iz_menu-active" : ""
+                    }`}
+                  >
+                    <a onClick={() => sidebarNavigateTo("/call-logs")}>
+                      <i className="fas fa-phone-alt"></i>{" "}
+                      Call Logs
+                    </a>
+                  </li>
+
+                  <li
+                    className={`${
+                      isActive("/analytics") ? "iz_menu-active" : ""
+                    }`}
+                  >
+                    <a onClick={() => sidebarNavigateTo("/analytics")}>
+                      <i className="fas fa-chart-bar"></i>{" "}
+                      Analytics
+                    </a>
+                  </li>
+
                   {/* iz_has-menu-child */}
                   <li
                     className={`${

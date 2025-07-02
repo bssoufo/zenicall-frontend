@@ -25,7 +25,9 @@ import ClinicListPage from "../modules/clinics/pages/ClinicListPage";
 import AddClinicPage from "../modules/clinics/pages/AddClinicPage";
 import ClinicDetailsPage from "../modules/clinics/pages/ClinicDetailsPage";
 import CallLogListPage from "../modules/call-logs/pages/CallLogListPage";
+import CallLogListPageWithContext from "../modules/call-logs/pages/CallLogListPageWithContext";
 import CallLogDetailPage from "../modules/call-logs/pages/CallLogDetailPage";
+import AnalyticsDashboardPage from "../modules/analytics/pages/AnalyticsDashboardPage";
 
 // const AppLayout: React.FC = () => (
 //   <div>
@@ -144,6 +146,14 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "/call-logs",
+        element: (
+          <PrivateRoute>
+            <CallLogListPageWithContext />
+          </PrivateRoute>
+        ),
+      },
+      {
         path: "/clinics/:clinicId/call-logs",
         element: (
           <PrivateRoute>
@@ -172,6 +182,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <SupportPage />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/analytics",
+        element: (
+          <PrivateRoute>
+            <AnalyticsDashboardPage />
           </PrivateRoute>
         ),
       },

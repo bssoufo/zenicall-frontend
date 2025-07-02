@@ -1,0 +1,77 @@
+{
+  "dashboard": {
+    "title": "Tableau de Bord Analytique",
+    "subtitle": "Informations en temps réel pour {{clinicName}}",
+    "noClinicSelected": "Aucune Clinique Sélectionnée",
+    "noClinicMessage": "Veuillez sélectionner une clinique pour voir les analyses",
+    "refreshData": "Actualiser les Données",
+    "loadingAdvanced": "Chargement des analyses avancées..."
+  },
+  "controls": {
+    "timePeriod": "Période de Temps",
+    "chartType": "Type de Graphique",
+    "last24Hours": "Dernières 24 Heures",
+    "last7Days": "7 Derniers Jours",
+    "last30Days": "30 Derniers Jours",
+    "last90Days": "90 Derniers Jours",
+    "areaChart": "Graphique en Aires",
+    "barChart": "Graphique en Barres"
+  },
+  "kpi": {
+    "totalCalls": "Total des Appels",
+    "dailyAverage": "Moyenne Quotidienne",
+    "newCalls": "Nouveaux Appels",
+    "completionRate": "Taux de Completion",
+    "peakAt": "Pic à {{hour}}:00",
+    "noPeakIdentified": "Aucun pic identifié",
+    "inProgress": "{{count}} en cours",
+    "completed": "{{count}} terminés",
+    "errorLoading": "Impossible de charger les métriques du tableau de bord",
+    "failedToLoad": "Échec du chargement des données KPI",
+    "lastPeriod": "Derniers {{period}}"
+  },
+  "charts": {
+    "callVolume": {
+      "title": "Volume d'Appels dans le Temps",
+      "subtitle": "Suivez les modèles et tendances d'appels",
+      "yAxisLabel": "Nombre d'Appels",
+      "noData": "Aucune donnée de volume d'appels disponible pour cette période"
+    },
+    "callStatus": {
+      "title": "Distribution du Statut des Appels",
+      "subtitle": "Répartition actuelle des statuts",
+      "noData": "Aucune donnée de statut disponible"
+    },
+    "callReason": {
+      "title": "Raisons des Appels",
+      "subtitle": "Raisons les plus courantes pour les appels",
+      "noData": "Aucune donnée de raisons d'appels disponible"
+    },
+    "hourlyPatterns": {
+      "title": "Modèles d'Appels par Heure",
+      "subtitle": "Heures de pointe et distribution d'activité",
+      "noData": "Aucune donnée de modèle horaire disponible"
+    },
+    "comparison": {
+      "title": "Comparaison de Période",
+      "subtitle": "Performance de la période actuelle vs précédente",
+      "currentPeriod": "Période Actuelle",
+      "previousPeriod": "Période Précédente",
+      "noData": "Aucune donnée de comparaison disponible"
+    },
+    "loadingChart": "Chargement des données du graphique...",
+    "errorLoading": "Échec du chargement des données du graphique"
+  },
+  "status": {
+    "new": "Nouveau",
+    "inProgress": "En Cours",
+    "done": "Terminé", 
+    "archived": "Archivé"
+  },
+  "time": {
+    "hours": "heures",
+    "days": "jours",
+    "weeks": "semaines",
+    "months": "mois"
+  }
+}

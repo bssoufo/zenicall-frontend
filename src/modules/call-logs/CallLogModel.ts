@@ -1,34 +1,44 @@
 // src/modules/call-logs/CallLogModel.ts
 // Interfaces for Call Logs feature, based on spec-call.md definitions.
 
-// Clinic info for call log context
+// Clinic info for call log context (matching OpenAPI ClinicRead)
 export interface ClinicRead {
-  id: number;
+  id: string; // UUID format in OpenAPI
   name: string;
   created_at: string;
-  updated_at: string;
+  updated_at?: string | null;
 }
 
-// Enum types for call logs
-export type CallLogReasonForCall =
-  | 'NEW_APPOINTMENT'
-  | 'CANCELLATION'
-  | 'RESCHEDULE'
-  | 'GENERAL_MESSAGE'
-  | 'EMERGENCY'
-  | 'OTHER';
+// User info for call log context (matching OpenAPI UserInClinicRead)
+export interface UserInClinicRead {
+  id: number;
+  username: string;
+  email: string;
+  first_name: string;
+  last_name: string;
+  status?: string | null;
+}
+
+// Enum types for call logs (matching OpenAPI)
+export type CallLogReasonForCall = 
+  | 'New Appointment'
+  | 'Cancellation' 
+  | 'Reschedule'
+  | 'General Message'
+  | 'Emergency'
+  | 'Other';
 
 export type CallbackPreference =
-  | 'MORNING'
-  | 'AFTERNOON'
-  | 'EVENING'
-  | 'ANYTIME';
+  | 'Morning'
+  | 'Afternoon'
+  | 'Evening'
+  | 'Anytime';
 
-export type CallLogStatus = 'NEW' | 'IN_PROGRESS' | 'DONE' | 'ARCHIVED';
+export type CallLogStatus = 'New' | 'In Progress' | 'Done' | 'Archived';
 
-// View for listing call logs
+// View for listing call logs (matching OpenAPI CallLogListView)
 export interface CallLogListView {
-  id: number;
+  id: string; // UUID format in OpenAPI
   external_call_id: string;
   caller_first_name?: string | null;
   caller_last_name?: string | null;
@@ -39,20 +49,30 @@ export interface CallLogListView {
   clinic: ClinicRead;
 }
 
-// Detailed view for a single call log
+// Detailed view for a single call log (matching OpenAPI CallLogDetailView)
 export interface CallLogDetailView extends CallLogListView {
+  caller_first_name?: string | null;
+  caller_last_name?: string | null;
+  caller_phone_number: string;
+  is_existing_patient?: boolean | null;
+  call_started_at: string;
   call_ended_at?: string | null;
   call_duration_seconds?: number | null;
+  reason_for_call?: CallLogReasonForCall | null;
   callback_preference?: CallbackPreference | null;
   summary?: string | null;
   detailed_reason?: string | null;
   preferred_dentist?: string | null;
+  audio_recording_url?: string | null;
+  cost?: string | null; // String in OpenAPI
+  ended_reason?: string | null;
+  transcript_text?: string | null;
   full_conversation_json?: any | null;
   raw_structured_data?: any | null;
-  transcript_text?: string | null;
-  audio_recording_url?: string | null;
-  cost?: number | null;
-  ended_reason?: string | null;
+  external_call_id: string;
+  status: CallLogStatus;
   created_at: string;
   updated_at?: string | null;
+  clinic: ClinicRead;
+  updated_by?: UserInClinicRead | null;
 }

@@ -1,0 +1,124 @@
+/* Hourly Patterns Chart */
+.hourly-patterns-chart {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid #f3f4f6;
+}
+
+.hourly-chart-header {
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.hourly-chart-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 8px 0;
+}
+
+.hourly-chart-subtitle {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+}
+
+.hourly-chart-error,
+.hourly-chart-empty {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid #f3f4f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hourly-chart-error-content,
+.hourly-chart-empty-content {
+  text-align: center;
+  color: #6b7280;
+}
+
+.hourly-chart-error-content i,
+.hourly-chart-empty-content i {
+  font-size: 32px;
+  color: #f59e0b;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.hourly-chart-empty-content i {
+  color: #9ca3af;
+}
+
+.hourly-chart-error-content p,
+.hourly-chart-empty-content p {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0 0 4px 0;
+}
+
+.hourly-chart-error-content small {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+/* Custom Tooltip */
+.hourly-chart-tooltip {
+  background: white;
+  padding: 12px 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: 1px solid #e5e7eb;
+  font-size: 13px;
+}
+
+.tooltip-label {
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 4px 0;
+}
+
+.tooltip-value {
+  color: #6b7280;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hourly-patterns-chart {
+    padding: 16px;
+  }
+  
+  .hourly-chart-header {
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+  }
+  
+  .hourly-chart-title {
+    font-size: 16px;
+  }
+  
+  .hourly-chart-subtitle {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hourly-patterns-chart {
+    padding: 12px;
+  }
+  
+  .hourly-chart-title {
+    font-size: 14px;
+  }
+  
+  .hourly-chart-subtitle {
+    font-size: 12px;
+  }
+}

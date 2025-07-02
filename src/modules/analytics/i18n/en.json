@@ -1,0 +1,77 @@
+{
+  "dashboard": {
+    "title": "Analytics Dashboard",
+    "subtitle": "Real-time insights for {{clinicName}}",
+    "noClinicSelected": "No Clinic Selected",
+    "noClinicMessage": "Please select a clinic to view analytics",
+    "refreshData": "Refresh Data",
+    "loadingAdvanced": "Loading advanced analytics..."
+  },
+  "controls": {
+    "timePeriod": "Time Period",
+    "chartType": "Chart Type",
+    "last24Hours": "Last 24 Hours",
+    "last7Days": "Last 7 Days",
+    "last30Days": "Last 30 Days",
+    "last90Days": "Last 90 Days",
+    "areaChart": "Area Chart",
+    "barChart": "Bar Chart"
+  },
+  "kpi": {
+    "totalCalls": "Total Calls",
+    "dailyAverage": "Daily Average",
+    "newCalls": "New Calls",
+    "completionRate": "Completion Rate",
+    "peakAt": "Peak at {{hour}}:00",
+    "noPeakIdentified": "No peak identified",
+    "inProgress": "{{count}} in progress",
+    "completed": "{{count}} completed",
+    "errorLoading": "Unable to load dashboard metrics",
+    "failedToLoad": "Failed to load KPI data",
+    "lastPeriod": "Last {{period}}"
+  },
+  "charts": {
+    "callVolume": {
+      "title": "Call Volume Over Time",
+      "subtitle": "Track call patterns and trends",
+      "yAxisLabel": "Number of Calls",
+      "noData": "No call volume data available for this period"
+    },
+    "callStatus": {
+      "title": "Call Status Distribution",
+      "subtitle": "Current status breakdown",
+      "noData": "No status data available"
+    },
+    "callReason": {
+      "title": "Call Reasons",
+      "subtitle": "Most common reasons for calls",
+      "noData": "No call reason data available"
+    },
+    "hourlyPatterns": {
+      "title": "Hourly Call Patterns",
+      "subtitle": "Peak hours and activity distribution",
+      "noData": "No hourly pattern data available"
+    },
+    "comparison": {
+      "title": "Period Comparison",
+      "subtitle": "Current vs previous period performance",
+      "currentPeriod": "Current Period",
+      "previousPeriod": "Previous Period",
+      "noData": "No comparison data available"
+    },
+    "loadingChart": "Loading chart data...",
+    "errorLoading": "Failed to load chart data"
+  },
+  "status": {
+    "new": "New",
+    "inProgress": "In Progress", 
+    "done": "Done",
+    "archived": "Archived"
+  },
+  "time": {
+    "hours": "hours",
+    "days": "days",
+    "weeks": "weeks",
+    "months": "months"
+  }
+}
