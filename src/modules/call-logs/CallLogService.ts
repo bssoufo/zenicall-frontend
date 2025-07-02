@@ -34,13 +34,21 @@ const CallLogService = {
    */
   async getNewCallLogs(
     clinicId: string,
-    limit: number = 10
-  ): Promise<CallLogListView[]> {
+    options: PaginationListOption = {}
+  ): Promise<CallLogPage> {
     try {
-      const response = await apiClient.get('/call-logs/new', {
-        params: { clinic_id: clinicId, limit }
-      });
-      return response.data as CallLogListView[];
+      const response = await apiClient.get(
+        `/call-logs/by-clinic/${clinicId}`,
+        { params: { ...options, status: 'New' } }
+      );
+      const data = response.data;
+      return {
+        items: data.items as CallLogListView[],
+        total: data.total,
+        page: data.page,
+        limit: data.limit,
+        pages: data.pages,
+      };
     } catch (error) {
       handleAxiosError(error);
       throw error;

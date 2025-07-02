@@ -86,24 +86,25 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
   }, [debouncedFirstName, debouncedLastName, filters.startDate, filters.endDate]);
 
   // Fetch function for new calls (optimized endpoint)
-  const fetchNewCalls = useCallback(async () => {
+  const fetchNewCalls = useCallback(async (page: number, limit: number) => {
     if (!selectedClinic?.id) return;
 
     try {
       setLoading(true);
       setError(null);
       
-      const newCalls = await CallLogService.getNewCallLogs(
+      const result = await CallLogService.getNewCallLogs(
         selectedClinic.id,
-        Math.min(maxItems, 50) // API limit is 50
+        { page, limit }
       );
       
-      setCallLogs(newCalls);
-      setPagination(prev => ({
-        ...prev,
-        totalItems: newCalls.length,
-        totalPages: Math.ceil(newCalls.length / prev.itemsPerPage)
-      }));
+      setCallLogs(result.items);
+      setPagination({
+        totalItems: result.total,
+        totalPages: result.pages,
+        currentPage: result.page,
+        itemsPerPage: result.limit,
+      });
       setLastFetchTime(new Date());
     } catch (err) {
       setError(t('call-logs:errors.fetchFailed'));
@@ -111,7 +112,7 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
     } finally {
       setLoading(false);
     }
-  }, [selectedClinic?.id, maxItems, t]);
+  }, [selectedClinic?.id, t]);
 
   // Fetch function for filtered search (advanced endpoint)
   const fetchFilteredCalls = useCallback(async () => {
@@ -133,11 +134,12 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
       const result = await CallLogService.searchCallLogs(selectedClinic.id, searchOptions);
       
       setCallLogs(result.items);
-      setPagination(prev => ({
-        ...prev,
+      setPagination({
         totalItems: result.total,
-        totalPages: result.pages
-      }));
+        totalPages: result.pages,
+        currentPage: result.page,
+        itemsPerPage: result.limit,
+      });
       setLastFetchTime(new Date());
     } catch (err) {
       setError(t('call-logs:errors.searchFailed'));
@@ -161,15 +163,15 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
     if (hasActiveFilters) {
       fetchFilteredCalls();
     } else {
-      fetchNewCalls();
+      fetchNewCalls(pagination.currentPage, pagination.itemsPerPage);
     }
-  }, [hasActiveFilters, fetchNewCalls, fetchFilteredCalls]);
+  }, [hasActiveFilters, fetchNewCalls, fetchFilteredCalls, pagination.currentPage, pagination.itemsPerPage]);
 
   const handleRefresh = () => {
     if (hasActiveFilters) {
       fetchFilteredCalls();
     } else {
-      fetchNewCalls();
+      fetchNewCalls(pagination.currentPage, pagination.itemsPerPage);
     }
   };
 
@@ -241,16 +243,8 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
 
   // Paginated data for display
   const paginatedCallLogs = useMemo(() => {
-    if (hasActiveFilters) {
-      // Server-side pagination for filtered results
-      return callLogs;
-    } else {
-      // Client-side pagination for new calls
-      const startIndex = (pagination.currentPage - 1) * pagination.itemsPerPage;
-      const endIndex = startIndex + pagination.itemsPerPage;
-      return callLogs.slice(startIndex, endIndex);
-    }
-  }, [callLogs, pagination.currentPage, pagination.itemsPerPage, hasActiveFilters]);
+    return callLogs;
+  }, [callLogs]);
 
   // No clinic selected state
   if (!selectedClinic) {

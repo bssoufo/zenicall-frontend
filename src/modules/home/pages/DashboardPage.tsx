@@ -2,34 +2,30 @@ import { useTranslation } from "react-i18next";
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { handleAxiosError } from "../../../@zenidata/api/ApiClient";
-import Loader, { LoadingScreen } from "../../../@zenidata/components/UI/Loader";
-import UserHello from "../../auth/components/UserHello";
-import { formatDate } from "../../../@zenidata/utils";
+import Loader from "../../../@zenidata/components/UI/Loader";
+import DashboardHero from "../components/DashboardHero";
 import { useClinic } from "../../clinics/hooks/useClinic";
 import { DashboardNewCallsWidget } from "../../call-logs/components/DashboardNewCallsWidget";
 import DashboardCallLogStats from "../../call-logs/components/DashboardCallLogStats";
+import './DashboardPage.css';
 
 function DashboardPage() {
-  const { t: tCore } = useTranslation("core");
   const { t } = useTranslation("home");
   const { selectedClinic, clinics } = useClinic();
 
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-
   const [totalClinics, setTotalClinics] = useState<number>(0);
   const [loadingTotalClinics, setLoadingTotalClinics] = useState(true);
 
   // Use actual clinics from context
   const fetchTotalClinics = useCallback(async () => {
-    setError("");
     try {
       setLoadingTotalClinics(true);
       // Use actual clinics count from context
       setTimeout(() => {
         setTotalClinics(clinics.length);
         setLoadingTotalClinics(false);
-      }, 500);
+      }, 300);
     } catch (err) {
       handleAxiosError(err);
       setLoadingTotalClinics(false);
@@ -42,42 +38,142 @@ function DashboardPage() {
     setLoading(false);
   }, [fetchTotalClinics]);
 
-  return (
-    <>
+  // No clinic selected state
+  if (!selectedClinic) {
+    return (
       <div className="iz_content-block iz_content-dasboard iz_position-relative">
         <div className="iz_content-block-container">
-          <UserHello />
-
-          <div className="iz_content-numbers iz_flex ">
-            <div className="iz_content-numbers-total">
-              <div className="iz_text iz_flex iz_position-relative">
-                <span>{t("dashboard.totalClinics")} </span>
-                <span className="iz_folder-number">
-                  {loadingTotalClinics ? (
-                    <Loader showText={false} />
-                  ) : (
-                    totalClinics
-                  )}
-                </span>
+          <div className="no-clinic-state">
+            <div className="empty-state-content">
+              <div className="empty-state-icon">
+                <i className="fas fa-clinic-medical" aria-hidden="true"></i>
+              </div>
+              <h2 className="empty-state-title">{t("dashboard.noClinicSelected")}</h2>
+              <p className="empty-state-description">{t("dashboard.selectClinicMessage")}</p>
+              <div className="empty-state-actions">
+                <Link to="/clinics" className="btn btn-primary">
+                  <i className="fas fa-plus" aria-hidden="true"></i>
+                  {t("dashboard.browseClinicsCTA")}
+                </Link>
               </div>
             </div>
-            <div className="iz_content-numbers-details iz_flex">
-              <div className="iz_content-label-details">
-                <span>{t("dashboard.callLogsProcessed")}</span>
-              </div>
-
-              <DashboardCallLogStats />
-            </div>
           </div>
-
-          {/* New Call Logs Dashboard Section */}
-          <div className="iz_new-call-logs-section" style={{ margin: "2rem 0" }}>
-            <DashboardNewCallsWidget />
-          </div>
-
         </div>
       </div>
-    </>
+    );
+  }
+
+  return (
+    <div className="iz_content-block iz_content-dasboard iz_position-relative">
+      <div className="iz_content-block-container">
+        {/* Hero Section */}
+        <section className="dashboard-hero" aria-labelledby="dashboard-title">
+          <DashboardHero />
+        </section>
+
+        {/* Key Metrics Overview */}
+        <section className="dashboard-metrics" aria-labelledby="metrics-title">
+          <h2 id="metrics-title" className="section-title">{t("dashboard.overviewTitle")}</h2>
+          
+          <div className="metrics-grid">
+            {/* Clinic Count Card */}
+            <div className="metric-card clinic-card">
+              <div className="metric-header">
+                <div className="metric-icon">
+                  <i className="fas fa-clinic-medical" aria-hidden="true"></i>
+                </div>
+                <div className="metric-info">
+                  <h3 className="metric-title">{t("dashboard.totalClinics")}</h3>
+                  <div className="metric-value">
+                    {loadingTotalClinics ? (
+                      <Loader showText={false} />
+                    ) : (
+                      <span className="metric-number">{totalClinics}</span>
+                    )}
+                  </div>
+                </div>
+              </div>
+              <div className="metric-actions">
+                <Link to="/clinics" className="btn btn-outline btn-sm">
+                  {t("dashboard.viewAll")}
+                </Link>
+              </div>
+            </div>
+
+            {/* Call Logs Statistics Card */}
+            <div className="metric-card call-stats-card">
+              <div className="metric-header">
+                <div className="metric-icon">
+                  <i className="fas fa-phone" aria-hidden="true"></i>
+                </div>
+                <div className="metric-info">
+                  <h3 className="metric-title">{t("dashboard.callLogsProcessed")}</h3>
+                </div>
+              </div>
+              <div className="metric-content">
+                <DashboardCallLogStats />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* New Call Logs Section */}
+        <section className="dashboard-calls" aria-labelledby="calls-title">
+          <div className="section-header">
+            <h2 id="calls-title" className="section-title">{t("dashboard.recentCallLogs")}</h2>
+            <p className="section-description">{t("dashboard.callsDescription")}</p>
+          </div>
+          <div className="calls-widget">
+            <DashboardNewCallsWidget />
+          </div>
+        </section>
+
+        {/* Quick Actions Section */}
+        <section className="dashboard-actions" aria-labelledby="actions-title">
+          <h2 id="actions-title" className="section-title">{t("dashboard.quickActions")}</h2>
+          <div className="actions-grid">
+            <Link to={`/clinics/${selectedClinic.id}/call-logs`} className="action-card">
+              <div className="action-icon">
+                <i className="fas fa-list" aria-hidden="true"></i>
+              </div>
+              <div className="action-content">
+                <h3 className="action-title">{t("dashboard.allCallLogs")}</h3>
+                <p className="action-description">{t("dashboard.allCallLogsDesc")}</p>
+              </div>
+              <div className="action-arrow">
+                <i className="fas fa-chevron-right" aria-hidden="true"></i>
+              </div>
+            </Link>
+            
+            <Link to="/clinics" className="action-card">
+              <div className="action-icon">
+                <i className="fas fa-clinic-medical" aria-hidden="true"></i>
+              </div>
+              <div className="action-content">
+                <h3 className="action-title">{t("dashboard.manageClinics")}</h3>
+                <p className="action-description">{t("dashboard.manageClinicsDesc")}</p>
+              </div>
+              <div className="action-arrow">
+                <i className="fas fa-chevron-right" aria-hidden="true"></i>
+              </div>
+            </Link>
+            
+            <Link to="/analytics" className="action-card">
+              <div className="action-icon">
+                <i className="fas fa-chart-bar" aria-hidden="true"></i>
+              </div>
+              <div className="action-content">
+                <h3 className="action-title">{t("dashboard.analytics")}</h3>
+                <p className="action-description">{t("dashboard.analyticsDesc")}</p>
+              </div>
+              <div className="action-arrow">
+                <i className="fas fa-chevron-right" aria-hidden="true"></i>
+              </div>
+            </Link>
+          </div>
+        </section>
+      </div>
+    </div>
   );
 }
 export default DashboardPage;
