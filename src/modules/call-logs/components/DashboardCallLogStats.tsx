@@ -29,38 +29,22 @@ const StatsDisplay: React.FC<StatsDisplayProps> = ({
   const { t } = useTranslation(['call-logs']);
 
   return (
-    <div className="iz_content-values-details iz_flex">
-      <div className="iz_content-value">
-        <span className="iz_period-name">
-          {t('call-logs:summary.totalCalls')}
-        </span>
-        <span className="iz_period-value">
-          {totalCalls.toLocaleString()}
-        </span>
+    <div className="kpi-cards-container">
+      <div className="kpi-card kpi-total">
+        <div className="kpi-value">{totalCalls.toLocaleString()}</div>
+        <div className="kpi-label">{t('call-logs:summary.totalCalls')}</div>
       </div>
-      <div className="iz_content-value">
-        <span className="iz_period-name">
-          {t('call-logs:summary.new')}
-        </span>
-        <span className="iz_period-value" style={{ color: '#3b82f6' }}>
-          {newCalls.toLocaleString()}
-        </span>
+      <div className="kpi-card kpi-new">
+        <div className="kpi-value">{newCalls.toLocaleString()}</div>
+        <div className="kpi-label">{t('call-logs:summary.new')}</div>
       </div>
-      <div className="iz_content-value">
-        <span className="iz_period-name">
-          {t('call-logs:summary.inProgress')}
-        </span>
-        <span className="iz_period-value" style={{ color: '#f59e0b' }}>
-          {inProgressCalls.toLocaleString()}
-        </span>
+      <div className="kpi-card kpi-inprogress">
+        <div className="kpi-value">{inProgressCalls.toLocaleString()}</div>
+        <div className="kpi-label">{t('call-logs:summary.inProgress')}</div>
       </div>
-      <div className="iz_content-value">
-        <span className="iz_period-name">
-          {t('call-logs:summary.done')}
-        </span>
-        <span className="iz_period-value" style={{ color: '#10b981' }}>
-          {doneCalls.toLocaleString()}
-        </span>
+      <div className="kpi-card kpi-done">
+        <div className="kpi-value">{doneCalls.toLocaleString()}</div>
+        <div className="kpi-label">{t('call-logs:summary.done')}</div>
       </div>
     </div>
   );

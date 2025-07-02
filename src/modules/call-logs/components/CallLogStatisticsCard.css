@@ -1,0 +1,56 @@
+.call-log-statistics-card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.call-log-statistics-card h3 {
+  color: #333;
+  font-size: 1.25rem;
+  margin-top: 0;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+}
+
+.stat-item {
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 1px solid #e9ecef;
+}
+
+.stat-label {
+  color: #6c757d;
+  font-size: 0.875rem;
+  margin-bottom: 5px;
+}
+
+.stat-value {
+  color: #343a40;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.statistics-error,
+.statistics-empty {
+  padding: 20px;
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  color: #856404;
+  border-radius: 8px;
+  text-align: center;
+}

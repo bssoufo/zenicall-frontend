@@ -7,6 +7,7 @@ import LanguageSwitcher from "../../@zenidata/components/UI/Language/LanguageSwi
 import { useTranslation } from "react-i18next";
 import { useAxiosErrorHandingInterceptor } from "../../@zenidata/api/ApiClient";
 import { ClinicSwitcher } from "../../modules/clinics/components/ClinicSwitcher";
+import CurrentDateDisplay from "./CurrentDateDisplay";
 import "./AppLayout.css";
 
 function AppLayout() {
@@ -95,9 +96,12 @@ function AppLayout() {
                     <i className="fa-solid fa-bars"></i>
                   </a>
                 )}
-                <span>
-                  Hi <span className="iz_user-name">{user?.first_name}</span> !
-                </span>
+                <div className="user-info-section">
+                  <span>
+                    Hi <span className="iz_user-name">{user?.first_name}</span> !
+                  </span>
+                  <CurrentDateDisplay />
+                </div>
               </div>
 
               <div className="iz_dashboard-header-links iz_flex">

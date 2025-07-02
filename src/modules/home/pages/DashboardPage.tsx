@@ -3,7 +3,6 @@ import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { handleAxiosError } from "../../../@zenidata/api/ApiClient";
 import Loader from "../../../@zenidata/components/UI/Loader";
-import DashboardHero from "../components/DashboardHero";
 import { useClinic } from "../../clinics/hooks/useClinic";
 import { DashboardNewCallsWidget } from "../../call-logs/components/DashboardNewCallsWidget";
 import DashboardCallLogStats from "../../call-logs/components/DashboardCallLogStats";
@@ -66,55 +65,10 @@ function DashboardPage() {
   return (
     <div className="iz_content-block iz_content-dasboard iz_position-relative">
       <div className="iz_content-block-container">
-        {/* Hero Section */}
-        <section className="dashboard-hero" aria-labelledby="dashboard-title">
-          <DashboardHero />
-        </section>
-
-        {/* Key Metrics Overview */}
-        <section className="dashboard-metrics" aria-labelledby="metrics-title">
-          <h2 id="metrics-title" className="section-title">{t("dashboard.overviewTitle")}</h2>
-          
-          <div className="metrics-grid">
-            {/* Clinic Count Card */}
-            <div className="metric-card clinic-card">
-              <div className="metric-header">
-                <div className="metric-icon">
-                  <i className="fas fa-clinic-medical" aria-hidden="true"></i>
-                </div>
-                <div className="metric-info">
-                  <h3 className="metric-title">{t("dashboard.totalClinics")}</h3>
-                  <div className="metric-value">
-                    {loadingTotalClinics ? (
-                      <Loader showText={false} />
-                    ) : (
-                      <span className="metric-number">{totalClinics}</span>
-                    )}
-                  </div>
-                </div>
-              </div>
-              <div className="metric-actions">
-                <Link to="/clinics" className="btn btn-outline btn-sm">
-                  {t("dashboard.viewAll")}
-                </Link>
-              </div>
-            </div>
-
-            {/* Call Logs Statistics Card */}
-            <div className="metric-card call-stats-card">
-              <div className="metric-header">
-                <div className="metric-icon">
-                  <i className="fas fa-phone" aria-hidden="true"></i>
-                </div>
-                <div className="metric-info">
-                  <h3 className="metric-title">{t("dashboard.callLogsProcessed")}</h3>
-                </div>
-              </div>
-              <div className="metric-content">
-                <DashboardCallLogStats />
-              </div>
-            </div>
-          </div>
+        {/* KPI Overview Banner */}
+        <section className="dashboard-kpi-section" aria-labelledby="kpi-title">
+          <h2 id="kpi-title" className="kpi-section-title">Aperçu de l'Activité</h2>
+          <DashboardCallLogStats />
         </section>
 
         {/* New Call Logs Section */}

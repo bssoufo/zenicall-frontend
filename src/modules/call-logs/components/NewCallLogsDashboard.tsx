@@ -243,6 +243,8 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
 
   // Paginated data for display
   const paginatedCallLogs = useMemo(() => {
+    // Both filtered and new calls use server-side pagination
+    // The API handles pagination and returns the correct page of results
     return callLogs;
   }, [callLogs]);
 
@@ -396,7 +398,7 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
               <i className="fas fa-exclamation-triangle"></i>
               <h3>{t('call-logs:errors.loadError')}</h3>
               <p>{error}</p>
-              <button onClick={hasActiveFilters ? fetchFilteredCalls : fetchNewCalls} className="retry-btn">
+              <button onClick={hasActiveFilters ? fetchFilteredCalls : () => fetchNewCalls(pagination.currentPage, pagination.itemsPerPage)} className="retry-btn">
                 <i className="fas fa-retry"></i>
                 {t('core:common.retry')}
               </button>
@@ -497,12 +499,18 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
           
           <div className="page-numbers">
             {Array.from({ length: Math.min(5, pagination.totalPages) }, (_, index) => {
-              const pageNumber = Math.max(1, Math.min(
-                pagination.currentPage - 2 + index,
-                pagination.totalPages - 4 + index
-              ));
+              // Calculate page numbers around current page
+              let startPage = Math.max(1, pagination.currentPage - 2);
+              let endPage = Math.min(pagination.totalPages, startPage + 4);
               
-              if (pageNumber > pagination.totalPages) return null;
+              // Adjust start if we're near the end
+              if (endPage - startPage < 4) {
+                startPage = Math.max(1, endPage - 4);
+              }
+              
+              const pageNumber = startPage + index;
+              
+              if (pageNumber > endPage || pageNumber > pagination.totalPages) return null;
               
               return (
                 <button
