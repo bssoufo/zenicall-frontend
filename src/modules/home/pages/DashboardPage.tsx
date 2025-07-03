@@ -6,6 +6,7 @@ import Loader from "../../../@zenidata/components/UI/Loader";
 import { useClinic } from "../../clinics/hooks/useClinic";
 import { DashboardNewCallsWidget } from "../../call-logs/components/DashboardNewCallsWidget";
 import DashboardCallLogStats from "../../call-logs/components/DashboardCallLogStats";
+import DashboardCallReasonDistribution from "../../call-logs/components/DashboardCallReasonDistribution";
 import './DashboardPage.css';
 
 function DashboardPage() {
@@ -82,6 +83,9 @@ function DashboardPage() {
               <h3 id="kpi-title" className="control-panel-section-title">{t("dashboard.overview")}</h3>
               <DashboardCallLogStats />
             </section>
+
+            {/* Call Reason Distribution */}
+            <DashboardCallReasonDistribution clinicId={selectedClinic?.id} />
 
             {/* Quick Actions in Control Panel */}
             <section className="control-panel-actions" aria-labelledby="actions-title">
