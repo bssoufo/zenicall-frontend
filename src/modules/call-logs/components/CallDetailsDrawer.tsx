@@ -571,7 +571,13 @@ export const CallDetailsDrawer: React.FC<CallDetailsDrawerProps> = ({
     try {
       setSaving(true);
       const updatedCallLog = await CallLogService.updateCallLog(detailedCallLog.id, { status });
+      console.log('💾 CallDetailsDrawer: Call log updated successfully:', { 
+        id: updatedCallLog.id, 
+        status: updatedCallLog.status 
+      });
       setDetailedCallLog(updatedCallLog);
+      
+      console.log('📞 CallDetailsDrawer: Calling onCallLogUpdated callback');
       onCallLogUpdated?.(updatedCallLog);
       
       // Show success toast

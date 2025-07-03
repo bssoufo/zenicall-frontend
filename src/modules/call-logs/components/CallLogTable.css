@@ -1,65 +1,15 @@
-/* New Call Logs Dashboard Styles - Direct on page background */
-.new-calls-dashboard {
+/* Call Logs Table Styles - Based on Dashboard Model */
+.call-logs-table-container {
   background: none;
   border-radius: 0;
   padding: 0;
   margin: 0;
 }
 
-/* Dashboard Header */
-.dashboard-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid #e2e8f0;
-}
-
-.header-content {
-  flex: 1;
-}
-
-.dashboard-title {
-  margin: 0 0 0.5rem 0;
-  color: #1a202c;
-  font-size: 1.5rem;
-  font-weight: 600;
-}
-
-.header-meta {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  font-size: 0.875rem;
-  color: #64748b;
-}
-
-.last-updated {
-  color: #64748b;
-}
-
-.auto-refresh-indicator {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  color: #10b981;
-  font-weight: 500;
-}
-
-.auto-refresh-indicator i {
-  animation: spin 2s linear infinite;
-}
-
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
 /* Two-Line Filter System - Flat Design with Perfect Alignment */
 .two-line-filter-system {
   margin-bottom: 1rem;
-  margin-top: -0.125rem; /* Fine-tune alignment with control panel */
+  margin-top: -0.125rem; /* Fine-tune alignment */
   position: relative;
   z-index: 1;
 }
@@ -101,6 +51,25 @@
 .search-field::placeholder {
   color: #9ca3af;
   font-style: italic;
+}
+
+/* Status Filter Select */
+.status-filter-select {
+  width: 100%;
+  padding: 0.5rem 2.5rem 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  background: #fafafa;
+  cursor: pointer;
+}
+
+.status-filter-select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  background: white;
 }
 
 /* Clear Field Button */
@@ -274,48 +243,12 @@
   cursor: not-allowed;
 }
 
-/* Pagination Controls - Direct on gray background */
-.pagination-controls {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-  padding: 0.5rem 0;
-  background: none;
-  border-radius: 0;
-  border: none;
-}
-
-.items-per-page {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.items-per-page label {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: #374151;
-}
-
-.items-per-page-select {
-  padding: 0.25rem 0.5rem;
-  border: 1px solid #d1d5db;
-  border-radius: 4px;
-  font-size: 0.875rem;
-}
-
-.pagination-info {
-  font-size: 0.875rem;
-  color: #64748b;
-}
-
 /* Call Logs Table */
 .call-logs-container {
   background: white;
   border-radius: 6px;
   border: 1px solid #e2e8f0;
-  overflow: hidden;
+  overflow: visible; /* Allow tooltips to display */
 }
 
 .call-logs-table {
@@ -330,7 +263,7 @@
 
 .call-logs-table th {
   background: #f8fafc;
-  padding: 0.25rem 0.5rem; /* 4px vertical - well under 8px limit */
+  padding: 0.25rem 0.5rem;
   text-align: left;
   font-weight: 600;
   color: #374151;
@@ -339,16 +272,16 @@
   white-space: nowrap;
   text-transform: uppercase;
   letter-spacing: 0.025em;
-  height: 2rem; /* Fixed height for consistency */
+  height: 2rem;
 }
 
 .call-logs-table td {
-  padding: 0.25rem 0.5rem; /* 4px vertical - maximum density while staying under 8px */
+  padding: 0.25rem 0.5rem;
   border-bottom: 1px solid #f1f5f9;
   font-size: 0.8rem;
   vertical-align: middle;
-  line-height: 1.2; /* Reduced for more compact display */
-  height: 2.25rem; /* Fixed height for consistency */
+  line-height: 1.2;
+  height: 2.25rem;
 }
 
 .call-log-row:hover {
@@ -378,6 +311,45 @@
   width: 4px;
   background: #10b981;
   border-radius: 0 2px 2px 0;
+}
+
+/* Table Column Widths - Using natural table sizing */
+.call-logs-table th:nth-child(1), /* Caller Name */
+.call-logs-table td:nth-child(1) {
+  white-space: nowrap;
+}
+
+.call-logs-table th:nth-child(2), /* Phone Number */
+.call-logs-table td:nth-child(2) {
+  white-space: nowrap;
+}
+
+.call-logs-table th:nth-child(3), /* Call Time */
+.call-logs-table td:nth-child(3) {
+  white-space: nowrap;
+}
+
+.call-logs-table th:nth-child(4), /* Reason */
+.call-logs-table td:nth-child(4) {
+  white-space: nowrap;
+}
+
+.call-logs-table th:nth-child(5), /* Summary - Takes remaining space */
+.call-logs-table td:nth-child(5) {
+  width: 100%;
+  position: relative;
+}
+
+.call-logs-table th:nth-child(6), /* Status */
+.call-logs-table td:nth-child(6) {
+  white-space: nowrap;
+  width: 90px;
+}
+
+.call-logs-table th:nth-child(7), /* Actions */
+.call-logs-table td:nth-child(7) {
+  width: 60px;
+  white-space: nowrap;
 }
 
 /* Unknown/missing information styling */
@@ -426,9 +398,9 @@
 
 /* Summary column styling */
 .summary {
-  max-width: 0; /* Allow column to expand */
+  max-width: 0;
   width: 100%;
-  position: relative; /* Ensure tooltip positioning works */
+  position: relative;
 }
 
 /* Summary text with tooltip */
@@ -482,16 +454,6 @@
   margin-bottom: 3px;
 }
 
-.call-log-link {
-  color: #3b82f6;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.call-log-link:hover {
-  text-decoration: underline;
-}
-
 .phone-link {
   color: #059669;
   text-decoration: none;
@@ -499,39 +461,6 @@
 
 .phone-link:hover {
   text-decoration: underline;
-}
-
-/* Table Column Widths - Using natural table sizing */
-.call-logs-table th:nth-child(1), /* Caller Name */
-.call-logs-table td:nth-child(1) {
-  white-space: nowrap;
-}
-
-.call-logs-table th:nth-child(2), /* Phone Number */
-.call-logs-table td:nth-child(2) {
-  white-space: nowrap;
-}
-
-.call-logs-table th:nth-child(3), /* Call Time */
-.call-logs-table td:nth-child(3) {
-  white-space: nowrap;
-}
-
-.call-logs-table th:nth-child(4), /* Reason */
-.call-logs-table td:nth-child(4) {
-  white-space: nowrap;
-}
-
-.call-logs-table th:nth-child(5), /* Summary - Takes remaining space */
-.call-logs-table td:nth-child(5) {
-  width: 100%; /* Takes all remaining space */
-  position: relative; /* Enable tooltip positioning */
-}
-
-.call-logs-table th:nth-child(6), /* Actions */
-.call-logs-table td:nth-child(6) {
-  width: 60px;
-  white-space: nowrap;
 }
 
 /* Compact Actions Column */
@@ -584,7 +513,7 @@
   transform: scale(1.1);
 }
 
-/* Pagination Navigation - Direct on gray background */
+/* Pagination Navigation */
 .pagination-navigation {
   display: flex;
   justify-content: center;
@@ -682,11 +611,11 @@
   100% { background-position: -200% 0; }
 }
 
-.skeleton-id { width: 80px; }
 .skeleton-name { width: 120px; }
 .skeleton-phone { width: 100px; }
 .skeleton-date { width: 120px; }
 .skeleton-reason { width: 100px; }
+.skeleton-status { width: 80px; }
 .skeleton-action { width: 60px; }
 
 /* Error and Empty States */
@@ -751,7 +680,7 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .two-line-filter-system {
-    margin-top: 0; /* Reset alignment adjustment on mobile */
+    margin-top: 0;
   }
   
   .search-fields-row {
@@ -789,18 +718,13 @@
     justify-content: center;
   }
   
-  .pagination-controls {
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-  
   .call-logs-table {
     font-size: 0.7rem;
   }
   
   .call-logs-table th,
   .call-logs-table td {
-    padding: 0.2rem 0.25rem; /* Even more compact on mobile */
+    padding: 0.2rem 0.25rem;
   }
   
   .call-logs-table th {
@@ -825,7 +749,12 @@
   }
   
   .skeleton-row {
-    grid-template-columns: 1fr;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .skeleton-cell {
+    width: 100% !important;
   }
   
   .pagination-navigation {
@@ -840,170 +769,43 @@
   }
 }
 
-/* Call Log Details Drawer */
-.drawer-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 1000;
-  opacity: 1;
-  transition: opacity 0.3s ease;
-}
-
-.call-log-drawer {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 400px;
-  max-width: 33vw;
-  background: white;
-  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
-  z-index: 1001;
-  transform: translateX(100%);
-  transition: transform 0.3s ease;
-  display: flex;
-  flex-direction: column;
-}
-
-.call-log-drawer.open {
-  transform: translateX(0);
-}
-
-.drawer-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.5rem;
-  border-bottom: 1px solid #e2e8f0;
-  background: #f8fafc;
-}
-
-.drawer-title {
-  margin: 0;
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #1e293b;
-}
-
-.drawer-close-btn {
-  background: none;
-  border: none;
-  color: #64748b;
-  cursor: pointer;
-  padding: 0.5rem;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-  transition: all 0.2s ease;
-}
-
-.drawer-close-btn:hover {
-  color: #374151;
-  background: rgba(0, 0, 0, 0.05);
-}
-
-.drawer-content {
-  flex: 1;
-  padding: 1.5rem;
-  overflow-y: auto;
-}
-
-.drawer-section {
-  margin-bottom: 2rem;
-}
-
-.drawer-section:last-child {
-  margin-bottom: 0;
-}
-
-.drawer-section-title {
-  margin: 0 0 1rem 0;
-  font-size: 1rem;
-  font-weight: 600;
-  color: #374151;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid #e2e8f0;
-}
-
-.drawer-field {
-  display: flex;
-  margin-bottom: 1rem;
-  align-items: flex-start;
-}
-
-.drawer-field.full-width {
-  flex-direction: column;
-}
-
-.drawer-field label {
-  font-weight: 500;
-  color: #374151;
-  min-width: 120px;
-  margin-right: 1rem;
-  font-size: 0.875rem;
-  padding-top: 0.125rem;
-}
-
-.drawer-field span {
-  color: #1e293b;
-  font-size: 0.875rem;
-  line-height: 1.5;
-  word-break: break-word;
-}
-
-.drawer-field .phone-link {
-  color: #059669;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.drawer-field .phone-link:hover {
-  text-decoration: underline;
-}
-
-.summary-content {
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 6px;
-  padding: 1rem;
-  margin-top: 0.5rem;
-  font-size: 0.875rem;
-  line-height: 1.6;
-  color: #374151;
-  white-space: pre-wrap;
-  word-break: break-word;
-}
-
-/* Responsive Drawer */
-@media (max-width: 768px) {
-  .call-log-drawer {
-    width: 100vw;
-    max-width: 100vw;
+/* Accessibility Improvements */
+@media (prefers-reduced-motion: reduce) {
+  .action-icon-btn,
+  .primary-btn,
+  .pagination-btn,
+  .page-number {
+    transition: none;
   }
   
-  .drawer-header {
-    padding: 1rem;
+  .action-icon-btn:hover,
+  .primary-btn:hover:not(:disabled) {
+    transform: none;
+  }
+}
+
+/* Focus States for Accessibility */
+.action-icon-btn:focus,
+.primary-btn:focus,
+.pagination-btn:focus,
+.page-number:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .call-logs-table-container {
+    background: white;
   }
   
-  .drawer-content {
-    padding: 1rem;
+  .call-logs-table th,
+  .call-logs-table td {
+    border-width: 2px;
   }
   
-  .drawer-field {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  
-  .drawer-field label {
-    min-width: auto;
-    margin-right: 0;
-    margin-bottom: 0.25rem;
-    font-weight: 600;
+  .primary-btn {
+    background: #000;
+    border-color: #000;
   }
 }

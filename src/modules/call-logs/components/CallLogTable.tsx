@@ -1,20 +1,19 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
-import { useClinic } from '../../clinics/hooks/useClinic';
+import { useParams } from 'react-router-dom';
 import CallLogService from '../CallLogService';
-import { CallLogListView, CallLogDetailView } from '../CallLogModel';
+import { CallLogListView, CallLogDetailView, CallLogStatus } from '../CallLogModel';
 import { LoadingScreen } from '../../../@zenidata/components/UI/Loader';
 import { useDebounce } from '../../../@zenidata/hooks/useDebounce';
-import CallLogSummary from './CallLogSummary';
 import { CallDetailsDrawer } from './CallDetailsDrawer';
 import { useCallLogEnums } from '../../../@zenidata/hooks/useEnumTranslation';
-import './NewCallLogsDashboard.css';
+import './CallLogTable.css';
 
-interface NewCallLogsDashboardProps {
+interface CallLogTableProps {
   maxItems?: number;
   refreshInterval?: number;
   showFilters?: boolean;
+  clinicId?: string; // Optional clinic ID prop
 }
 
 interface Filters {
@@ -23,6 +22,7 @@ interface Filters {
   phoneNumber: string;
   startDate: string;
   endDate: string;
+  status: string;
 }
 
 interface PaginationState {
@@ -42,20 +42,24 @@ const CallLogSkeleton: React.FC = () => (
         <div className="skeleton-cell skeleton-date"></div>
         <div className="skeleton-cell skeleton-reason"></div>
         <div className="skeleton-cell skeleton-summary"></div>
+        <div className="skeleton-cell skeleton-status"></div>
         <div className="skeleton-cell skeleton-action"></div>
       </div>
     ))}
   </div>
 );
 
-
-export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
+export const CallLogTable: React.FC<CallLogTableProps> = ({
   maxItems = 50,
-  showFilters = true
+  showFilters = true,
+  clinicId: propClinicId
 }) => {
   const { t } = useTranslation(['call-logs', 'core']);
-  const { selectedClinic } = useClinic();
+  const { clinicId: urlClinicId } = useParams<{ clinicId: string }>();
   const { reason: translateReason } = useCallLogEnums();
+  
+  // Use prop clinicId if provided, otherwise use URL param
+  const clinicId = propClinicId || urlClinicId;
   
   // State management
   const [callLogs, setCallLogs] = useState<CallLogListView[]>([]);
@@ -75,7 +79,8 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
     firstName: '',
     phoneNumber: '',
     startDate: '',
-    endDate: ''
+    endDate: '',
+    status: ''
   });
   
   // Pagination state
@@ -93,41 +98,13 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
 
   // Check if we need to use advanced search (when filters are applied)
   const hasActiveFilters = useMemo(() => {
-    return debouncedLastName || debouncedFirstName || debouncedPhoneNumber || filters.startDate || filters.endDate;
-  }, [debouncedLastName, debouncedFirstName, debouncedPhoneNumber, filters.startDate, filters.endDate]);
+    return debouncedLastName || debouncedFirstName || debouncedPhoneNumber || 
+           filters.startDate || filters.endDate || filters.status;
+  }, [debouncedLastName, debouncedFirstName, debouncedPhoneNumber, filters.startDate, filters.endDate, filters.status]);
 
-  // Fetch function for new calls (optimized endpoint)
-  const fetchNewCalls = useCallback(async (page: number, limit: number) => {
-    if (!selectedClinic?.id) return;
-
-    try {
-      setLoading(true);
-      setError(null);
-      
-      const result = await CallLogService.getNewCallLogs(
-        selectedClinic.id,
-        { page, limit }
-      );
-      
-      setCallLogs(result.items);
-      setPagination({
-        totalItems: result.total,
-        totalPages: result.pages,
-        currentPage: result.page,
-        itemsPerPage: result.limit,
-      });
-      setLastFetchTime(new Date());
-    } catch (err) {
-      setError(t('call-logs:errors.fetchFailed'));
-      console.error('Error fetching new calls:', err);
-    } finally {
-      setLoading(false);
-    }
-  }, [selectedClinic?.id, t]);
-
-  // Fetch function for filtered search (advanced endpoint)
-  const fetchFilteredCalls = useCallback(async () => {
-    if (!selectedClinic?.id) return;
+  // Fetch function for search (advanced endpoint)
+  const fetchCallLogs = useCallback(async () => {
+    if (!clinicId) return;
 
     try {
       setLoading(true);
@@ -139,11 +116,12 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
         caller_phone_number: debouncedPhoneNumber || undefined,
         start_date: filters.startDate || undefined,
         end_date: filters.endDate || undefined,
+        status: filters.status || undefined,
         page: pagination.currentPage,
         limit: pagination.itemsPerPage
       };
 
-      const result = await CallLogService.searchCallLogs(selectedClinic.id, searchOptions);
+      const result = await CallLogService.searchCallLogs(clinicId, searchOptions);
       
       setCallLogs(result.items);
       setPagination({
@@ -160,33 +138,48 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
       setLoading(false);
     }
   }, [
-    selectedClinic?.id,
+    clinicId,
     debouncedLastName,
     debouncedFirstName,
     debouncedPhoneNumber,
     filters.startDate,
     filters.endDate,
+    filters.status,
     pagination.currentPage,
     pagination.itemsPerPage,
     t
   ]);
 
-  // Main fetch effect - chooses optimal endpoint based on filters
+  // Main fetch effect
   useEffect(() => {
-    if (hasActiveFilters) {
-      fetchFilteredCalls();
-    } else {
-      fetchNewCalls(pagination.currentPage, pagination.itemsPerPage);
-    }
-  }, [hasActiveFilters, fetchNewCalls, fetchFilteredCalls, pagination.currentPage, pagination.itemsPerPage]);
+    fetchCallLogs();
+  }, [fetchCallLogs]);
 
   const handleRefresh = () => {
-    if (hasActiveFilters) {
-      fetchFilteredCalls();
-    } else {
-      fetchNewCalls(pagination.currentPage, pagination.itemsPerPage);
-    }
+    fetchCallLogs();
   };
+
+  // Calculate dynamic summary length based on screen width
+  const getSummaryLength = useCallback(() => {
+    const screenWidth = window.innerWidth;
+    if (screenWidth >= 1400) return 120; // Large screens
+    if (screenWidth >= 1200) return 80;  // Medium-large screens  
+    if (screenWidth >= 992) return 60;   // Medium screens
+    if (screenWidth >= 768) return 40;   // Small-medium screens
+    return 30; // Small screens
+  }, []);
+
+  const [summaryLength, setSummaryLength] = useState(getSummaryLength());
+
+  // Update summary length on window resize
+  useEffect(() => {
+    const handleResize = () => {
+      setSummaryLength(getSummaryLength());
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [getSummaryLength]);
 
   // Filter change handlers
   const handleFilterChange = useCallback((field: keyof Filters, value: string) => {
@@ -250,7 +243,8 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
       firstName: '',
       phoneNumber: '',
       startDate: '',
-      endDate: ''
+      endDate: '',
+      status: ''
     });
     setPagination(prev => ({ ...prev, currentPage: 1 }));
   }, []);
@@ -263,28 +257,6 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
     }));
     setPagination(prev => ({ ...prev, currentPage: 1 }));
   }, []);
-
-  // Calculate dynamic summary length based on screen width
-  const getSummaryLength = useCallback(() => {
-    const screenWidth = window.innerWidth;
-    if (screenWidth >= 1400) return 150; // Large screens
-    if (screenWidth >= 1200) return 100; // Medium-large screens  
-    if (screenWidth >= 992) return 80;   // Medium screens
-    if (screenWidth >= 768) return 60;   // Small-medium screens
-    return 40; // Small screens
-  }, []);
-
-  const [summaryLength, setSummaryLength] = useState(getSummaryLength());
-
-  // Update summary length on window resize
-  useEffect(() => {
-    const handleResize = () => {
-      setSummaryLength(getSummaryLength());
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [getSummaryLength]);
 
   // Drawer handlers
   const openDrawer = useCallback((callLog: CallLogListView) => {
@@ -301,7 +273,7 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
   const handleCallLogUpdated = useCallback((updatedCallLog: CallLogDetailView) => {
     console.log('🔄 handleCallLogUpdated called - triggering table refresh');
     
-    // Trigger the same refresh logic as the "Appliquer" button
+    // Trigger refresh to get fresh data from server
     handleRefresh();
     
     // Update selected call log if it's the same one  
@@ -318,17 +290,21 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
     }
   }, [selectedCallLog, handleRefresh]);
 
-  // Paginated data for display
-  const paginatedCallLogs = useMemo(() => {
-    // Both filtered and new calls use server-side pagination
-    // The API handles pagination and returns the correct page of results
-    return callLogs;
-  }, [callLogs]);
+  // Status translation helper
+  const translateStatus = useCallback((status: CallLogStatus) => {
+    switch (status) {
+      case 'New': return 'Nouveau';
+      case 'In Progress': return 'En Cours';
+      case 'Done': return 'Terminé';
+      case 'Archived': return 'Archivé';
+      default: return status;
+    }
+  }, []);
 
   // No clinic selected state
-  if (!selectedClinic) {
+  if (!clinicId) {
     return (
-      <div className="new-calls-dashboard">
+      <div className="call-logs-table-container">
         <div className="dashboard-error">
           <div className="error-content">
             <i className="fas fa-clinic-medical"></i>
@@ -341,9 +317,7 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
   }
 
   return (
-    <div className="new-calls-dashboard">
-
-
+    <div className="call-logs-table-container">
       {/* Two-Line Filter System */}
       {showFilters && (
         <div className="two-line-filter-system">
@@ -405,6 +379,30 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
                     onClick={() => clearFilterField('phoneNumber')}
                     className="clear-field-btn"
                     title="Effacer le téléphone"
+                  >
+                    <i className="fas fa-times"></i>
+                  </button>
+                )}
+              </div>
+              <div className="search-field-container">
+                <select
+                  id="status"
+                  value={filters.status}
+                  onChange={(e) => handleFilterChange('status', e.target.value)}
+                  className="status-filter-select"
+                >
+                  <option value="">Tous les statuts</option>
+                  <option value="New">Nouveau</option>
+                  <option value="In Progress">En Cours</option>
+                  <option value="Done">Terminé</option>
+                  <option value="Archived">Archivé</option>
+                </select>
+                {filters.status && (
+                  <button
+                    type="button"
+                    onClick={() => clearFilterField('status')}
+                    className="clear-field-btn"
+                    title="Effacer le statut"
                   >
                     <i className="fas fa-times"></i>
                   </button>
@@ -497,7 +495,6 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
         </div>
       )}
 
-
       {/* Call Logs Table */}
       <div className="call-logs-container">
         {loading ? (
@@ -508,28 +505,18 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
               <i className="fas fa-exclamation-triangle"></i>
               <h3>{t('call-logs:errors.loadError')}</h3>
               <p>{error}</p>
-              <button onClick={hasActiveFilters ? fetchFilteredCalls : () => fetchNewCalls(pagination.currentPage, pagination.itemsPerPage)} className="retry-btn">
+              <button onClick={fetchCallLogs} className="retry-btn">
                 <i className="fas fa-retry"></i>
                 {t('core:common.retry')}
               </button>
             </div>
           </div>
-        ) : paginatedCallLogs.length === 0 ? (
+        ) : callLogs.length === 0 ? (
           <div className="empty-state">
             <div className="empty-content">
               <i className="fas fa-phone-slash"></i>
-              <h3>
-                {hasActiveFilters 
-                  ? t('call-logs:dashboard.noFilteredResults')
-                  : t('call-logs:dashboard.noNewCalls')
-                }
-              </h3>
-              <p>
-                {hasActiveFilters 
-                  ? t('call-logs:dashboard.tryDifferentFilters')
-                  : t('call-logs:dashboard.checkBackLater')
-                }
-              </p>
+              <h3>{t('call-logs:dashboard.noFilteredResults')}</h3>
+              <p>{t('call-logs:dashboard.tryDifferentFilters')}</p>
             </div>
           </div>
         ) : (
@@ -542,11 +529,12 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
                   <th>{t('call-logs:table.callTime')}</th>
                   <th>{t('call-logs:table.reason')}</th>
                   <th>{t('call-logs:table.summary')}</th>
+                  <th>{t('call-logs:datatable.status')}</th>
                   <th>{t('call-logs:table.actions')}</th>
                 </tr>
               </thead>
               <tbody>
-                {paginatedCallLogs.map((callLog) => {
+                {callLogs.map((callLog) => {
                   // Check if call is recent (within last hour) to mark as "new"
                   const isNewCall = new Date(callLog.call_started_at) > new Date(Date.now() - 60 * 60 * 1000);
                   // Check if this row is currently selected in the drawer
@@ -588,6 +576,11 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
                       ) : (
                         <span className="unknown-info">Aucun résumé</span>
                       )}
+                    </td>
+                    <td className="status">
+                      <span className={`status-badge status-${callLog.status.toLowerCase().replace(' ', '-')}`}>
+                        {translateStatus(callLog.status)}
+                      </span>
                     </td>
                     <td className="actions">
                       <div className="actions-container">
@@ -679,4 +672,4 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
   );
 };
 
-export default NewCallLogsDashboard;
+export default CallLogTable;
