@@ -37,7 +37,8 @@
     "collapse": "Collapse section",
     "expand": "Expand section",
     "clinics": "Clinics",
-    "callActivity": "Call Activity"
+    "callActivity": "Call Activity",
+    "reasonDistribution": "Distribution by Call Reason"
   },
 
   "contact": {

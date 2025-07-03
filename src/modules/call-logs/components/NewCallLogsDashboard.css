@@ -388,11 +388,23 @@
   font-size: 0.75rem;
 }
 
+/* Summary column styling */
+.summary {
+  max-width: 0; /* Allow column to expand */
+  width: 100%;
+  position: relative; /* Ensure tooltip positioning works */
+}
+
 /* Summary text with tooltip */
 .summary-text {
   cursor: help;
   position: relative;
-  z-index: auto;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .summary-text:hover {
@@ -453,9 +465,42 @@
   text-decoration: underline;
 }
 
+/* Table Column Widths - Using natural table sizing */
+.call-logs-table th:nth-child(1), /* Caller Name */
+.call-logs-table td:nth-child(1) {
+  white-space: nowrap;
+}
+
+.call-logs-table th:nth-child(2), /* Phone Number */
+.call-logs-table td:nth-child(2) {
+  white-space: nowrap;
+}
+
+.call-logs-table th:nth-child(3), /* Call Time */
+.call-logs-table td:nth-child(3) {
+  white-space: nowrap;
+}
+
+.call-logs-table th:nth-child(4), /* Reason */
+.call-logs-table td:nth-child(4) {
+  white-space: nowrap;
+}
+
+.call-logs-table th:nth-child(5), /* Summary - Takes remaining space */
+.call-logs-table td:nth-child(5) {
+  width: 100%; /* Takes all remaining space */
+  position: relative; /* Enable tooltip positioning */
+}
+
+.call-logs-table th:nth-child(6), /* Actions */
+.call-logs-table td:nth-child(6) {
+  width: 60px;
+  white-space: nowrap;
+}
+
 /* Compact Actions Column */
 .actions {
-  width: 60px; /* Very narrow column for icons only */
+  width: 60px;
   padding: 0.25rem 0.375rem !important;
 }
 
@@ -577,11 +622,15 @@
 }
 
 .skeleton-row {
-  display: grid;
-  grid-template-columns: 120px 150px 120px 140px 120px 80px;
+  display: flex;
   gap: 1rem;
   margin-bottom: 1rem;
   align-items: center;
+  min-height: 2.25rem;
+}
+
+.skeleton-row .skeleton-cell:nth-child(5) {
+  flex: 1; /* Summary skeleton takes remaining space */
 }
 
 .skeleton-cell {

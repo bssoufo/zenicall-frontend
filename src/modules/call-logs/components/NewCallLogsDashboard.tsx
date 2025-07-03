@@ -8,6 +8,7 @@ import { LoadingScreen } from '../../../@zenidata/components/UI/Loader';
 import { useDebounce } from '../../../@zenidata/hooks/useDebounce';
 import CallLogSummary from './CallLogSummary';
 import { CallDetailsDrawer } from './CallDetailsDrawer';
+import { useCallLogEnums } from '../../../@zenidata/hooks/useEnumTranslation';
 import './NewCallLogsDashboard.css';
 
 interface NewCallLogsDashboardProps {
@@ -54,6 +55,7 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
 }) => {
   const { t } = useTranslation(['call-logs', 'core']);
   const { selectedClinic } = useClinic();
+  const { reason: translateReason } = useCallLogEnums();
   
   // State management
   const [callLogs, setCallLogs] = useState<CallLogListView[]>([]);
@@ -261,6 +263,28 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
     }));
     setPagination(prev => ({ ...prev, currentPage: 1 }));
   }, []);
+
+  // Calculate dynamic summary length based on screen width
+  const getSummaryLength = useCallback(() => {
+    const screenWidth = window.innerWidth;
+    if (screenWidth >= 1400) return 150; // Large screens
+    if (screenWidth >= 1200) return 100; // Medium-large screens  
+    if (screenWidth >= 992) return 80;   // Medium screens
+    if (screenWidth >= 768) return 60;   // Small-medium screens
+    return 40; // Small screens
+  }, []);
+
+  const [summaryLength, setSummaryLength] = useState(getSummaryLength());
+
+  // Update summary length on window resize
+  useEffect(() => {
+    const handleResize = () => {
+      setSummaryLength(getSummaryLength());
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [getSummaryLength]);
 
   // Drawer handlers
   const openDrawer = useCallback((callLog: CallLogListView) => {
@@ -524,7 +548,10 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
                       {new Date(callLog.call_started_at).toLocaleString()}
                     </td>
                     <td className="reason">
-                      {callLog.reason_for_call || <span className="unknown-info">Non spécifié</span>}
+                      {callLog.reason_for_call ? 
+                        translateReason(callLog.reason_for_call) : 
+                        <span className="unknown-info">Non spécifié</span>
+                      }
                     </td>
                     <td className="summary">
                       {callLog.summary ? (
@@ -532,8 +559,8 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
                           className="summary-text" 
                           data-tooltip={callLog.summary}
                         >
-                          {callLog.summary.length > 50 
-                            ? `${callLog.summary.substring(0, 50)}...` 
+                          {callLog.summary.length > summaryLength 
+                            ? `${callLog.summary.substring(0, summaryLength)}...` 
                             : callLog.summary
                           }
                         </span>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import './DashboardCallReasonDistribution.css';
 import CallLogService from '../CallLogService';
+import { useCallLogEnums } from '../../../@zenidata/hooks/useEnumTranslation';
 
 interface CallVolumeByReason {
   reason: string;
@@ -22,7 +23,8 @@ interface DashboardCallReasonDistributionProps {
 const DashboardCallReasonDistribution: React.FC<DashboardCallReasonDistributionProps> = ({ 
   clinicId = "default-clinic-id" 
 }) => {
-  const { t } = useTranslation(['home']);
+  const { t } = useTranslation(['home', 'call-logs']);
+  const { reason: translateReason } = useCallLogEnums();
   const [reasonData, setReasonData] = useState<CallVolumeByReason[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -53,16 +55,9 @@ const DashboardCallReasonDistribution: React.FC<DashboardCallReasonDistributionP
     fetchReasonDistribution();
   }, [clinicId]);
 
+  // Using the new enum translation hook - much cleaner!
   const getReasonLabel = (reason: string): string => {
-    const reasonLabels: Record<string, string> = {
-      'New Appointment': 'Nouveau RDV',
-      'Cancellation': 'Annulation',
-      'Reschedule': 'Reprogrammation', 
-      'General Message': 'Message général',
-      'Emergency': 'Urgence',
-      'Other': 'Autre'
-    };
-    return reasonLabels[reason] || reason;
+    return translateReason(reason);
   };
 
   const getReasonColor = (index: number): string => {
@@ -79,7 +74,7 @@ const DashboardCallReasonDistribution: React.FC<DashboardCallReasonDistributionP
   if (loading) {
     return (
       <section className="control-panel-reason-distribution">
-        <h3 className="control-panel-section-title">{t('reasonDistribution')}</h3>
+        <h3 className="control-panel-section-title">{t('home:dashboard.reasonDistribution')}</h3>
         <div className="reason-distribution-loading">
           <div className="loading-skeleton">
             <div className="skeleton-bar"></div>
@@ -94,7 +89,7 @@ const DashboardCallReasonDistribution: React.FC<DashboardCallReasonDistributionP
   if (error) {
     return (
       <section className="control-panel-reason-distribution">
-        <h3 className="control-panel-section-title">{t('reasonDistribution')}</h3>
+        <h3 className="control-panel-section-title">{t('home:dashboard.reasonDistribution')}</h3>
         <div className="reason-distribution-error">
           <span className="error-text">{error}</span>
         </div>
@@ -104,7 +99,7 @@ const DashboardCallReasonDistribution: React.FC<DashboardCallReasonDistributionP
 
   return (
     <section className="control-panel-reason-distribution">
-      <h3 className="control-panel-section-title">{t('reasonDistribution')}</h3>
+      <h3 className="control-panel-section-title">{t('home:dashboard.reasonDistribution')}</h3>
       <div className="reason-distribution-content">
         {reasonData.length > 0 ? (
           <div className="reason-bars">

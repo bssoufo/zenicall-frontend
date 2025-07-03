@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { CallLogListView, CallLogDetailView, CallLogStatus } from '../CallLogModel';
 import CallLogService from '../CallLogService';
 import InternalNotesService, { InternalNoteListView } from '../InternalNotesService';
+import { useCallLogEnums } from '../../../@zenidata/hooks/useEnumTranslation';
 import './CallDetailsDrawer.css';
 
 interface CallDetailsDrawerProps {
@@ -206,6 +207,7 @@ const TabNavigation: React.FC<TabNavigationProps> = ({ activeTab, onTabChange })
 // Tab Content Component
 const TabContent: React.FC<TabContentProps> = ({ activeTab, callLog, notes, loadingNotes, onAddNote }) => {
   const { t } = useTranslation(['call-logs']);
+  const { reason: translateReason } = useCallLogEnums();
   const [newNoteContent, setNewNoteContent] = useState('');
   const [addingNote, setAddingNote] = useState<AddingNoteState | null>(null);
 
@@ -268,7 +270,9 @@ const TabContent: React.FC<TabContentProps> = ({ activeTab, callLog, notes, load
             </div>
             <div className="field">
               <label className="field-label">Motif</label>
-              <span className="field-value">{callLog.reason_for_call || 'Non spécifié'}</span>
+              <span className="field-value">
+                {callLog.reason_for_call ? translateReason(callLog.reason_for_call) : 'Non spécifié'}
+              </span>
             </div>
             <div className="field">
               <label className="field-label">Préférence d'appel</label>

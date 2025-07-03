@@ -18,7 +18,7 @@
     "callerLastName": "Nom",
     "callerPhoneNumber": "Téléphone",
     "callStartedAt": "Début",
-    "reasonForCall": "Motif",
+    "reasonForCall": "Raison d'appel",
     "status": "Statut",
     "action": "Action",
     "view": "Voir"
@@ -84,7 +84,7 @@
     "callerName": "Nom de l'Appelant",
     "phoneNumber": "Numéro de Téléphone",
     "callTime": "Heure d'Appel",
-    "reason": "Motif",
+    "reason": "Raison d'appel",
     "summary": "Résumé",
     "actions": "Actions"
   },
@@ -123,5 +123,27 @@
     "thisWeek": "Cette Semaine",
     "thisMonth": "Ce Mois",
     "thisYear": "Cette Année"
+  },
+  "enums": {
+    "callReason": {
+      "New Appointment": "Nouveau RDV",
+      "NEW_APPOINTMENT": "Nouveau RDV",
+      "Cancellation": "Annulation", 
+      "CANCELLATION": "Annulation",
+      "Reschedule": "Reprogrammation",
+      "RESCHEDULE": "Reprogrammation",
+      "General Message": "Message général",
+      "GENERAL_MESSAGE": "Message général",
+      "Emergency": "Urgence",
+      "EMERGENCY": "Urgence",
+      "Other": "Autre",
+      "OTHER": "Autre"
+    },
+    "callStatus": {
+      "New": "Nouveau",
+      "In Progress": "En cours",
+      "Done": "Terminé",
+      "Archived": "Archivé"
+    }
   }
 }
