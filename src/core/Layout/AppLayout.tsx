@@ -218,7 +218,7 @@ function AppLayout() {
                     </a>
                   </li>
 
-                  <li
+                  {/* <li
                     className={`${
                       isActive("/clinics") ? "iz_menu-active" : ""
                     }`}
@@ -227,7 +227,7 @@ function AppLayout() {
                       <i className="iz_icon-documents"></i>{" "}
                       {t("sidebar.clinics")}
                     </a>
-                  </li>
+                  </li> */}
 
                   <li
                     className={`${

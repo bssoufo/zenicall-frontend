@@ -10,7 +10,7 @@ import './DashboardPage.css';
 
 function DashboardPage() {
   const { t } = useTranslation("home");
-  const { selectedClinic, clinics } = useClinic();
+  const { selectedClinic, clinics, loading: loadingClinics } = useClinic();
 
   const [loading, setLoading] = useState(true);
   const [totalClinics, setTotalClinics] = useState<number>(0);
@@ -50,10 +50,12 @@ function DashboardPage() {
               <h2 className="empty-state-title">{t("dashboard.noClinicSelected")}</h2>
               <p className="empty-state-description">{t("dashboard.selectClinicMessage")}</p>
               <div className="empty-state-actions">
-                <Link to="/clinics" className="btn btn-primary">
-                  <i className="fas fa-plus" aria-hidden="true"></i>
-                  {t("dashboard.browseClinicsCTA")}
-                </Link>
+                {!loadingClinics && (
+                  <Link to="/clinics" className="btn btn-primary">
+                    <i className="fas fa-plus" aria-hidden="true"></i>
+                    {t("dashboard.browseClinicsCTA")}
+                  </Link>
+                )}
               </div>
             </div>
           </div>
@@ -69,7 +71,7 @@ function DashboardPage() {
         <div className="dashboard-main-grid">
           {/* Left Column - Call Logs Section (70%) */}
           <section className="dashboard-call-logs-section" aria-labelledby="call-logs-title">
-            <h2 id="call-logs-title" className="call-logs-section-title">Journaux d'Appels</h2>
+            <h2 id="call-logs-title" className="call-logs-section-title">{t("dashboard.callsToAction")}</h2>
             <DashboardNewCallsWidget />
           </section>
 
@@ -77,7 +79,7 @@ function DashboardPage() {
           <aside className="dashboard-control-panel" aria-labelledby="control-panel-title">
             {/* KPI Stats in Control Panel */}
             <section className="control-panel-kpis" aria-labelledby="kpi-title">
-              <h3 id="kpi-title" className="control-panel-section-title">Statistiques</h3>
+              <h3 id="kpi-title" className="control-panel-section-title">{t("dashboard.overview")}</h3>
               <DashboardCallLogStats />
             </section>
 
@@ -98,19 +100,6 @@ function DashboardPage() {
                   </div>
                 </Link>
                 
-                <Link to="/clinics" className="control-panel-action-card">
-                  <div className="control-panel-action-icon">
-                    <i className="fas fa-clinic-medical" aria-hidden="true"></i>
-                  </div>
-                  <div className="control-panel-action-content">
-                    <h4 className="control-panel-action-title">{t("dashboard.manageClinics")}</h4>
-                    <p className="control-panel-action-description">{t("dashboard.manageClinicsDesc")}</p>
-                  </div>
-                  <div className="control-panel-action-arrow">
-                    <i className="fas fa-chevron-right" aria-hidden="true"></i>
-                  </div>
-                </Link>
-                
                 <Link to="/analytics" className="control-panel-action-card">
                   <div className="control-panel-action-icon">
                     <i className="fas fa-chart-bar" aria-hidden="true"></i>
@@ -118,6 +107,19 @@ function DashboardPage() {
                   <div className="control-panel-action-content">
                     <h4 className="control-panel-action-title">{t("dashboard.analytics")}</h4>
                     <p className="control-panel-action-description">{t("dashboard.analyticsDesc")}</p>
+                  </div>
+                  <div className="control-panel-action-arrow">
+                    <i className="fas fa-chevron-right" aria-hidden="true"></i>
+                  </div>
+                </Link>
+
+                <Link to="/support" className="control-panel-action-card">
+                  <div className="control-panel-action-icon">
+                    <i className="fas fa-life-ring" aria-hidden="true"></i>
+                  </div>
+                  <div className="control-panel-action-content">
+                    <h4 className="control-panel-action-title">{t("dashboard.support")}</h4>
+                    <p className="control-panel-action-description">{t("dashboard.supportDesc")}</p>
                   </div>
                   <div className="control-panel-action-arrow">
                     <i className="fas fa-chevron-right" aria-hidden="true"></i>
