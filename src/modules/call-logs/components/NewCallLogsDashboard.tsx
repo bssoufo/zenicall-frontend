@@ -7,6 +7,7 @@ import { CallLogListView } from '../CallLogModel';
 import { LoadingScreen } from '../../../@zenidata/components/UI/Loader';
 import { useDebounce } from '../../../@zenidata/hooks/useDebounce';
 import CallLogSummary from './CallLogSummary';
+import { CallDetailsDrawer } from './CallDetailsDrawer';
 import './NewCallLogsDashboard.css';
 
 interface NewCallLogsDashboardProps {
@@ -46,6 +47,7 @@ const CallLogSkeleton: React.FC = () => (
   </div>
 );
 
+
 export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
   maxItems = 50,
   showFilters = true
@@ -60,6 +62,10 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
   const [lastFetchTime, setLastFetchTime] = useState<Date | null>(null);
   const [playingAudioId, setPlayingAudioId] = useState<string | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  
+  // Drawer state
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [selectedCallLog, setSelectedCallLog] = useState<CallLogListView | null>(null);
   
   // Filter state
   const [filters, setFilters] = useState<Filters>({
@@ -247,6 +253,26 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
     setPagination(prev => ({ ...prev, currentPage: 1 }));
   }, []);
 
+  // Clear individual filter field
+  const clearFilterField = useCallback((field: keyof Filters) => {
+    setFilters(prev => ({
+      ...prev,
+      [field]: ''
+    }));
+    setPagination(prev => ({ ...prev, currentPage: 1 }));
+  }, []);
+
+  // Drawer handlers
+  const openDrawer = useCallback((callLog: CallLogListView) => {
+    setSelectedCallLog(callLog);
+    setIsDrawerOpen(true);
+  }, []);
+
+  const closeDrawer = useCallback(() => {
+    setIsDrawerOpen(false);
+    setSelectedCallLog(null);
+  }, []);
+
   // Paginated data for display
   const paginatedCallLogs = useMemo(() => {
     // Both filtered and new calls use server-side pagination
@@ -279,30 +305,66 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
           {/* Line 1: Specific Search Fields */}
           <div className="filter-line-1">
             <div className="search-fields-row">
-              <input
-                id="lastName"
-                type="text"
-                value={filters.lastName}
-                onChange={(e) => handleFilterChange('lastName', e.target.value)}
-                placeholder="Rechercher par nom..."
-                className="search-field"
-              />
-              <input
-                id="firstName"
-                type="text"
-                value={filters.firstName}
-                onChange={(e) => handleFilterChange('firstName', e.target.value)}
-                placeholder="Rechercher par prénom..."
-                className="search-field"
-              />
-              <input
-                id="phoneNumber"
-                type="text"
-                value={filters.phoneNumber}
-                onChange={(e) => handleFilterChange('phoneNumber', e.target.value)}
-                placeholder="Rechercher par téléphone..."
-                className="search-field"
-              />
+              <div className="search-field-container">
+                <input
+                  id="lastName"
+                  type="text"
+                  value={filters.lastName}
+                  onChange={(e) => handleFilterChange('lastName', e.target.value)}
+                  placeholder="Rechercher par nom..."
+                  className="search-field"
+                />
+                {filters.lastName && (
+                  <button
+                    type="button"
+                    onClick={() => clearFilterField('lastName')}
+                    className="clear-field-btn"
+                    title="Effacer le nom"
+                  >
+                    <i className="fas fa-times"></i>
+                  </button>
+                )}
+              </div>
+              <div className="search-field-container">
+                <input
+                  id="firstName"
+                  type="text"
+                  value={filters.firstName}
+                  onChange={(e) => handleFilterChange('firstName', e.target.value)}
+                  placeholder="Rechercher par prénom..."
+                  className="search-field"
+                />
+                {filters.firstName && (
+                  <button
+                    type="button"
+                    onClick={() => clearFilterField('firstName')}
+                    className="clear-field-btn"
+                    title="Effacer le prénom"
+                  >
+                    <i className="fas fa-times"></i>
+                  </button>
+                )}
+              </div>
+              <div className="search-field-container">
+                <input
+                  id="phoneNumber"
+                  type="text"
+                  value={filters.phoneNumber}
+                  onChange={(e) => handleFilterChange('phoneNumber', e.target.value)}
+                  placeholder="Rechercher par téléphone..."
+                  className="search-field"
+                />
+                {filters.phoneNumber && (
+                  <button
+                    type="button"
+                    onClick={() => clearFilterField('phoneNumber')}
+                    className="clear-field-btn"
+                    title="Effacer le téléphone"
+                  >
+                    <i className="fas fa-times"></i>
+                  </button>
+                )}
+              </div>
             </div>
           </div>
 
@@ -332,23 +394,47 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
 
             <div className="right-group">
               <div className="date-filters-group">
-                <input
-                  id="startDate"
-                  type="date"
-                  value={filters.startDate}
-                  onChange={(e) => handleFilterChange('startDate', e.target.value)}
-                  className="date-filter-input"
-                  title="Date de début"
-                />
+                <div className="search-field-container">
+                  <input
+                    id="startDate"
+                    type="date"
+                    value={filters.startDate}
+                    onChange={(e) => handleFilterChange('startDate', e.target.value)}
+                    className="date-filter-input"
+                    title="Date de début"
+                  />
+                  {filters.startDate && (
+                    <button
+                      type="button"
+                      onClick={() => clearFilterField('startDate')}
+                      className="clear-field-btn clear-date-btn"
+                      title="Effacer la date de début"
+                    >
+                      <i className="fas fa-times"></i>
+                    </button>
+                  )}
+                </div>
                 <span className="date-separator">—</span>
-                <input
-                  id="endDate"
-                  type="date"
-                  value={filters.endDate}
-                  onChange={(e) => handleFilterChange('endDate', e.target.value)}
-                  className="date-filter-input"
-                  title="Date de fin"
-                />
+                <div className="search-field-container">
+                  <input
+                    id="endDate"
+                    type="date"
+                    value={filters.endDate}
+                    onChange={(e) => handleFilterChange('endDate', e.target.value)}
+                    className="date-filter-input"
+                    title="Date de fin"
+                  />
+                  {filters.endDate && (
+                    <button
+                      type="button"
+                      onClick={() => clearFilterField('endDate')}
+                      className="clear-field-btn clear-date-btn"
+                      title="Effacer la date de fin"
+                    >
+                      <i className="fas fa-times"></i>
+                    </button>
+                  )}
+                </div>
               </div>
               
               <div className="action-buttons">
@@ -418,9 +504,11 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
                 {paginatedCallLogs.map((callLog) => {
                   // Check if call is recent (within last hour) to mark as "new"
                   const isNewCall = new Date(callLog.call_started_at) > new Date(Date.now() - 60 * 60 * 1000);
+                  // Check if this row is currently selected in the drawer
+                  const isSelected = selectedCallLog?.id === callLog.id && isDrawerOpen;
                   
                   return (
-                  <tr key={callLog.id} className={`call-log-row ${isNewCall ? 'new-call' : ''}`}>
+                  <tr key={callLog.id} className={`call-log-row ${isNewCall ? 'new-call' : ''} ${isSelected ? 'selected' : ''}`}>
                     <td className="caller-name">
                       {callLog.caller_first_name || callLog.caller_last_name
                         ? `${callLog.caller_first_name || ''} ${callLog.caller_last_name || ''}`.trim()
@@ -442,7 +530,6 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
                       {callLog.summary ? (
                         <span 
                           className="summary-text" 
-                          title={callLog.summary}
                           data-tooltip={callLog.summary}
                         >
                           {callLog.summary.length > 50 
@@ -465,13 +552,13 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
                             <i className={`fas ${playingAudioId === callLog.id ? 'fa-pause' : 'fa-play'}`}></i>
                           </button>
                         )}
-                        <Link 
-                          to={`/clinics/${selectedClinic.id}/call-logs/${callLog.id}`}
+                        <button
+                          onClick={() => openDrawer(callLog)}
                           className="action-icon-btn view-btn"
                           title={t('call-logs:actions.viewDetails')}
                         >
                           <i className="fas fa-eye"></i>
-                        </Link>
+                        </button>
                       </div>
                     </td>
                   </tr>
@@ -532,6 +619,13 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
           </button>
         </div>
       )}
+
+      {/* Call Log Details Drawer */}
+      <CallDetailsDrawer 
+        isOpen={isDrawerOpen}
+        callLog={selectedCallLog}
+        onClose={closeDrawer}
+      />
     </div>
   );
 };
