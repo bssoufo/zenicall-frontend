@@ -21,15 +21,18 @@ interface CallLogPage {
 interface CallLogSearchOptions {
   caller_first_name?: string;
   caller_last_name?: string;
+  caller_phone_number?: string;
   start_date?: string;
   end_date?: string;
+  status?: string[];  // Changed to array for multiple status filtering
+  reason_for_call?: string[];  // Also changed to array for consistency
   page?: number;
   limit?: number;
 }
 
 const CallLogService = {
   /**
-   * Fetch new call logs for dashboard (optimal endpoint for 'New' status).
+   * Fetch new call logs for dashboard (optimal endpoint for 'NEW' status).
    * Uses the dedicated /call-logs/new endpoint for performance.
    */
   async getNewCallLogs(
@@ -39,7 +42,7 @@ const CallLogService = {
     try {
       const response = await apiClient.get(
         `/call-logs/by-clinic/${clinicId}`,
-        { params: { ...options, status: 'New' } }
+        { params: { ...options, status: 'NEW' } }
       );
       const data = response.data;
       return {
@@ -58,6 +61,14 @@ const CallLogService = {
   /**
    * Advanced search for call logs with filtering capabilities.
    * Optimal for complex filtering with first name, last name, and date ranges.
+   * 
+   * Example API payload:
+   * {
+   *   "clinic_id": "uuid",
+   *   "caller_first_name": "John",
+   *   "status": ["IN_PROGRESS", "NEW"],
+   *   "reason_for_call": ["NEW_APPOINTMENT"]
+   * }
    */
   async searchCallLogs(
     clinicId: string,

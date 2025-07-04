@@ -120,15 +120,17 @@ export const useEnumOptions = (enumType: SupportedEnumType) => {
     switch (type) {
       case 'callReason':
         return [
-          'New Appointment',
-          'Cancellation', 
-          'Reschedule',
-          'General Message',
-          'Emergency',
-          'Other'
+          'NEW_APPOINTMENT',
+          'CANCELLATION', 
+          'RESCHEDULE',
+          'GENERAL_MESSAGE',
+          'EMERGENCY',
+          'OTHER'
         ];
       case 'callStatus':
-        return ['New', 'In Progress', 'Done', 'Archived'];
+        return ['NEW', 'IN_PROGRESS', 'DONE', 'ARCHIVED'];
+      case 'callbackPreference':
+        return ['MORNING', 'AFTERNOON', 'EVENING', 'ANYTIME'];
       default:
         return [];
     }

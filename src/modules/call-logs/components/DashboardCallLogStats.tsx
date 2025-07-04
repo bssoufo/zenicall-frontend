@@ -7,9 +7,9 @@ import Loader from '../../../@zenidata/components/UI/Loader';
 interface CallLogSummaryData {
   total_calls: number;
   calls_by_status: {
-    'New': number;
-    'In Progress': number;
-    'Done': number;
+    'NEW': number;
+    'IN_PROGRESS': number;
+    'DONE': number;
   };
 }
 
@@ -86,9 +86,9 @@ const DashboardCallLogStats: React.FC = () => {
       setSummary({
         total_calls: 0,
         calls_by_status: {
-          'New': 0,
-          'In Progress': 0,
-          'Done': 0
+          'NEW': 0,
+          'IN_PROGRESS': 0,
+          'DONE': 0
         }
       });
     } finally {
@@ -120,15 +120,15 @@ const DashboardCallLogStats: React.FC = () => {
   // Show data or fallback values
   const stats = summary || {
     total_calls: 0,
-    calls_by_status: { 'New': 0, 'In Progress': 0, 'Done': 0 }
+    calls_by_status: { 'NEW': 0, 'IN_PROGRESS': 0, 'DONE': 0 }
   };
 
   return (
     <StatsDisplay
       totalCalls={stats.total_calls}
-      newCalls={stats.calls_by_status['New'] || 0}
-      inProgressCalls={stats.calls_by_status['In Progress'] || 0}
-      doneCalls={stats.calls_by_status['Done'] || 0}
+      newCalls={stats.calls_by_status['NEW'] || 0}
+      inProgressCalls={stats.calls_by_status['IN_PROGRESS'] || 0}
+      doneCalls={stats.calls_by_status['DONE'] || 0}
     />
   );
 };

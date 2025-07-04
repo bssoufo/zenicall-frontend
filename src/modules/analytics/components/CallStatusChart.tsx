@@ -22,10 +22,10 @@ interface CallStatusChartProps {
 
 // Default colors for call statuses
 const STATUS_COLORS = {
-  "New": "#f59e0b",           // Orange
-  "In Progress": "#8b5cf6",   // Purple  
-  "Done": "#10b981",          // Green
-  "Archived": "#6b7280"       // Gray
+  "NEW": "#f59e0b",           // Orange
+  "IN_PROGRESS": "#8b5cf6",   // Purple  
+  "DONE": "#10b981",          // Green
+  "ARCHIVED": "#6b7280"       // Gray
 };
 
 const CustomTooltip = ({ active, payload }: any) => {

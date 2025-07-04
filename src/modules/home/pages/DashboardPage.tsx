@@ -104,6 +104,8 @@ function DashboardPage() {
                   </div>
                 </Link>
                 
+                {/* TODO: Enable Analytics later - temporarily hidden */}
+                {/*
                 <Link to="/analytics" className="control-panel-action-card">
                   <div className="control-panel-action-icon">
                     <i className="fas fa-chart-bar" aria-hidden="true"></i>
@@ -116,6 +118,7 @@ function DashboardPage() {
                     <i className="fas fa-chevron-right" aria-hidden="true"></i>
                   </div>
                 </Link>
+                */}
 
                 <Link to="/support" className="control-panel-action-card">
                   <div className="control-panel-action-icon">

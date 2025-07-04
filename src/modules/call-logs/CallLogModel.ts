@@ -19,22 +19,22 @@ export interface UserInClinicRead {
   status?: string | null;
 }
 
-// Enum types for call logs (matching OpenAPI)
+// Enum types for call logs (matching backend API)
 export type CallLogReasonForCall = 
-  | 'New Appointment'
-  | 'Cancellation' 
-  | 'Reschedule'
-  | 'General Message'
-  | 'Emergency'
-  | 'Other';
+  | 'NEW_APPOINTMENT'
+  | 'CANCELLATION' 
+  | 'RESCHEDULE'
+  | 'GENERAL_MESSAGE'
+  | 'EMERGENCY'
+  | 'OTHER';
 
 export type CallbackPreference =
-  | 'Morning'
-  | 'Afternoon'
-  | 'Evening'
-  | 'Anytime';
+  | 'MORNING'
+  | 'AFTERNOON'
+  | 'EVENING'
+  | 'ANYTIME';
 
-export type CallLogStatus = 'New' | 'In Progress' | 'Done' | 'Archived';
+export type CallLogStatus = 'NEW' | 'IN_PROGRESS' | 'DONE' | 'ARCHIVED';
 
 // View for listing call logs (matching OpenAPI CallLogListView)
 export interface CallLogListView {

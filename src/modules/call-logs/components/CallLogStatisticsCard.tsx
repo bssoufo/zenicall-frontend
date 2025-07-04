@@ -73,19 +73,19 @@ const CallLogStatisticsCard: React.FC = () => {
         </div>
         <div className="stat-item">
           <span className="stat-label">{t('call-logs:statistics.newCalls')}</span>
-          <span className="stat-value">{statistics.calls_by_status.New || 0}</span>
+          <span className="stat-value">{statistics.calls_by_status.NEW || 0}</span>
         </div>
         <div className="stat-item">
           <span className="stat-label">{t('call-logs:statistics.inProgressCalls')}</span>
-          <span className="stat-value">{statistics.calls_by_status['In Progress'] || 0}</span>
+          <span className="stat-value">{statistics.calls_by_status['IN_PROGRESS'] || 0}</span>
         </div>
         <div className="stat-item">
           <span className="stat-label">{t('call-logs:statistics.doneCalls')}</span>
-          <span className="stat-value">{statistics.calls_by_status.Done || 0}</span>
+          <span className="stat-value">{statistics.calls_by_status.DONE || 0}</span>
         </div>
         <div className="stat-item">
           <span className="stat-label">{t('call-logs:statistics.archivedCalls')}</span>
-          <span className="stat-value">{statistics.calls_by_status.Archived || 0}</span>
+          <span className="stat-value">{statistics.calls_by_status.ARCHIVED || 0}</span>
         </div>
         {statistics.busiest_day && (
           <div className="stat-item">

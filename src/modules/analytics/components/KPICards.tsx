@@ -99,9 +99,9 @@ export const KPICards: React.FC<KPICardsProps> = ({ clinicId, period = "last_7_d
   const growthRate = data.growth_rate_percentage;
   
   // Get status breakdown
-  const newCalls = data.calls_by_status["New"] || 0;
-  const inProgressCalls = data.calls_by_status["In Progress"] || 0;
-  const completedCalls = data.calls_by_status["Done"] || 0;
+  const newCalls = data.calls_by_status["NEW"] || 0;
+  const inProgressCalls = data.calls_by_status["IN_PROGRESS"] || 0;
+  const completedCalls = data.calls_by_status["DONE"] || 0;
   
   // Calculate completion rate
   const completionRate = totalCalls > 0 ? Math.round((completedCalls / totalCalls) * 100) : 0;

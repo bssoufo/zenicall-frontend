@@ -126,24 +126,24 @@
   },
   "enums": {
     "callReason": {
-      "New Appointment": "Nouveau RDV",
       "NEW_APPOINTMENT": "Nouveau RDV",
-      "Cancellation": "Annulation", 
       "CANCELLATION": "Annulation",
-      "Reschedule": "Reprogrammation",
       "RESCHEDULE": "Reprogrammation",
-      "General Message": "Message général",
       "GENERAL_MESSAGE": "Message général",
-      "Emergency": "Urgence",
       "EMERGENCY": "Urgence",
-      "Other": "Autre",
       "OTHER": "Autre"
     },
     "callStatus": {
-      "New": "Nouveau",
-      "In Progress": "En cours",
-      "Done": "Terminé",
-      "Archived": "Archivé"
+      "NEW": "Nouveau",
+      "IN_PROGRESS": "En cours",
+      "DONE": "Terminé",
+      "ARCHIVED": "Archivé"
+    },
+    "callbackPreference": {
+      "MORNING": "Matin",
+      "AFTERNOON": "Après-midi",
+      "EVENING": "Soir",
+      "ANYTIME": "N'importe quand"
     }
   }
 }

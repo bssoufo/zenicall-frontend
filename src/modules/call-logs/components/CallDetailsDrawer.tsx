@@ -134,16 +134,19 @@ const DrawerSkeleton: React.FC = () => (
 // Status Badge Component
 const StatusBadge: React.FC<StatusBadgeProps> = ({ status }) => {
   const getStatusConfig = (status: string) => {
-    switch (status.toLowerCase()) {
-      case 'new':
-      case 'nouveau':
+    switch (status.toUpperCase()) {
+      case 'NEW':
+      case 'NOUVEAU':
         return { label: 'Nouveau', className: 'status-new' };
-      case 'in progress':
-      case 'en cours':
+      case 'IN_PROGRESS':
+      case 'EN_COURS':
         return { label: 'En Cours', className: 'status-in-progress' };
-      case 'done':
-      case 'terminé':
+      case 'DONE':
+      case 'TERMINE':
         return { label: 'Terminé', className: 'status-done' };
+      case 'ARCHIVED':
+      case 'ARCHIVE':
+        return { label: 'Archivé', className: 'status-archived' };
       default:
         return { label: 'Nouveau', className: 'status-new' };
     }
@@ -168,7 +171,7 @@ const DrawerHeader: React.FC<DrawerHeaderProps> = ({ callLog, onClose }) => {
     <div className="drawer-header">
       <div className="header-content">
         <h2 className="drawer-title">{callerName}</h2>
-        <StatusBadge status={callLog.status || 'New'} />
+        <StatusBadge status={callLog.status || 'NEW'} />
       </div>
       <button 
         onClick={onClose} 
@@ -478,10 +481,10 @@ const DrawerFooter: React.FC<DrawerFooterProps> = ({ callLog, onSave, saving }) 
             onChange={handleStatusChange}
             className="status-select"
           >
-            <option value="New">Nouveau</option>
-            <option value="In Progress">En Cours</option>
-            <option value="Done">Terminé</option>
-            <option value="Archived">Archivé</option>
+            <option value="NEW">Nouveau</option>
+            <option value="IN_PROGRESS">En Cours</option>
+            <option value="DONE">Terminé</option>
+            <option value="ARCHIVED">Archivé</option>
           </select>
         </div>
         <button onClick={handleSave} className="save-btn" disabled={saving}>

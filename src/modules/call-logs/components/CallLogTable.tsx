@@ -116,7 +116,7 @@ export const CallLogTable: React.FC<CallLogTableProps> = ({
         caller_phone_number: debouncedPhoneNumber || undefined,
         start_date: filters.startDate || undefined,
         end_date: filters.endDate || undefined,
-        status: filters.status || undefined,
+        status: filters.status ? [filters.status] : undefined, // Convert single status to array
         page: pagination.currentPage,
         limit: pagination.itemsPerPage
       };
@@ -293,10 +293,10 @@ export const CallLogTable: React.FC<CallLogTableProps> = ({
   // Status translation helper
   const translateStatus = useCallback((status: CallLogStatus) => {
     switch (status) {
-      case 'New': return 'Nouveau';
-      case 'In Progress': return 'En Cours';
-      case 'Done': return 'Terminé';
-      case 'Archived': return 'Archivé';
+      case 'NEW': return 'Nouveau';
+      case 'IN_PROGRESS': return 'En Cours';
+      case 'DONE': return 'Terminé';
+      case 'ARCHIVED': return 'Archivé';
       default: return status;
     }
   }, []);
@@ -392,10 +392,10 @@ export const CallLogTable: React.FC<CallLogTableProps> = ({
                   className="status-filter-select"
                 >
                   <option value="">Tous les statuts</option>
-                  <option value="New">Nouveau</option>
-                  <option value="In Progress">En Cours</option>
-                  <option value="Done">Terminé</option>
-                  <option value="Archived">Archivé</option>
+                  <option value="NEW">Nouveau</option>
+                  <option value="IN_PROGRESS">En Cours</option>
+                  <option value="DONE">Terminé</option>
+                  <option value="ARCHIVED">Archivé</option>
                 </select>
                 {filters.status && (
                   <button
@@ -578,7 +578,7 @@ export const CallLogTable: React.FC<CallLogTableProps> = ({
                       )}
                     </td>
                     <td className="status">
-                      <span className={`status-badge status-${callLog.status.toLowerCase().replace(' ', '-')}`}>
+                      <span className={`status-badge status-${callLog.status.toLowerCase().replace('_', '-')}`}>
                         {translateStatus(callLog.status)}
                       </span>
                     </td>

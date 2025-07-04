@@ -44,15 +44,15 @@ const CallLogSummary: React.FC = () => {
       </div>
       <div className="summary-card">
         <h4>{t('call-logs:summary.new')}</h4>
-        <p>{summary.calls_by_status.New || 0}</p>
+        <p>{summary.calls_by_status.NEW || 0}</p>
       </div>
       <div className="summary-card">
         <h4>{t('call-logs:summary.inProgress')}</h4>
-        <p>{summary.calls_by_status['In Progress'] || 0}</p>
+        <p>{summary.calls_by_status['IN_PROGRESS'] || 0}</p>
       </div>
       <div className="summary-card">
         <h4>{t('call-logs:summary.done')}</h4>
-        <p>{summary.calls_by_status.Done || 0}</p>
+        <p>{summary.calls_by_status.DONE || 0}</p>
       </div>
     </div>
   );

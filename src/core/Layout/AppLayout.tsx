@@ -240,6 +240,8 @@ function AppLayout() {
                     </a>
                   </li>
 
+                  {/* TODO: Enable Analytics later - temporarily hidden */}
+                  {/*
                   <li
                     className={`${
                       isActive("/analytics") ? "iz_menu-active" : ""
@@ -250,6 +252,7 @@ function AppLayout() {
                       Analytics
                     </a>
                   </li>
+                  */}
 
                   {/* iz_has-menu-child */}
                   <li

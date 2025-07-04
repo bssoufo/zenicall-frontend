@@ -13,6 +13,7 @@ import { TFunction } from 'i18next';
 export type SupportedEnumType = 
   | 'callReason' 
   | 'callStatus'
+  | 'callbackPreference'
   | 'priority'
   | 'userRole'
   | 'notificationType';
@@ -22,7 +23,8 @@ export type SupportedEnumType =
  */
 const ENUM_NAMESPACE_MAP: Record<SupportedEnumType, string> = {
   callReason: 'call-logs',
-  callStatus: 'call-logs', 
+  callStatus: 'call-logs',
+  callbackPreference: 'call-logs',
   priority: 'core',
   userRole: 'auth',
   notificationType: 'core'
@@ -177,17 +179,31 @@ export const getEnumOptions = (
   // Example implementation for callReason:
   if (enumType === 'callReason') {
     const reasons = [
-      'New Appointment',
-      'Cancellation', 
-      'Reschedule',
-      'General Message',
-      'Emergency',
-      'Other'
+      'NEW_APPOINTMENT',
+      'CANCELLATION', 
+      'RESCHEDULE',
+      'GENERAL_MESSAGE',
+      'EMERGENCY',
+      'OTHER'
     ];
     
     return reasons.map(reason => ({
       value: reason,
       label: translateEnum(reason, enumType, t)
+    }));
+  }
+  
+  if (enumType === 'callStatus') {
+    const statuses = [
+      'NEW',
+      'IN_PROGRESS',
+      'DONE',
+      'ARCHIVED'
+    ];
+    
+    return statuses.map(status => ({
+      value: status,
+      label: translateEnum(status, enumType, t)
     }));
   }
   
