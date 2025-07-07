@@ -108,7 +108,7 @@ function DashboardPage() {
           {/* Left Column - Call Logs Section (70%) */}
           <section className="dashboard-call-logs-section" aria-labelledby="call-logs-title">
             <div className="call-logs-section-header">
-              <h2 id="call-logs-title" className="call-logs-section-title">{t("dashboard.callsToAction")}</h2>
+              <h2 id="call-logs-title" className="call-logs-section-title">{t("dashboard.allCallLogs")}</h2>
               <button 
                 className="sidebar-toggle-btn"
                 onClick={toggleSidebar}

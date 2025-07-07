@@ -13,7 +13,7 @@
 }
 
 /* Override styles for dashboard integration */
-.dashboard-widget-content .new-calls-dashboard {
+.dashboard-widget-content .call-logs-dashboard {
   background: transparent;
   padding: 0;
   margin: 0;

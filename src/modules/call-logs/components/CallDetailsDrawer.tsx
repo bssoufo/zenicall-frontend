@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { formatDateAsLocaleString, formatDateForInput } from '../../../@zenidata/utils';
 import { CallLogListView, CallLogDetailView, CallLogStatus } from '../CallLogModel';
 import CallLogService from '../CallLogService';
 import InternalNotesService, { InternalNoteListView } from '../InternalNotesService';
@@ -255,7 +256,7 @@ const TabContent: React.FC<TabContentProps> = ({ activeTab, callLog, notes, load
           <div className="field-group">
             <div className="field">
               <label className="field-label">Heure d'Appel</label>
-              <span className="field-value">{new Date(callLog.call_started_at).toLocaleString()}</span>
+              <span className="field-value">{formatDateAsLocaleString(callLog.call_started_at)}</span>
             </div>
             <div className="field">
               <label className="field-label">Durée</label>
@@ -374,7 +375,7 @@ const TabContent: React.FC<TabContentProps> = ({ activeTab, callLog, notes, load
                     Par {note.created_by 
                       ? `${note.created_by.first_name} ${note.created_by.last_name}` 
                       : 'Utilisateur inconnu'
-                    } le {new Date(note.created_at).toLocaleString()}
+                    } le {formatDateAsLocaleString(note.created_at)}
                   </div>
                 </div>
               ))
@@ -495,8 +496,8 @@ const DrawerFooter: React.FC<DrawerFooterProps> = ({ callLog, onSave, saving }) 
       
       {/* Ligne 2: Métadonnées condensées */}
       <div className="footer-metadata-compact">
-        Créé le {new Date(callLog.created_at).toLocaleDateString()} • 
-        Modifié: {callLog.updated_at ? new Date(callLog.updated_at).toLocaleDateString() : 'Jamais'} • 
+        Créé le {formatDateAsLocaleString(callLog.created_at, { year: 'numeric', month: '2-digit', day: '2-digit' })} • 
+        Modifié: {callLog.updated_at ? formatDateAsLocaleString(callLog.updated_at, { year: 'numeric', month: '2-digit', day: '2-digit' }) : 'Jamais'} • 
         ID: {callLog.external_call_id.substring(0, 8)}...{callLog.external_call_id.substring(callLog.external_call_id.length - 6)}
       </div>
     </div>

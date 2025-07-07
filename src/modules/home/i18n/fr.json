@@ -17,7 +17,7 @@
     "noClinicSelected": "Aucune Clinique Sélectionnée",
     "selectClinicMessage": "Veuillez sélectionner une clinique dans le sélecteur ci-dessus pour voir votre tableau de bord.",
     "browseClinicsCTA": "Parcourir les Cliniques",
-    "callsDescription": "Surveillez les nouveaux appels entrants qui nécessitent une attention.",
+    "callsDescription": "Visualisez et gérez tous les journaux d'appels avec un codage couleur basé sur le statut pour une gestion efficace du flux de travail.",
     "quickActions": "Actions Rapides",
     "overview": "Aperçu",
     "allCallLogs": "Tous les Journaux d'Appels",

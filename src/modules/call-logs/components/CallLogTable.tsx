@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { formatDateAsLocaleString } from '../../../@zenidata/utils';
 import { useParams } from 'react-router-dom';
 import CallLogService from '../CallLogService';
 import { CallLogListView, CallLogDetailView, CallLogStatus } from '../CallLogModel';
@@ -535,13 +536,13 @@ export const CallLogTable: React.FC<CallLogTableProps> = ({
               </thead>
               <tbody>
                 {callLogs.map((callLog) => {
-                  // Check if call is recent (within last hour) to mark as "new"
-                  const isNewCall = new Date(callLog.call_started_at) > new Date(Date.now() - 60 * 60 * 1000);
+                  // Get status-based CSS class
+                  const statusClass = `status-${callLog.status.toLowerCase().replace('_', '-')}`;
                   // Check if this row is currently selected in the drawer
                   const isSelected = selectedCallLog?.id === callLog.id && isDrawerOpen;
                   
                   return (
-                  <tr key={callLog.id} className={`call-log-row ${isNewCall ? 'new-call' : ''} ${isSelected ? 'selected' : ''}`}>
+                  <tr key={callLog.id} className={`call-log-row ${statusClass} ${isSelected ? 'selected' : ''}`}>
                     <td className="caller-name">
                       {callLog.caller_first_name || callLog.caller_last_name
                         ? `${callLog.caller_first_name || ''} ${callLog.caller_last_name || ''}`.trim()
@@ -554,7 +555,7 @@ export const CallLogTable: React.FC<CallLogTableProps> = ({
                       </a>
                     </td>
                     <td className="call-time">
-                      {new Date(callLog.call_started_at).toLocaleString()}
+                      {formatDateAsLocaleString(callLog.call_started_at)}
                     </td>
                     <td className="reason">
                       {callLog.reason_for_call ? 

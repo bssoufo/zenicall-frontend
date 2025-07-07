@@ -17,7 +17,7 @@
     "noClinicSelected": "No Clinic Selected",
     "selectClinicMessage": "Please select a clinic from the switcher above to view your dashboard.",
     "browseClinicsCTA": "Browse Clinics",
-    "callsDescription": "Monitor new and incoming calls that require attention.",
+    "callsDescription": "View and manage all call logs with status-based color coding for efficient workflow management.",
     "quickActions": "Quick Actions",
     "overview": "Overview",
     "allCallLogs": "All Call Logs",

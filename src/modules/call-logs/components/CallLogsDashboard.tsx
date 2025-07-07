@@ -1,3 +1,21 @@
+/**
+ * CallLogsDashboard Component
+ * 
+ * A comprehensive dashboard for viewing and managing all call logs.
+ * Features:
+ * - Displays all calls regardless of status (formerly only showed new calls)
+ * - Status-based color coding for visual workflow management
+ * - Filtering and search capabilities
+ * - Pagination support
+ * - Real-time status updates via drawer interface
+ * 
+ * Color Coding:
+ * - Blue: NEW calls requiring attention
+ * - Orange: IN_PROGRESS calls being worked on  
+ * - Green: DONE calls completed
+ * - Gray: ARCHIVED calls stored for reference
+ */
+
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -5,13 +23,14 @@ import { useClinic } from '../../clinics/hooks/useClinic';
 import CallLogService from '../CallLogService';
 import { CallLogListView, CallLogDetailView } from '../CallLogModel';
 import { LoadingScreen } from '../../../@zenidata/components/UI/Loader';
+import { formatDateAsLocaleString } from '../../../@zenidata/utils';
 import { useDebounce } from '../../../@zenidata/hooks/useDebounce';
 import CallLogSummary from './CallLogSummary';
 import { CallDetailsDrawer } from './CallDetailsDrawer';
 import { useCallLogEnums } from '../../../@zenidata/hooks/useEnumTranslation';
-import './NewCallLogsDashboard.css';
+import './CallLogsDashboard.css';
 
-interface NewCallLogsDashboardProps {
+interface CallLogsDashboardProps {
   maxItems?: number;
   refreshInterval?: number;
   showFilters?: boolean;
@@ -49,7 +68,7 @@ const CallLogSkeleton: React.FC = () => (
 );
 
 
-export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
+export const CallLogsDashboard: React.FC<CallLogsDashboardProps> = ({
   maxItems = 50,
   showFilters = true
 }) => {
@@ -81,7 +100,7 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
   // Pagination state
   const [pagination, setPagination] = useState<PaginationState>({
     currentPage: 1,
-    itemsPerPage: 10,
+    itemsPerPage: 20,
     totalItems: 0,
     totalPages: 0
   });
@@ -96,15 +115,15 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
     return debouncedLastName || debouncedFirstName || debouncedPhoneNumber || filters.startDate || filters.endDate;
   }, [debouncedLastName, debouncedFirstName, debouncedPhoneNumber, filters.startDate, filters.endDate]);
 
-  // Fetch function for new calls (optimized endpoint)
-  const fetchNewCalls = useCallback(async (page: number, limit: number) => {
+  // Fetch function for all calls
+  const fetchAllCalls = useCallback(async (page: number, limit: number) => {
     if (!selectedClinic?.id) return;
 
     try {
       setLoading(true);
       setError(null);
       
-      const result = await CallLogService.getNewCallLogs(
+      const result = await CallLogService.getCallLogsByClinic(
         selectedClinic.id,
         { page, limit }
       );
@@ -119,7 +138,7 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
       setLastFetchTime(new Date());
     } catch (err) {
       setError(t('call-logs:errors.fetchFailed'));
-      console.error('Error fetching new calls:', err);
+      console.error('Error fetching call logs:', err);
     } finally {
       setLoading(false);
     }
@@ -171,20 +190,20 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
     t
   ]);
 
-  // Main fetch effect - chooses optimal endpoint based on filters
+  // Main fetch effect - chooses optimal endpoint based on filters (all calls vs filtered search)
   useEffect(() => {
     if (hasActiveFilters) {
       fetchFilteredCalls();
     } else {
-      fetchNewCalls(pagination.currentPage, pagination.itemsPerPage);
+      fetchAllCalls(pagination.currentPage, pagination.itemsPerPage);
     }
-  }, [hasActiveFilters, fetchNewCalls, fetchFilteredCalls, pagination.currentPage, pagination.itemsPerPage]);
+  }, [hasActiveFilters, fetchAllCalls, fetchFilteredCalls, pagination.currentPage, pagination.itemsPerPage]);
 
   const handleRefresh = () => {
     if (hasActiveFilters) {
       fetchFilteredCalls();
     } else {
-      fetchNewCalls(pagination.currentPage, pagination.itemsPerPage);
+      fetchAllCalls(pagination.currentPage, pagination.itemsPerPage);
     }
   };
 
@@ -328,7 +347,7 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
   // No clinic selected state
   if (!selectedClinic) {
     return (
-      <div className="new-calls-dashboard">
+      <div className="call-logs-dashboard">
         <div className="dashboard-error">
           <div className="error-content">
             <i className="fas fa-clinic-medical"></i>
@@ -341,7 +360,7 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
   }
 
   return (
-    <div className="new-calls-dashboard">
+    <div className="call-logs-dashboard">
 
 
       {/* Two-Line Filter System */}
@@ -508,7 +527,7 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
               <i className="fas fa-exclamation-triangle"></i>
               <h3>{t('call-logs:errors.loadError')}</h3>
               <p>{error}</p>
-              <button onClick={hasActiveFilters ? fetchFilteredCalls : () => fetchNewCalls(pagination.currentPage, pagination.itemsPerPage)} className="retry-btn">
+              <button onClick={hasActiveFilters ? fetchFilteredCalls : () => fetchAllCalls(pagination.currentPage, pagination.itemsPerPage)} className="retry-btn">
                 <i className="fas fa-retry"></i>
                 {t('core:common.retry')}
               </button>
@@ -547,13 +566,13 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
               </thead>
               <tbody>
                 {paginatedCallLogs.map((callLog) => {
-                  // Check if call is recent (within last hour) to mark as "new"
-                  const isNewCall = new Date(callLog.call_started_at) > new Date(Date.now() - 60 * 60 * 1000);
+                  // Get status-based CSS class
+                  const statusClass = `status-${callLog.status.toLowerCase().replace('_', '-')}`;
                   // Check if this row is currently selected in the drawer
                   const isSelected = selectedCallLog?.id === callLog.id && isDrawerOpen;
                   
                   return (
-                  <tr key={callLog.id} className={`call-log-row ${isNewCall ? 'new-call' : ''} ${isSelected ? 'selected' : ''}`}>
+                  <tr key={callLog.id} className={`call-log-row ${statusClass} ${isSelected ? 'selected' : ''}`}>
                     <td className="caller-name">
                       {callLog.caller_first_name || callLog.caller_last_name
                         ? `${callLog.caller_first_name || ''} ${callLog.caller_last_name || ''}`.trim()
@@ -566,7 +585,7 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
                       </a>
                     </td>
                     <td className="call-time">
-                      {new Date(callLog.call_started_at).toLocaleString()}
+                      {formatDateAsLocaleString(callLog.call_started_at)}
                     </td>
                     <td className="reason">
                       {callLog.reason_for_call ? 
@@ -679,4 +698,4 @@ export const NewCallLogsDashboard: React.FC<NewCallLogsDashboardProps> = ({
   );
 };
 
-export default NewCallLogsDashboard;
+export default CallLogsDashboard;

@@ -1,15 +1,16 @@
 import React from 'react';
-import { NewCallLogsDashboard } from './NewCallLogsDashboard';
+import { CallLogsDashboard } from './CallLogsDashboard';
 import './DashboardNewCallsWidget.css';
 
 /**
- * Dashboard widget for displaying new call logs on the homepage.
- * This is a pre-configured version of NewCallLogsDashboard optimized for dashboard use.
+ * Dashboard widget for displaying all call logs on the homepage.
+ * This is a pre-configured version of CallLogsDashboard optimized for dashboard use.
+ * Shows all calls with status-based color coding for quick workflow management.
  */
 export const DashboardNewCallsWidget: React.FC = () => {
   return (
-    <NewCallLogsDashboard
-      maxItems={10}           // Limit to 10 items for dashboard
+    <CallLogsDashboard
+      maxItems={20}           // Show 20 calls per page for optimal dashboard performance
       showFilters={true}      // Show filters for dashboard use
     />
   );

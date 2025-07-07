@@ -1,5 +1,5 @@
-/* New Call Logs Dashboard Styles - Direct on page background */
-.new-calls-dashboard {
+/* Call Logs Dashboard Styles - Direct on page background */
+.call-logs-dashboard {
   background: none;
   border-radius: 0;
   padding: 0;
@@ -364,20 +364,21 @@
   background: #eff6ff !important;
 }
 
-/* New call indicator */
-.call-log-row.new-call {
-  position: relative;
+/* Status-based row styling */
+.call-log-row.status-new {
+  border-left: 4px solid #3b82f6 !important; /* Blue for NEW */
 }
 
-.call-log-row.new-call::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  background: #10b981;
-  border-radius: 0 2px 2px 0;
+.call-log-row.status-in-progress {
+  border-left: 4px solid #f59e0b !important; /* Orange for IN_PROGRESS */
+}
+
+.call-log-row.status-done {
+  border-left: 4px solid #10b981 !important; /* Green for DONE */
+}
+
+.call-log-row.status-archived {
+  border-left: 4px solid #6b7280 !important; /* Gray for ARCHIVED */
 }
 
 /* Unknown/missing information styling */
