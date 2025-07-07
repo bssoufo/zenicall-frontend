@@ -7,6 +7,7 @@ import { useClinic } from "../../clinics/hooks/useClinic";
 import { DashboardNewCallsWidget } from "../../call-logs/components/DashboardNewCallsWidget";
 import DashboardCallLogStats from "../../call-logs/components/DashboardCallLogStats";
 import DashboardCallReasonDistribution from "../../call-logs/components/DashboardCallReasonDistribution";
+import AnalyticsService, { CallVolumeSummary } from "../../analytics/AnalyticsService";
 import './DashboardPage.css';
 
 function DashboardPage() {
@@ -16,6 +17,10 @@ function DashboardPage() {
   const [loading, setLoading] = useState(true);
   const [totalClinics, setTotalClinics] = useState<number>(0);
   const [loadingTotalClinics, setLoadingTotalClinics] = useState(true);
+  
+  // Shared call volume summary data to avoid duplicate API calls
+  const [callVolumeSummary, setCallVolumeSummary] = useState<CallVolumeSummary | null>(null);
+  const [loadingCallVolume, setLoadingCallVolume] = useState(false);
 
   // Use actual clinics from context
   const fetchTotalClinics = useCallback(async () => {
@@ -32,11 +37,34 @@ function DashboardPage() {
     }
   }, [clinics.length]);
 
+  // Fetch call volume summary data once for the entire dashboard
+  const fetchCallVolumeSummary = useCallback(async () => {
+    if (!selectedClinic?.id) {
+      return;
+    }
+
+    try {
+      setLoadingCallVolume(true);
+      console.log('Dashboard: Fetching call volume summary for clinic:', selectedClinic.id);
+      const summaryData = await AnalyticsService.getCallVolumeSummary(selectedClinic.id);
+      console.log('Dashboard: Received call volume summary:', summaryData);
+      setCallVolumeSummary(summaryData);
+    } catch (err) {
+      console.error('Dashboard: Failed to fetch call volume summary:', err);
+      setCallVolumeSummary(null);
+    } finally {
+      setLoadingCallVolume(false);
+    }
+  }, [selectedClinic?.id]);
 
   useEffect(() => {
     fetchTotalClinics();
     setLoading(false);
   }, [fetchTotalClinics]);
+
+  useEffect(() => {
+    fetchCallVolumeSummary();
+  }, [fetchCallVolumeSummary]);
 
   // No clinic selected state
   if (!selectedClinic) {
@@ -81,11 +109,18 @@ function DashboardPage() {
             {/* KPI Stats in Control Panel */}
             <section className="control-panel-kpis" aria-labelledby="kpi-title">
               <h3 id="kpi-title" className="control-panel-section-title">{t("dashboard.overview")}</h3>
-              <DashboardCallLogStats />
+              <DashboardCallLogStats 
+                summaryData={callVolumeSummary} 
+                loading={loadingCallVolume} 
+              />
             </section>
 
             {/* Call Reason Distribution */}
-            <DashboardCallReasonDistribution clinicId={selectedClinic?.id} />
+            <DashboardCallReasonDistribution 
+              clinicId={selectedClinic?.id}
+              summaryData={callVolumeSummary}
+              loading={loadingCallVolume}
+            />
 
             {/* Quick Actions in Control Panel */}
             <section className="control-panel-actions" aria-labelledby="actions-title">

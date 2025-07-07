@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: bssoufo/zenidata:zenicall-frontend-7
+    image: bssoufo/zenidata:zenicall-frontend-
     ports:
       - "8085:80"
     volumes:

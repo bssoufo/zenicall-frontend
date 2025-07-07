@@ -6,8 +6,7 @@ import {
   Pie,
   Cell,
   Tooltip,
-  Legend,
-  DonutChart
+  Legend
 } from "recharts";
 import AnalyticsService, { CallStatusDistributionResponse } from "../AnalyticsService";
 import { PieChartSkeleton } from "./SkeletonLoaders";

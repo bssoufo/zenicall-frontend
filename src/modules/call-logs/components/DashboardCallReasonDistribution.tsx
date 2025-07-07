@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import './DashboardCallReasonDistribution.css';
-import CallLogService from '../CallLogService';
 import { useCallLogEnums } from '../../../@zenidata/hooks/useEnumTranslation';
 
 interface CallVolumeByReason {
@@ -18,42 +17,46 @@ interface CallVolumeSummary {
 
 interface DashboardCallReasonDistributionProps {
   clinicId?: string;
+  summaryData?: CallVolumeSummary | null;
+  loading?: boolean;
 }
 
 const DashboardCallReasonDistribution: React.FC<DashboardCallReasonDistributionProps> = ({ 
-  clinicId = "default-clinic-id" 
+  clinicId = "default-clinic-id",
+  summaryData,
+  loading = false
 }) => {
   const { t } = useTranslation(['home', 'call-logs']);
   const { reason: translateReason } = useCallLogEnums();
   const [reasonData, setReasonData] = useState<CallVolumeByReason[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchReasonDistribution = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        
-        // Utilise l'endpoint CallLogService existant pour récupérer le summary
-        const summary: CallVolumeSummary = await CallLogService.getCallLogSummary(clinicId);
-        
-        // Trie par pourcentage décroissant et limite aux 5 premiers motifs
-        const sortedReasons = summary.calls_by_reason
-          .sort((a, b) => b.percentage - a.percentage)
-          .slice(0, 5);
-        
-        setReasonData(sortedReasons);
-      } catch (err) {
-        console.error('Failed to fetch call reason distribution:', err);
-        setError('Erreur lors du chargement des données');
-      } finally {
-        setLoading(false);
-      }
-    };
+    if (!summaryData) {
+      setReasonData([]);
+      return;
+    }
 
-    fetchReasonDistribution();
-  }, [clinicId]);
+    console.log('Processing shared call reason distribution data:', summaryData.calls_by_reason);
+    console.log('Total calls in summary:', summaryData.total_calls);
+    console.log('Summary period:', summaryData.period);
+    console.log('Generated at:', summaryData.generated_at);
+    
+    // Validate data structure
+    if (!Array.isArray(summaryData.calls_by_reason)) {
+      console.warn('calls_by_reason is not an array:', summaryData.calls_by_reason);
+      setReasonData([]);
+      return;
+    }
+    
+    // Trie par pourcentage décroissant et limite aux 5 premiers motifs
+    const sortedReasons = summaryData.calls_by_reason
+      .filter(reason => reason.count > 0) // Only show reasons with actual calls
+      .sort((a, b) => b.percentage - a.percentage)
+      .slice(0, 5);
+    
+    console.log('Top 5 call reasons processed:', sortedReasons);
+    setReasonData(sortedReasons);
+  }, [summaryData]);
 
   // Using the new enum translation hook - much cleaner!
   const getReasonLabel = (reason: string): string => {
@@ -86,16 +89,6 @@ const DashboardCallReasonDistribution: React.FC<DashboardCallReasonDistributionP
     );
   }
 
-  if (error) {
-    return (
-      <section className="control-panel-reason-distribution">
-        <h3 className="control-panel-section-title">{t('home:dashboard.reasonDistribution')}</h3>
-        <div className="reason-distribution-error">
-          <span className="error-text">{error}</span>
-        </div>
-      </section>
-    );
-  }
 
   return (
     <section className="control-panel-reason-distribution">

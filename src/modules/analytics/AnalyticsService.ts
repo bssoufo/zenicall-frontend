@@ -143,7 +143,7 @@ class AnalyticsService {
   // Comprehensive summary for KPIs
   async getCallVolumeSummary(
     clinicId: string, 
-    period: string = "last_7_days",
+    period: string = "last_30_days",
     timezone: string = "UTC"
   ): Promise<CallVolumeSummary> {
     try {

@@ -37,7 +37,7 @@ const CallLogService = {
    */
   async getNewCallLogs(
     clinicId: string,
-    options: PaginationListOption = {}
+    options: Partial<PaginationListOption> = {}
   ): Promise<CallLogPage> {
     try {
       const response = await apiClient.get(
@@ -165,20 +165,6 @@ const CallLogService = {
     }
   },
 
-  /**
-   * Fetch a summary of call logs for a specific clinic.
-   */
-  async getCallLogSummary(clinicId: string): Promise<any> {
-    try {
-      const response = await apiClient.get(
-        `/analytics/call-volume/summary/${clinicId}`
-      );
-      return response.data;
-    } catch (error) {
-      handleAxiosError(error);
-      throw error;
-    }
-  },
 };
 
 export default CallLogService;

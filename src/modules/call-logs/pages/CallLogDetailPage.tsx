@@ -19,7 +19,7 @@ const CallLogDetailPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   
   // Editable fields
-  const [status, setStatus] = useState<CallLogStatus>('New');
+  const [status, setStatus] = useState<CallLogStatus>('NEW');
   const [summary, setSummary] = useState<string>("");
   
   // State for expandable sections
@@ -112,10 +112,10 @@ const CallLogDetailPage: React.FC = () => {
 
   const getStatusColor = (status: CallLogStatus): string => {
     switch (status) {
-      case 'New': return '#f59e0b';
-      case 'In Progress': return '#8b5cf6';
-      case 'Done': return '#10b981';
-      case 'Archived': return '#6b7280';
+      case 'NEW': return '#f59e0b';
+      case 'IN_PROGRESS': return '#8b5cf6';
+      case 'DONE': return '#10b981';
+      case 'ARCHIVED': return '#6b7280';
       default: return '#6b7280';
     }
   };
@@ -304,10 +304,10 @@ const CallLogDetailPage: React.FC = () => {
                   onChange={(e) => setStatus(e.target.value as CallLogStatus)}
                   className="status-select"
                 >
-                  <option value="New">{t("call-logs:callLogList.statusFilter.NEW")}</option>
-                  <option value="In Progress">{t("call-logs:callLogList.statusFilter.IN_PROGRESS")}</option>
-                  <option value="Done">{t("call-logs:callLogList.statusFilter.DONE")}</option>
-                  <option value="Archived">{t("call-logs:callLogList.statusFilter.ARCHIVED")}</option>
+                  <option value="NEW">{t("call-logs:callLogList.statusFilter.NEW")}</option>
+                  <option value="IN_PROGRESS">{t("call-logs:callLogList.statusFilter.IN_PROGRESS")}</option>
+                  <option value="DONE">{t("call-logs:callLogList.statusFilter.DONE")}</option>
+                  <option value="ARCHIVED">{t("call-logs:callLogList.statusFilter.ARCHIVED")}</option>
                 </select>
               </div>
               

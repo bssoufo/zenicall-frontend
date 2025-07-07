@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useClinic } from '../../clinics/hooks/useClinic';
-import CallLogService from '../CallLogService';
+import AnalyticsService from '../../analytics/AnalyticsService';
 import { LoadingScreen } from '../../../@zenidata/components/UI/Loader';
 import './CallLogStatisticsCard.css';
 
@@ -30,7 +30,7 @@ const CallLogStatisticsCard: React.FC = () => {
       try {
         setLoading(true);
         setError(null);
-        const data = await CallLogService.getCallLogSummary(selectedClinic.id);
+        const data = await AnalyticsService.getCallVolumeSummary(selectedClinic.id);
         setStatistics(data);
       } catch (err) {
         console.error("Failed to fetch call log statistics:", err);

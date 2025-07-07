@@ -18,7 +18,7 @@ const ClinicDetailsPage: React.FC = () => {
       if (!clinicId) return;
       setLoading(true);
       try {
-        const data = await ClinicService.getClinicById(+clinicId);
+        const data = await ClinicService.getClinicById(clinicId);
         setClinic(data);
       } catch (error) {
         console.error(error);

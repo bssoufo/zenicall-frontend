@@ -152,7 +152,7 @@ const HourlyPatternsChart: React.FC<HourlyPatternsChartProps> = ({
             y={avgCount} 
             stroke="#94a3b8" 
             strokeDasharray="5 5"
-            label={{ value: "Average", position: "topRight", fontSize: 11 }}
+            label="Average"
           />
           
           {/* Peak hour indicator */}
@@ -161,7 +161,7 @@ const HourlyPatternsChart: React.FC<HourlyPatternsChartProps> = ({
               x={busiestHour} 
               stroke="#f59e0b" 
               strokeDasharray="3 3"
-              label={{ value: "Peak", position: "top", fontSize: 11 }}
+              label="Peak"
             />
           )}
           

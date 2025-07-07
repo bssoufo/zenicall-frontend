@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useClinic } from '../../clinics/hooks/useClinic';
-import CallLogService from '../CallLogService';
+import AnalyticsService from '../../analytics/AnalyticsService';
 import './CallLogSummary.css';
 
 const CallLogSummary: React.FC = () => {
@@ -16,7 +16,7 @@ const CallLogSummary: React.FC = () => {
     const fetchSummary = async () => {
       try {
         setLoading(true);
-        const summaryData = await CallLogService.getCallLogSummary(selectedClinic.id);
+        const summaryData = await AnalyticsService.getCallVolumeSummary(selectedClinic.id);
         setSummary(summaryData);
       } catch (error) {
         console.error('Failed to fetch call log summary:', error);
