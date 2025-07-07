@@ -1,7 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { CallVolumeSummary } from '../../analytics/AnalyticsService';
-import Loader from '../../../@zenidata/components/UI/Loader';
 
 interface StatsDisplayProps {
   totalCalls: number;
@@ -74,7 +73,17 @@ const DashboardCallLogStats: React.FC<DashboardCallLogStatsProps> = ({
 
   // Show loading state
   if (loading) {
-    return <Loader showText={false} />;
+    return (
+      <div className="stats-loading">
+        <div className="loading-skeleton">
+          <div className="skeleton-bar"></div>
+          <div className="skeleton-bar"></div>
+          <div className="skeleton-bar"></div>
+          <div className="skeleton-bar"></div>
+          <div className="skeleton-bar"></div>
+        </div>
+      </div>
+    );
   }
 
   // Show data or fallback values
