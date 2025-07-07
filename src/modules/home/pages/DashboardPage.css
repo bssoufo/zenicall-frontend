@@ -131,18 +131,59 @@
 /* Left Column - Call Logs Section (70%) */
 .dashboard-call-logs-section {
   min-width: 0; /* Allows content to shrink */
+  transition: all 0.3s ease-in-out;
+}
+
+.call-logs-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.375rem;
 }
 
 .call-logs-section-title {
   font-size: 1.75rem;
   font-weight: 700;
   color: #1e293b;
-  margin: 0 0 1.375rem 0; /* Reduced slightly to create perfect alignment with control panel */
+  margin: 0;
   padding: 0;
   background: none;
   letter-spacing: -0.025em;
-  /* Ensure visual alignment with control panel */
   line-height: 1.2;
+  flex: 1;
+}
+
+/* Sidebar Toggle Button */
+.sidebar-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: white;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-left: 1rem;
+  font-size: 0.75rem;
+}
+
+.sidebar-toggle-btn:hover {
+  background: #f8fafc;
+  border-color: #3b82f6;
+  color: #3b82f6;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+}
+
+.sidebar-toggle-btn:active {
+  transform: translateY(0);
+}
+
+.sidebar-toggle-btn:focus {
+  outline: none;
 }
 
 /* Right Column - Control Panel (30%) */
@@ -157,6 +198,32 @@
   height: fit-content;
   /* Perfect alignment with left column content */
   margin-top: 0; /* Ensure no offset */
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+}
+
+/* Collapsed Sidebar States */
+.dashboard-main-grid.sidebar-collapsed {
+  grid-template-columns: 1fr 0; /* Sidebar width becomes 0 */
+}
+
+.dashboard-control-panel.collapsed {
+  width: 0;
+  min-width: 0;
+  opacity: 0;
+  visibility: hidden;
+  padding: 0;
+  margin: 0;
+}
+
+/* Expanded State - More space for main content when sidebar is collapsed */
+.dashboard-main-grid.sidebar-collapsed .dashboard-call-logs-section {
+  max-width: 100%;
+}
+
+/* Smooth transitions for grid layout changes */
+.dashboard-main-grid {
+  transition: grid-template-columns 0.3s ease-in-out;
 }
 
 .control-panel-section-title {
@@ -530,10 +597,21 @@
     gap: 1.5rem;
   }
   
+  /* Hide sidebar toggle button on mobile - sidebar is always visible */
+  .sidebar-toggle-btn {
+    display: none;
+  }
+  
   .dashboard-control-panel {
     position: static;
     order: 2;
     max-height: none;
+    /* Reset sidebar collapse behavior on mobile */
+    opacity: 1 !important;
+    visibility: visible !important;
+    width: auto !important;
+    min-width: auto !important;
+    padding: 0 !important;
   }
   
   .dashboard-call-logs-section {

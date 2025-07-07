@@ -36,6 +36,8 @@
     "welcomeTitle": "Bienvenue",
     "collapse": "Réduire la section",
     "expand": "Développer la section",
+    "collapseSidebar": "Réduire la barre latérale",
+    "expandSidebar": "Développer la barre latérale",
     "clinics": "Cliniques",
     "callActivity": "Activité d'Appels",
     "reasonDistribution": "Répartition par raison d'appel"

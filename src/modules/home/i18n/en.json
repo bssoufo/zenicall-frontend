@@ -36,6 +36,8 @@
     "welcomeTitle": "Welcome",
     "collapse": "Collapse section",
     "expand": "Expand section",
+    "collapseSidebar": "Collapse sidebar",
+    "expandSidebar": "Expand sidebar",
     "clinics": "Clinics",
     "callActivity": "Call Activity",
     "reasonDistribution": "Distribution by Call Reason"
