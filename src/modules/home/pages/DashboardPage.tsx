@@ -152,7 +152,8 @@ function DashboardPage() {
               loading={loadingCallVolume}
             />
 
-            {/* Quick Actions in Control Panel */}
+            {/* Quick Actions in Control Panel - Temporarily Hidden */}
+            {/*
             <section className="control-panel-actions" aria-labelledby="actions-title">
               <h3 id="actions-title" className="control-panel-section-title">{t("dashboard.quickActions")}</h3>
               <div className="control-panel-action-list">
@@ -169,22 +170,6 @@ function DashboardPage() {
                   </div>
                 </Link>
                 
-                {/* TODO: Enable Analytics later - temporarily hidden */}
-                {/*
-                <Link to="/analytics" className="control-panel-action-card">
-                  <div className="control-panel-action-icon">
-                    <i className="fas fa-chart-bar" aria-hidden="true"></i>
-                  </div>
-                  <div className="control-panel-action-content">
-                    <h4 className="control-panel-action-title">{t("dashboard.analytics")}</h4>
-                    <p className="control-panel-action-description">{t("dashboard.analyticsDesc")}</p>
-                  </div>
-                  <div className="control-panel-action-arrow">
-                    <i className="fas fa-chevron-right" aria-hidden="true"></i>
-                  </div>
-                </Link>
-                */}
-
                 <Link to="/support" className="control-panel-action-card">
                   <div className="control-panel-action-icon">
                     <i className="fas fa-life-ring" aria-hidden="true"></i>
@@ -199,6 +184,7 @@ function DashboardPage() {
                 </Link>
               </div>
             </section>
+            */}
           </aside>
         </div>
       </div>
