@@ -77,6 +77,11 @@
     "endDate": "Date de fin",
     "firstNamePlaceholder": "Rechercher par prénom...",
     "lastNamePlaceholder": "Rechercher par nom...",
+    "statusMultiselect": "Filtrer par statut",
+    "allReasons": "Tous les motifs",
+    "reasonForCall": "Motif d'appel",
+    "clearStatuses": "Effacer les statuts",
+    "clearReason": "Effacer le motif",
     "clearAll": "Effacer Tous les Filtres"
   },
   "table": {

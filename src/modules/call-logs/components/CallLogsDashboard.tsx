@@ -24,6 +24,7 @@ import CallLogService from '../CallLogService';
 import { CallLogListView, CallLogDetailView } from '../CallLogModel';
 import { LoadingScreen } from '../../../@zenidata/components/UI/Loader';
 import { formatDateAsLocaleString } from '../../../@zenidata/utils';
+import MultiSelectDropdown, { MultiSelectOption } from '../../../@zenidata/components/UI/MultiSelectDropdown';
 import { useDebounce } from '../../../@zenidata/hooks/useDebounce';
 import CallLogSummary from './CallLogSummary';
 import { CallDetailsDrawer } from './CallDetailsDrawer';
@@ -42,6 +43,8 @@ interface Filters {
   phoneNumber: string;
   startDate: string;
   endDate: string;
+  statuses: string[];
+  reasonForCall: string;
 }
 
 interface PaginationState {
@@ -76,6 +79,14 @@ export const CallLogsDashboard: React.FC<CallLogsDashboardProps> = ({
   const { selectedClinic } = useClinic();
   const { reason: translateReason } = useCallLogEnums();
   
+  // Status options for multiselect
+  const statusOptions: MultiSelectOption[] = [
+    { value: 'NEW', label: t('call-logs:enums.callStatus.NEW') },
+    { value: 'IN_PROGRESS', label: t('call-logs:enums.callStatus.IN_PROGRESS') },
+    { value: 'DONE', label: t('call-logs:enums.callStatus.DONE') },
+    { value: 'ARCHIVED', label: t('call-logs:enums.callStatus.ARCHIVED') }
+  ];
+  
   // State management
   const [callLogs, setCallLogs] = useState<CallLogListView[]>([]);
   const [loading, setLoading] = useState(true);
@@ -94,7 +105,9 @@ export const CallLogsDashboard: React.FC<CallLogsDashboardProps> = ({
     firstName: '',
     phoneNumber: '',
     startDate: '',
-    endDate: ''
+    endDate: '',
+    statuses: [],
+    reasonForCall: ''
   });
   
   // Pagination state
@@ -112,8 +125,9 @@ export const CallLogsDashboard: React.FC<CallLogsDashboardProps> = ({
 
   // Check if we need to use advanced search (when filters are applied)
   const hasActiveFilters = useMemo(() => {
-    return debouncedLastName || debouncedFirstName || debouncedPhoneNumber || filters.startDate || filters.endDate;
-  }, [debouncedLastName, debouncedFirstName, debouncedPhoneNumber, filters.startDate, filters.endDate]);
+    return debouncedLastName || debouncedFirstName || debouncedPhoneNumber || 
+           filters.startDate || filters.endDate || filters.statuses.length > 0 || filters.reasonForCall;
+  }, [debouncedLastName, debouncedFirstName, debouncedPhoneNumber, filters.startDate, filters.endDate, filters.statuses, filters.reasonForCall]);
 
   // Fetch function for all calls
   const fetchAllCalls = useCallback(async (page: number, limit: number) => {
@@ -158,6 +172,8 @@ export const CallLogsDashboard: React.FC<CallLogsDashboardProps> = ({
         caller_phone_number: debouncedPhoneNumber || undefined,
         start_date: filters.startDate || undefined,
         end_date: filters.endDate || undefined,
+        status: filters.statuses.length > 0 ? filters.statuses : undefined,
+        reason_for_call: filters.reasonForCall ? [filters.reasonForCall] : undefined,
         page: pagination.currentPage,
         limit: pagination.itemsPerPage
       };
@@ -185,6 +201,8 @@ export const CallLogsDashboard: React.FC<CallLogsDashboardProps> = ({
     debouncedPhoneNumber,
     filters.startDate,
     filters.endDate,
+    filters.statuses,
+    filters.reasonForCall,
     pagination.currentPage,
     pagination.itemsPerPage,
     t
@@ -208,7 +226,7 @@ export const CallLogsDashboard: React.FC<CallLogsDashboardProps> = ({
   };
 
   // Filter change handlers
-  const handleFilterChange = useCallback((field: keyof Filters, value: string) => {
+  const handleFilterChange = useCallback((field: keyof Filters, value: string | string[]) => {
     setFilters(prev => ({
       ...prev,
       [field]: value
@@ -269,16 +287,19 @@ export const CallLogsDashboard: React.FC<CallLogsDashboardProps> = ({
       firstName: '',
       phoneNumber: '',
       startDate: '',
-      endDate: ''
+      endDate: '',
+      statuses: [],
+      reasonForCall: ''
     });
     setPagination(prev => ({ ...prev, currentPage: 1 }));
   }, []);
 
   // Clear individual filter field
   const clearFilterField = useCallback((field: keyof Filters) => {
+    const clearedValue = field === 'statuses' ? [] : '';
     setFilters(prev => ({
       ...prev,
-      [field]: ''
+      [field]: clearedValue
     }));
     setPagination(prev => ({ ...prev, currentPage: 1 }));
   }, []);
@@ -424,6 +445,51 @@ export const CallLogsDashboard: React.FC<CallLogsDashboardProps> = ({
                     onClick={() => clearFilterField('phoneNumber')}
                     className="clear-field-btn"
                     title="Effacer le téléphone"
+                  >
+                    <i className="fas fa-times"></i>
+                  </button>
+                )}
+              </div>
+              
+              {/* Status Multiselect Filter */}
+              <div className="search-field-container">
+                <MultiSelectDropdown
+                  id="statuses"
+                  options={statusOptions}
+                  selectedValues={filters.statuses}
+                  onChange={(selectedValues) => handleFilterChange('statuses', selectedValues)}
+                  placeholder={t('call-logs:filters.statusMultiselect')}
+                  aria-label={t('call-logs:filters.statusMultiselect')}
+                  clearable={true}
+                  onClear={() => clearFilterField('statuses')}
+                  maxDisplayedChips={2}
+                  className="status-multiselect"
+                />
+              </div>
+              
+              {/* Reason for Call Filter */}
+              <div className="search-field-container">
+                <select
+                  id="reasonForCall"
+                  value={filters.reasonForCall}
+                  onChange={(e) => handleFilterChange('reasonForCall', e.target.value)}
+                  className="search-field"
+                >
+                  <option value="">{t('call-logs:filters.allReasons')}</option>
+                  <option value="NEW_APPOINTMENT">{t('call-logs:enums.callReason.NEW_APPOINTMENT')}</option>
+                  <option value="APPOINTMENT_MODIFICATION">Modification de rendez-vous</option>
+                  <option value="APPOINTMENT_CANCELLATION">{t('call-logs:enums.callReason.CANCELLATION')}</option>
+                  <option value="MEDICAL_INFORMATION">Information médicale</option>
+                  <option value="BILLING_QUESTION">Question de facturation</option>
+                  <option value="EMERGENCY">{t('call-logs:enums.callReason.EMERGENCY')}</option>
+                  <option value="OTHER">{t('call-logs:enums.callReason.OTHER')}</option>
+                </select>
+                {filters.reasonForCall && (
+                  <button
+                    type="button"
+                    onClick={() => clearFilterField('reasonForCall')}
+                    className="clear-field-btn"
+                    title={t('call-logs:filters.clearReason')}
                   >
                     <i className="fas fa-times"></i>
                   </button>

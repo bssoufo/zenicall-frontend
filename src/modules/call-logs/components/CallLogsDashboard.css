@@ -98,6 +98,22 @@
   background: white;
 }
 
+/* Integration styling for MultiSelectDropdown component */
+.search-field-container .status-multiselect {
+  min-width: 200px;
+}
+
+.search-field-container .status-multiselect .multiselect-trigger {
+  border-color: #d1d5db;
+  background: #fafafa;
+  min-height: 38px;
+}
+
+.search-field-container .status-multiselect .multiselect-trigger:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
 .search-field::placeholder {
   color: #9ca3af;
   font-style: italic;

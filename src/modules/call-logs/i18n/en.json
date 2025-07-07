@@ -77,6 +77,11 @@
     "endDate": "End Date",
     "firstNamePlaceholder": "Search by first name...",
     "lastNamePlaceholder": "Search by last name...",
+    "statusMultiselect": "Filter by status",
+    "allReasons": "All reasons",
+    "reasonForCall": "Reason for call",
+    "clearStatuses": "Clear statuses",
+    "clearReason": "Clear reason",
     "clearAll": "Clear All Filters"
   },
   "table": {
