@@ -99,17 +99,20 @@
 }
 
 /* Integration styling for MultiSelectDropdown component */
-.search-field-container .status-multiselect {
+.search-field-container .status-multiselect,
+.search-field-container .reason-multiselect {
   min-width: 200px;
 }
 
-.search-field-container .status-multiselect .multiselect-trigger {
+.search-field-container .status-multiselect .multiselect-trigger,
+.search-field-container .reason-multiselect .multiselect-trigger {
   border-color: #d1d5db;
   background: #fafafa;
   min-height: 38px;
 }
 
-.search-field-container .status-multiselect .multiselect-trigger:focus {
+.search-field-container .status-multiselect .multiselect-trigger:focus,
+.search-field-container .reason-multiselect .multiselect-trigger:focus {
   border-color: #3b82f6;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
@@ -448,9 +451,8 @@
   position: relative; /* Ensure tooltip positioning works */
 }
 
-/* Summary text with tooltip */
+/* Summary text - now clickable */
 .summary-text {
-  cursor: help;
   position: relative;
   z-index: 1;
   display: block;
@@ -460,43 +462,17 @@
   white-space: nowrap;
 }
 
-.summary-text:hover {
+/* Clickable styling for summary and unknown info */
+.summary-text.clickable,
+.unknown-info.clickable {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.summary-text.clickable:hover,
+.unknown-info.clickable:hover {
   text-decoration: underline;
-}
-
-/* Tooltip styling with maximum z-index */
-.summary-text[data-tooltip]:hover::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #1f2937;
-  color: white;
-  padding: 0.5rem;
-  border-radius: 4px;
-  font-size: 0.75rem;
-  white-space: normal;
-  max-width: 400px;
-  z-index: 2147483647 !important;
-  line-height: 1.4;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  word-wrap: break-word;
-  pointer-events: none;
-  margin-bottom: 8px;
-}
-
-.summary-text[data-tooltip]:hover::before {
-  content: '';
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%) translateY(1px);
-  border: 5px solid transparent;
-  border-top-color: #1f2937;
-  z-index: 2147483647 !important;
-  pointer-events: none;
-  margin-bottom: 3px;
+  color: #3b82f6;
 }
 
 .call-log-link {

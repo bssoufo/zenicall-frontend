@@ -82,7 +82,9 @@
     "reasonForCall": "Motif d'appel",
     "clearStatuses": "Effacer les statuts",
     "clearReason": "Effacer le motif",
-    "clearAll": "Effacer Tous les Filtres"
+    "clearAll": "Effacer Tous les Filtres",
+    "refresh": "Actualiser",
+    "refreshing": "Actualisation..."
   },
   "table": {
     "externalId": "ID d'Appel",

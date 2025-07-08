@@ -229,6 +229,8 @@ function AppLayout() {
                     </a>
                   </li> */}
 
+                  {/* Temporarily hidden - Call logs are now available on the dashboard */}
+                  {/*
                   <li
                     className={`${
                       isActive("/call-logs") ? "iz_menu-active" : ""
@@ -239,6 +241,7 @@ function AppLayout() {
                       Call Logs
                     </a>
                   </li>
+                  */}
 
                   {/* TODO: Enable Analytics later - temporarily hidden */}
                   {/*

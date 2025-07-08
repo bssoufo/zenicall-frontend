@@ -2,18 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import './DashboardCallReasonDistribution.css';
 import { useCallLogEnums } from '../../../@zenidata/hooks/useEnumTranslation';
-
-interface CallVolumeByReason {
-  reason: string;
-  count: number;
-  percentage: number;
-}
-
-interface CallVolumeSummary {
-  clinic_id: string;
-  total_calls: number;
-  calls_by_reason: CallVolumeByReason[];
-}
+import { CallVolumeSummary, CallVolumeByReason } from '../../analytics/AnalyticsService';
 
 interface DashboardCallReasonDistributionProps {
   clinicId?: string;

@@ -113,9 +113,17 @@ const CallLogService = {
     options: PaginationListOption
   ): Promise<CallLogPage> {
     try {
+      // Filter out empty parameters to keep URLs clean
+      const cleanParams: Record<string, any> = {};
+      Object.entries(options).forEach(([key, value]) => {
+        if (value !== '' && value !== null && value !== undefined) {
+          cleanParams[key] = value;
+        }
+      });
+
       const response = await apiClient.get(
         `/call-logs/by-clinic/${clinicId}`,
-        { params: options }
+        { params: cleanParams }
       );
       const data = response.data;
       return {

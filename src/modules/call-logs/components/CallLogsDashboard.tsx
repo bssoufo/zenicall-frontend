@@ -21,7 +21,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { useClinic } from '../../clinics/hooks/useClinic';
 import CallLogService from '../CallLogService';
-import { CallLogListView, CallLogDetailView } from '../CallLogModel';
+import { CallLogListView, CallLogDetailView, CallLogReasonForCall } from '../CallLogModel';
 import { LoadingScreen } from '../../../@zenidata/components/UI/Loader';
 import { formatDateAsLocaleString } from '../../../@zenidata/utils';
 import MultiSelectDropdown, { MultiSelectOption } from '../../../@zenidata/components/UI/MultiSelectDropdown';
@@ -44,7 +44,7 @@ interface Filters {
   startDate: string;
   endDate: string;
   statuses: string[];
-  reasonForCall: string;
+  reasonForCall: string[];
 }
 
 interface PaginationState {
@@ -87,6 +87,16 @@ export const CallLogsDashboard: React.FC<CallLogsDashboardProps> = ({
     { value: 'ARCHIVED', label: t('call-logs:enums.callStatus.ARCHIVED') }
   ];
   
+  // Reason for call options for multiselect (using CallLogReasonForCall enum)
+  const reasonOptions: MultiSelectOption[] = [
+    { value: 'NEW_APPOINTMENT' as CallLogReasonForCall, label: t('call-logs:enums.callReason.NEW_APPOINTMENT') },
+    { value: 'CANCELLATION' as CallLogReasonForCall, label: t('call-logs:enums.callReason.CANCELLATION') },
+    { value: 'RESCHEDULE' as CallLogReasonForCall, label: t('call-logs:enums.callReason.RESCHEDULE') },
+    { value: 'GENERAL_MESSAGE' as CallLogReasonForCall, label: t('call-logs:enums.callReason.GENERAL_MESSAGE') },
+    { value: 'EMERGENCY' as CallLogReasonForCall, label: t('call-logs:enums.callReason.EMERGENCY') },
+    { value: 'OTHER' as CallLogReasonForCall, label: t('call-logs:enums.callReason.OTHER') }
+  ];
+  
   // State management
   const [callLogs, setCallLogs] = useState<CallLogListView[]>([]);
   const [loading, setLoading] = useState(true);
@@ -107,7 +117,7 @@ export const CallLogsDashboard: React.FC<CallLogsDashboardProps> = ({
     startDate: '',
     endDate: '',
     statuses: [],
-    reasonForCall: ''
+    reasonForCall: []
   });
   
   // Pagination state
@@ -126,7 +136,7 @@ export const CallLogsDashboard: React.FC<CallLogsDashboardProps> = ({
   // Check if we need to use advanced search (when filters are applied)
   const hasActiveFilters = useMemo(() => {
     return debouncedLastName || debouncedFirstName || debouncedPhoneNumber || 
-           filters.startDate || filters.endDate || filters.statuses.length > 0 || filters.reasonForCall;
+           filters.startDate || filters.endDate || filters.statuses.length > 0 || filters.reasonForCall.length > 0;
   }, [debouncedLastName, debouncedFirstName, debouncedPhoneNumber, filters.startDate, filters.endDate, filters.statuses, filters.reasonForCall]);
 
   // Fetch function for all calls
@@ -139,7 +149,12 @@ export const CallLogsDashboard: React.FC<CallLogsDashboardProps> = ({
       
       const result = await CallLogService.getCallLogsByClinic(
         selectedClinic.id,
-        { page, limit }
+        { 
+          page, 
+          limit,
+          search: '',
+          status: ''
+        }
       );
       
       setCallLogs(result.items);
@@ -173,7 +188,7 @@ export const CallLogsDashboard: React.FC<CallLogsDashboardProps> = ({
         start_date: filters.startDate || undefined,
         end_date: filters.endDate || undefined,
         status: filters.statuses.length > 0 ? filters.statuses : undefined,
-        reason_for_call: filters.reasonForCall ? [filters.reasonForCall] : undefined,
+        reason_for_call: filters.reasonForCall.length > 0 ? filters.reasonForCall : undefined,
         page: pagination.currentPage,
         limit: pagination.itemsPerPage
       };
@@ -289,14 +304,14 @@ export const CallLogsDashboard: React.FC<CallLogsDashboardProps> = ({
       startDate: '',
       endDate: '',
       statuses: [],
-      reasonForCall: ''
+      reasonForCall: []
     });
     setPagination(prev => ({ ...prev, currentPage: 1 }));
   }, []);
 
   // Clear individual filter field
   const clearFilterField = useCallback((field: keyof Filters) => {
-    const clearedValue = field === 'statuses' ? [] : '';
+    const clearedValue = (field === 'statuses' || field === 'reasonForCall') ? [] : '';
     setFilters(prev => ({
       ...prev,
       [field]: clearedValue
@@ -469,31 +484,18 @@ export const CallLogsDashboard: React.FC<CallLogsDashboardProps> = ({
               
               {/* Reason for Call Filter */}
               <div className="search-field-container">
-                <select
+                <MultiSelectDropdown
                   id="reasonForCall"
-                  value={filters.reasonForCall}
-                  onChange={(e) => handleFilterChange('reasonForCall', e.target.value)}
-                  className="search-field"
-                >
-                  <option value="">{t('call-logs:filters.allReasons')}</option>
-                  <option value="NEW_APPOINTMENT">{t('call-logs:enums.callReason.NEW_APPOINTMENT')}</option>
-                  <option value="APPOINTMENT_MODIFICATION">Modification de rendez-vous</option>
-                  <option value="APPOINTMENT_CANCELLATION">{t('call-logs:enums.callReason.CANCELLATION')}</option>
-                  <option value="MEDICAL_INFORMATION">Information médicale</option>
-                  <option value="BILLING_QUESTION">Question de facturation</option>
-                  <option value="EMERGENCY">{t('call-logs:enums.callReason.EMERGENCY')}</option>
-                  <option value="OTHER">{t('call-logs:enums.callReason.OTHER')}</option>
-                </select>
-                {filters.reasonForCall && (
-                  <button
-                    type="button"
-                    onClick={() => clearFilterField('reasonForCall')}
-                    className="clear-field-btn"
-                    title={t('call-logs:filters.clearReason')}
-                  >
-                    <i className="fas fa-times"></i>
-                  </button>
-                )}
+                  options={reasonOptions}
+                  selectedValues={filters.reasonForCall}
+                  onChange={(selectedValues) => handleFilterChange('reasonForCall', selectedValues)}
+                  placeholder={t('call-logs:filters.reasonForCall')}
+                  aria-label={t('call-logs:filters.reasonForCall')}
+                  clearable={true}
+                  onClear={() => clearFilterField('reasonForCall')}
+                  maxDisplayedChips={2}
+                  className="reason-multiselect"
+                />
               </div>
             </div>
           </div>
@@ -570,11 +572,11 @@ export const CallLogsDashboard: React.FC<CallLogsDashboardProps> = ({
               <div className="action-buttons">
                 {hasActiveFilters && (
                   <button onClick={clearFilters} className="secondary-btn">
-                    Effacer
+                    {t('call-logs:filters.clearAll')}
                   </button>
                 )}
                 <button onClick={handleRefresh} className="primary-btn" disabled={loading}>
-                  {loading ? 'Actualisation...' : 'Appliquer'}
+                  {loading ? t('call-logs:filters.refreshing') : t('call-logs:filters.refresh')}
                 </button>
               </div>
             </div>
@@ -662,8 +664,9 @@ export const CallLogsDashboard: React.FC<CallLogsDashboardProps> = ({
                     <td className="summary">
                       {callLog.summary ? (
                         <span 
-                          className="summary-text" 
-                          data-tooltip={callLog.summary}
+                          className="summary-text clickable" 
+                          onClick={() => openDrawer(callLog)}
+                          title="Cliquer pour voir les détails"
                         >
                           {callLog.summary.length > summaryLength 
                             ? `${callLog.summary.substring(0, summaryLength)}...` 
@@ -671,11 +674,24 @@ export const CallLogsDashboard: React.FC<CallLogsDashboardProps> = ({
                           }
                         </span>
                       ) : (
-                        <span className="unknown-info">Aucun résumé</span>
+                        <span 
+                          className="unknown-info clickable" 
+                          onClick={() => openDrawer(callLog)}
+                          title="Cliquer pour voir les détails"
+                        >
+                          Aucun résumé
+                        </span>
                       )}
                     </td>
                     <td className="actions">
                       <div className="actions-container">
+                        <button
+                          onClick={() => openDrawer(callLog)}
+                          className="action-icon-btn view-btn"
+                          title={t('call-logs:actions.viewDetails')}
+                        >
+                          <i className="fas fa-eye"></i>
+                        </button>
                         {callLog.audio_recording_url && (
                           <button
                             onClick={() => togglePlayPause(callLog.id, callLog.audio_recording_url!)}
@@ -685,13 +701,6 @@ export const CallLogsDashboard: React.FC<CallLogsDashboardProps> = ({
                             <i className={`fas ${playingAudioId === callLog.id ? 'fa-pause' : 'fa-play'}`}></i>
                           </button>
                         )}
-                        <button
-                          onClick={() => openDrawer(callLog)}
-                          className="action-icon-btn view-btn"
-                          title={t('call-logs:actions.viewDetails')}
-                        >
-                          <i className="fas fa-eye"></i>
-                        </button>
                       </div>
                     </td>
                   </tr>
