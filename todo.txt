@@ -1,2 +1,3 @@
-Demander  a louis de tester le responsive
-Demande a loui de faire un build pour voir le resulta
+Responsive par malryse
+Implementer le refresh token
+Ajuter le header en mode full par Marlyse
